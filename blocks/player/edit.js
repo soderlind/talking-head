@@ -1,19 +1,37 @@
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import {
 	PanelBody,
-	TextControl,
+	ComboboxControl,
 	ToggleControl,
 	Placeholder,
 	Spinner,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, useMemo } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 export default function Edit( { attributes, setAttributes } ) {
 	const { episodeId, showTranscript } = attributes;
 	const blockProps = useBlockProps( { className: 'th-player-editor' } );
 	const [ episode, setEpisode ] = useState( null );
 	const [ loading, setLoading ] = useState( false );
+
+	const episodes = useSelect( ( select ) => {
+		return select( 'core' ).getEntityRecords(
+			'postType',
+			'talking_head_episode',
+			{ per_page: 100, status: 'publish', orderby: 'title', order: 'asc' }
+		);
+	}, [] );
+
+	const episodeOptions = useMemo( () => {
+		return (
+			episodes?.map( ( ep ) => ( {
+				value: String( ep.id ),
+				label: ep.title.rendered,
+			} ) ) || []
+		);
+	}, [ episodes ] );
 
 	useEffect( () => {
 		if ( ! episodeId ) {
@@ -41,15 +59,19 @@ export default function Edit( { attributes, setAttributes } ) {
 				<PanelBody
 					title={ __( 'Player Settings', 'talking-head' ) }
 				>
-					<TextControl
-						label={ __( 'Episode ID', 'talking-head' ) }
-						type="number"
-						value={ episodeId || '' }
-						onChange={ ( value ) =>
+					<ComboboxControl
+						label={ __( 'Episode', 'talking-head' ) }
+						value={ episodeId ? String( episodeId ) : '' }
+						options={ episodeOptions }
+						onChange={ ( val ) =>
 							setAttributes( {
-								episodeId: parseInt( value, 10 ) || 0,
+								episodeId: parseInt( val, 10 ) || 0,
 							} )
 						}
+						help={ __(
+							'Search for an episode by title.',
+							'talking-head'
+						) }
 					/>
 					<ToggleControl
 						label={ __(
@@ -72,7 +94,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							'talking-head'
 						) }
 						instructions={ __(
-							'Enter an Episode ID in the block settings to display the player.',
+							'Select an episode in the block settings to display the player.',
 							'talking-head'
 						) }
 					/>

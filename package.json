@@ -1,6 +1,6 @@
 {
 	"name": "talking-head",
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"private": true,
 	"description": "AI-generated podcast-style audio WordPress plugin.",
 	"author": "Per Soderlind",
@@ -11,11 +11,17 @@
 	"scripts": {
 		"build": "wp-scripts build",
 		"start": "wp-scripts start",
+		"test:js": "vitest run",
+		"test:js:watch": "vitest",
 		"lint:js": "wp-scripts lint-js .",
 		"lint:css": "wp-scripts lint-style .",
 		"lint:pkg": "wp-scripts lint-pkg-json"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^31.0.0"
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
+		"@wordpress/scripts": "^31.0.0",
+		"jsdom": "^28.1.0",
+		"vitest": "^4.0.18"
 	}
 }
