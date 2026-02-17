@@ -72,6 +72,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							'Search for an episode by title.',
 							'talking-head'
 						) }
+						__nextHasNoMarginBottom
 					/>
 					<ToggleControl
 						label={ __(
@@ -82,6 +83,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( value ) =>
 							setAttributes( { showTranscript: value } )
 						}
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
 			</InspectorControls>
