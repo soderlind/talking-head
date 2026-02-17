@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 8.3
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,10 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 == Changelog ==
 
+= 1.0.1 =
+* Exclude dev files (bin/, blocks/ source, webpack.config.js) from release zip
+* Remove non-functional negation patterns from zip exclusions
+
 = 1.0.0 =
 * Opt into new wp.components styles (`__nextHasNoMarginBottom`, `__next40pxDefaultSize`) to silence deprecation warnings
 * Upgraded @wordpress/scripts 31.0.0 → 31.4.0
@@ -144,6 +148,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Removes unnecessary dev files from the release zip.
 
 = 1.0.0 =
 Fixes deprecated wp.components warnings, upgrades @wordpress/scripts to 31.4.0, and general housekeeping.

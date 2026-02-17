@@ -37,11 +37,11 @@ jobs:
           filename: 'talking-head.zip'
           exclusions: >-
             *.git* /*.github/* /*.vscode/* /*node_modules/* /*tests/* /*docs/*
+            /*bin/* /*blocks/* webpack.config.js
             composer.json composer.lock package.json package-lock.json
             phpunit.xml phpunit.xml.dist phpcs.xml vitest.config.js i18n-map.json
             .editorconfig .eslintignore .phpunit.result.cache .eslintrc.js .gitignore .gitattributes
             *.log CHANGELOG.md README.md
-            !readme.txt !src/* !vendor/* !blocks/*
 
       - name: Verify Archive Contents
         run: |
