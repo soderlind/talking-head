@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.8
 Requires PHP: 8.3
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,11 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 == Changelog ==
 
+= 0.3.3 =
+* Episode picker in Player block — searchable dropdown replaces manual Episode ID input
+* Vitest JavaScript test suite with WordPress module mocks (6 suites, 22 tests)
+* Removed unused @vitejs/plugin-react devDependency
+
 = 0.3.2 =
 * Voice Settings meta box on Head edit screen (voice, provider, speed, speaking style)
 * Per-head speed and speaking style/instructions wired through the full TTS pipeline
@@ -134,6 +139,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 0.3.3 =
+Player block now uses a searchable episode dropdown instead of manual ID entry. Adds Vitest JS test suite.
 
 = 0.3.2 =
 Adds Voice Settings meta box for Head editing, per-head speed and speaking style support, and gpt-4o-mini-tts model option.

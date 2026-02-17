@@ -112,6 +112,7 @@ npm install
 
 npm start          # Development build with watch
 npm run build      # Production build
+npm run test:js    # Run JS tests (Vitest)
 
 composer test      # Run tests (Pest)
 composer lint:php  # Lint PHP (PHPCS)

@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.3.3] - 2026-02-17
+
+### Added
+
+- Episode picker in Player block — searchable dropdown replaces manual Episode ID input
+- Vitest JavaScript test suite with `@wordpress/*` module mocks (6 suites, 22 tests)
+
+### Removed
+
+- Unused `@vitejs/plugin-react` devDependency (replaced by custom esbuild JSX plugin)
+
 ## [0.3.2] - 2026-02-17
 
 ### Added
