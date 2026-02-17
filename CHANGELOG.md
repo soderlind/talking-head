@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.3.1] - 2026-02-17
+
+### Added
+
+- GitHub plugin updater for automatic updates via GitHub releases
+- GitHub Actions release workflows (on-release and manual build)
+- Pest PHP unit test suite with Brain Monkey for WordPress function mocking (45 tests)
+
 ## [0.3.0] - 2026-02-17
 
 ### Added

@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.8
 Requires PHP: 8.3
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,11 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 == Changelog ==
 
+= 0.3.1 =
+* GitHub plugin updater for automatic updates via GitHub releases
+* GitHub Actions release workflows (on-release and manual build)
+* Pest PHP unit test suite with Brain Monkey for WordPress function mocking (45 tests)
+
 = 0.3.0 =
 * Status and Audio columns on the Episodes admin list table
 * Episode block header bar with microphone icon for easy selection
@@ -122,6 +127,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 0.3.1 =
+Adds GitHub updater, release workflows, and Pest unit test suite.
 
 = 0.3.0 =
 Improved editor UX: episode header bar, toolbar Generate button, speaker label pills, and admin list columns.
