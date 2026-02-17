@@ -1,9 +1,8 @@
 import {
 	useBlockProps,
 	RichText,
-	InspectorControls,
 } from '@wordpress/block-editor';
-import { PanelBody, SelectControl } from '@wordpress/components';
+import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
 
@@ -11,6 +10,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	const { headId, headName, text } = attributes;
 	const blockProps = useBlockProps( { className: 'th-turn' } );
 	const [ heads, setHeads ] = useState( [] );
+	const [ editing, setEditing ] = useState( headId === 0 );
 
 	useEffect( () => {
 		wp.apiFetch( { path: '/talking-head/v1/heads' } )
@@ -33,22 +33,15 @@ export default function Edit( { attributes, setAttributes } ) {
 			headId: id,
 			headName: selected ? selected.name : '',
 		} );
+		if ( id > 0 ) {
+			setEditing( false );
+		}
 	};
 
 	return (
-		<>
-			<InspectorControls>
-				<PanelBody title={ __( 'Speaker', 'talking-head' ) }>
-					<SelectControl
-						label={ __( 'Head', 'talking-head' ) }
-						value={ headId }
-						options={ headOptions }
-						onChange={ onSelectHead }
-					/>
-				</PanelBody>
-			</InspectorControls>
-			<div { ...blockProps }>
-				<div className="th-turn__header">
+		<div { ...blockProps }>
+			<div className="th-turn__header">
+				{ editing || headId === 0 ? (
 					<SelectControl
 						value={ headId }
 						options={ headOptions }
@@ -56,21 +49,29 @@ export default function Edit( { attributes, setAttributes } ) {
 						className="th-turn__speaker-select"
 						__nextHasNoMarginBottom
 					/>
-				</div>
-				<RichText
-					tagName="div"
-					className="th-turn__text"
-					value={ text }
-					onChange={ ( value ) =>
-						setAttributes( { text: value } )
-					}
-					placeholder={ __(
-						'Enter dialogue...',
-						'talking-head'
-					) }
-					allowedFormats={ [ 'core/bold', 'core/italic' ] }
-				/>
+				) : (
+					<button
+						type="button"
+						className="th-turn__speaker-label"
+						onClick={ () => setEditing( true ) }
+					>
+						{ headName }
+					</button>
+				) }
 			</div>
-		</>
+			<RichText
+				tagName="div"
+				className="th-turn__text"
+				value={ text }
+				onChange={ ( value ) =>
+					setAttributes( { text: value } )
+				}
+				placeholder={ __(
+					'Enter dialogue...',
+					'talking-head'
+				) }
+				allowedFormats={ [ 'core/bold', 'core/italic' ] }
+			/>
+		</div>
 	);
 }

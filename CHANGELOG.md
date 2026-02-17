@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.3.0] - 2026-02-17
+
+### Added
+
+- Status and Audio columns on the Episodes admin list table — color-coded badge and inline `<audio>` player
+- Episode block header bar with microphone icon, label, and status badge for easy selection
+- "Generate Audio" toolbar button (moved from sidebar to block toolbar)
+- `directInsert` on episode block — clicking [+] inserts a turn directly without block picker
+- Conditional appender — [+] button only visible when episode is selected or empty
+- Speaker label pill on turn block — click to toggle back to dropdown for editing
+- Selection highlight styles for both episode and turn blocks
+
+### Changed
+
+- Episode block migrated from `<InnerBlocks>` component to `useInnerBlocksProps` hook
+- Turn block sidebar speaker panel removed (inline control is the single source)
+
 ## [0.2.2] - 2026-02-17
 
 ### Fixed

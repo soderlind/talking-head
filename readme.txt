@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.8
 Requires PHP: 8.3
-Stable tag: 0.2.2
+Stable tag: 0.3.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,16 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 == Changelog ==
 
+= 0.3.0 =
+* Status and Audio columns on the Episodes admin list table
+* Episode block header bar with microphone icon for easy selection
+* Generate Audio button moved to block toolbar
+* Direct turn insertion — clicking [+] inserts a turn without block picker
+* Conditional appender — [+] hidden when episode deselected
+* Speaker label pill on turn block with click-to-edit toggle
+* Episode block migrated to useInnerBlocksProps
+* Duplicate sidebar speaker panel removed from turn block
+
 = 0.2.2 =
 * Fix: Action Scheduler job processing in multisite (blog context switching)
 * Fix: Generate Audio button shows progress throughout the entire job lifecycle
@@ -112,6 +122,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 0.3.0 =
+Improved editor UX: episode header bar, toolbar Generate button, speaker label pills, and admin list columns.
 
 = 0.2.2 =
 Fixes Action Scheduler multisite support and generation progress visibility.

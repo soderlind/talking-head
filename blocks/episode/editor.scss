@@ -1,6 +1,79 @@
 .th-episode {
 	border: 1px solid #ddd;
-	border-radius: 4px;
-	padding: 16px;
+	border-radius: 6px;
 	background: #fafafa;
+	overflow: hidden;
+
+	&__header {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 8px 12px;
+		background: #f0f0f0;
+		border-bottom: 1px solid #ddd;
+		cursor: pointer;
+		user-select: none;
+
+		.dashicon {
+			fill: #1e1e1e;
+			flex-shrink: 0;
+		}
+	}
+
+	&__label {
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: #1e1e1e;
+	}
+
+	&__status {
+		margin-left: auto;
+		font-size: 11px;
+		font-weight: 500;
+		padding: 2px 8px;
+		border-radius: 10px;
+		line-height: 1.4;
+
+		&--draft {
+			background: #ddd;
+			color: #1e1e1e;
+		}
+
+		&--ready {
+			background: #cce5ff;
+			color: #004085;
+		}
+
+		&--generating {
+			background: #fff3cd;
+			color: #856404;
+		}
+
+		&--generated {
+			background: #d4edda;
+			color: #155724;
+		}
+
+		&--failed {
+			background: #f8d7da;
+			color: #721c24;
+		}
+	}
+
+	&__content {
+		padding: 12px;
+	}
+
+	// Selection states.
+	&.is-selected,
+	&.has-child-selected {
+		border-color: var(--wp-admin-theme-color, #007cba);
+
+		.th-episode__header {
+			background: color-mix(in srgb, var(--wp-admin-theme-color, #007cba) 8%, #f0f0f0);
+			border-bottom-color: var(--wp-admin-theme-color, #007cba);
+		}
+	}
 }

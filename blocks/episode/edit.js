@@ -1,27 +1,42 @@
 import {
 	useBlockProps,
-	InnerBlocks,
+	useInnerBlocksProps,
 	InspectorControls,
+	BlockControls,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
-	Button,
 	Spinner,
 	Notice,
+	Icon,
+	ToolbarGroup,
+	ToolbarButton,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { useState, useCallback, useEffect, useRef } from '@wordpress/element';
 
-const ALLOWED_BLOCKS = [ 'talking-head/turn' ];
 const TEMPLATE = [ [ 'talking-head/turn', {} ] ];
 const POLL_INTERVAL = 3000;
 
-export default function Edit() {
+export default function Edit( { clientId } ) {
 	const blockProps = useBlockProps( { className: 'th-episode' } );
 	const [ generating, setGenerating ] = useState( false );
 	const [ jobStatus, setJobStatus ] = useState( null );
 	const pollRef = useRef( null );
+
+	const { isSelected, hasChildSelected, hasInnerBlocks } = useSelect(
+		( select ) => {
+			const { isBlockSelected, hasSelectedInnerBlock, getBlockCount } =
+				select( 'core/block-editor' );
+			return {
+				isSelected: isBlockSelected( clientId ),
+				hasChildSelected: hasSelectedInnerBlock( clientId, true ),
+				hasInnerBlocks: getBlockCount( clientId ) > 0,
+			};
+		},
+		[ clientId ]
+	);
 
 	const postId = useSelect(
 		( select ) => select( 'core/editor' ).getCurrentPostId(),
@@ -39,6 +54,21 @@ export default function Edit() {
 			select( 'core/editor' ).getEditedPostAttribute( 'meta' );
 		return meta?._th_audio_url || '';
 	}, [] );
+
+	const showAppender = isSelected || hasChildSelected || ! hasInnerBlocks;
+
+	const innerBlocksProps = useInnerBlocksProps(
+		{ className: 'th-episode__content' },
+		{
+			template: TEMPLATE,
+			defaultBlock: { name: 'talking-head/turn' },
+			directInsert: true,
+			templateInsertUpdatesSelection: true,
+			renderAppender: showAppender
+				? undefined
+				: false,
+		}
+	);
 
 	const stopPolling = useCallback( () => {
 		if ( pollRef.current ) {
@@ -100,8 +130,22 @@ export default function Edit() {
 		}
 	};
 
+	const statusClassName = `th-episode__status th-episode__status--${ episodeStatus }`;
+
 	return (
 		<>
+			<BlockControls>
+				<ToolbarGroup>
+					<ToolbarButton
+						icon={ generating ? undefined : 'controls-play' }
+						label={ __( 'Generate Audio', 'talking-head' ) }
+						onClick={ handleGenerate }
+						disabled={ generating }
+					>
+						{ generating && <Spinner /> }
+					</ToolbarButton>
+				</ToolbarGroup>
+			</BlockControls>
 			<InspectorControls>
 				<PanelBody
 					title={ __( 'Episode', 'talking-head' ) }
@@ -120,17 +164,6 @@ export default function Edit() {
 							style={ { width: '100%', marginBottom: '1rem' } }
 						/>
 					) }
-					<Button
-						variant="primary"
-						onClick={ handleGenerate }
-						disabled={ generating }
-					>
-						{ generating ? (
-							<Spinner />
-						) : (
-							__( 'Generate Audio', 'talking-head' )
-						) }
-					</Button>
 					{ jobStatus?.status === 'queued' && (
 						<Notice status="info" isDismissible={ false }>
 							{ __( 'Queued — waiting for processing...', 'talking-head' ) }
@@ -162,11 +195,19 @@ export default function Edit() {
 				</PanelBody>
 			</InspectorControls>
 			<div { ...blockProps }>
-				<InnerBlocks
-					allowedBlocks={ ALLOWED_BLOCKS }
-					template={ TEMPLATE }
-					renderAppender={ InnerBlocks.ButtonBlockAppender }
-				/>
+				<div className="th-episode__header">
+					<Icon icon="microphone" size={ 16 } />
+					<span className="th-episode__label">
+						{ __( 'Episode', 'talking-head' ) }
+					</span>
+					{ episodeStatus !== 'draft' && (
+						<span className={ statusClassName }>
+							{ episodeStatus.charAt( 0 ).toUpperCase() +
+								episodeStatus.slice( 1 ) }
+						</span>
+					) }
+				</div>
+				<div { ...innerBlocksProps } />
 			</div>
 		</>
 	);
