@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [0.3.4] - 2026-02-17
+## [1.0.0] - 2026-02-18
+
+### Fixed
+
+- Opt into new `wp.components` styles (`__nextHasNoMarginBottom`, `__next40pxDefaultSize`) to silence deprecation warnings in WP 6.7+
 
 ### Changed
 
