@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Talking Head
  * Description: AI-generated podcast-style audio from turn-based conversations.
- * Version:     0.3.3
+ * Version:     0.3.4
  * Author:      Per Soderlind
  * Author URI:  https://soderlind.no
  * License:     GPL-2.0-or-later
@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'TALKING_HEAD_VERSION', '0.3.3' );
+define( 'TALKING_HEAD_VERSION', '0.3.4' );
 define( 'TALKING_HEAD_FILE', __FILE__ );
 define( 'TALKING_HEAD_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TALKING_HEAD_URL', plugin_dir_url( __FILE__ ) );
