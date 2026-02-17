@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.3.2] - 2026-02-17
+
+### Added
+
+- Voice Settings meta box on Head edit screen — voice, provider, speed, and speaking style controls
+- Per-head speed (0.25–4.0) and speaking style/instructions wired through the full TTS pipeline
+- `gpt-4o-mini-tts` model option in settings (supports OpenAI `instructions` parameter)
+- Head sidebar plugin for the block editor (loaded when block editor is active)
+
+### Changed
+
+- Default voice fallback reads from global settings instead of hardcoded `alloy`
+- Speaking style sanitizer changed to `sanitize_textarea_field` to preserve newlines
+- Removed redundant Custom Fields panel from Head CPT
+
+### Fixed
+
+- Speed and speaking style were stored as meta but never passed to the TTS provider
+
 ## [0.3.1] - 2026-02-17
 
 ### Added

@@ -223,8 +223,9 @@ final class SettingsPage {
 			'th_openai',
 			'select',
 			[
-				'tts-1'    => 'TTS-1 (Standard)',
-				'tts-1-hd' => 'TTS-1-HD (High Quality)',
+				'tts-1'           => 'TTS-1 (Standard)',
+				'tts-1-hd'        => 'TTS-1-HD (High Quality)',
+				'gpt-4o-mini-tts' => 'GPT-4o Mini TTS (Supports instructions)',
 			]
 		);
 
@@ -361,7 +362,7 @@ final class SettingsPage {
 			: 'openai';
 
 		$sanitized[ 'openai_api_key' ]   = sanitize_text_field( $input[ 'openai_api_key' ] ?? '' );
-		$sanitized[ 'openai_tts_model' ] = in_array( $input[ 'openai_tts_model' ] ?? '', [ 'tts-1', 'tts-1-hd' ], true )
+		$sanitized[ 'openai_tts_model' ] = in_array( $input[ 'openai_tts_model' ] ?? '', [ 'tts-1', 'tts-1-hd', 'gpt-4o-mini-tts' ], true )
 			? $input[ 'openai_tts_model' ]
 			: 'tts-1';
 		$sanitized[ 'default_voice' ]    = in_array( $input[ 'default_voice' ] ?? '', [ 'alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer' ], true )

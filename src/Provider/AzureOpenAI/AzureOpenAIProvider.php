@@ -32,6 +32,7 @@ final class AzureOpenAIProvider implements ProviderInterface {
 
 		$speed           = (float) ( $options[ 'speed' ] ?? 1.0 );
 		$response_format = $options[ 'format' ] ?? 'mp3';
+		$instructions    = $options[ 'instructions' ] ?? '';
 
 		$url = sprintf(
 			'%s/openai/deployments/%s/audio/speech?api-version=%s',
@@ -39,6 +40,18 @@ final class AzureOpenAIProvider implements ProviderInterface {
 			rawurlencode( $this->deploymentId ),
 			rawurlencode( $this->apiVersion ),
 		);
+
+		$body = [
+			'model'           => $this->deploymentId,
+			'input'           => $text,
+			'voice'           => $voiceId,
+			'response_format' => $response_format,
+			'speed'           => $speed,
+		];
+
+		if ( $instructions !== '' ) {
+			$body[ 'instructions' ] = $instructions;
+		}
 
 		$response = wp_remote_post(
 			$url,
@@ -48,15 +61,7 @@ final class AzureOpenAIProvider implements ProviderInterface {
 					'api-key'      => $this->apiKey,
 					'Content-Type' => 'application/json',
 				],
-				'body'    => wp_json_encode(
-					[
-						'model'           => $this->deploymentId,
-						'input'           => $text,
-						'voice'           => $voiceId,
-						'response_format' => $response_format,
-						'speed'           => $speed,
-					]
-				),
+				'body'    => wp_json_encode( $body ),
 			]
 		);
 
@@ -95,7 +100,7 @@ final class AzureOpenAIProvider implements ProviderInterface {
 			maxCharsPerRequest: 4096,
 			supportedFormats: [ 'mp3', 'opus', 'aac', 'flac' ],
 			supportsSSML: false,
-			supportsSpeakingStyle: false,
+			supportsSpeakingStyle: true,
 		);
 	}
 

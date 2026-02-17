@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.8
 Requires PHP: 8.3
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,13 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 == Changelog ==
 
+= 0.3.2 =
+* Voice Settings meta box on Head edit screen (voice, provider, speed, speaking style)
+* Per-head speed and speaking style/instructions wired through the full TTS pipeline
+* gpt-4o-mini-tts model option (supports OpenAI instructions parameter)
+* Default voice fallback reads from global settings instead of hardcoded alloy
+* Removed redundant Custom Fields panel from Head CPT
+
 = 0.3.1 =
 * GitHub plugin updater for automatic updates via GitHub releases
 * GitHub Actions release workflows (on-release and manual build)
@@ -127,6 +134,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 0.3.2 =
+Adds Voice Settings meta box for Head editing, per-head speed and speaking style support, and gpt-4o-mini-tts model option.
 
 = 0.3.1 =
 Adds GitHub updater, release workflows, and Pest unit test suite.

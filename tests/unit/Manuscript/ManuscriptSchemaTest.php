@@ -47,3 +47,23 @@ it( 'includes openai and azure_openai in provider enum', function () {
 
 	expect( $provider['enum'] )->toContain( 'openai', 'azure_openai' );
 } );
+
+it( 'defines optional speed property on segments', function () {
+	$schema = ManuscriptSchema::schema();
+	$speed  = $schema['properties']['segments']['items']['properties']['speed'];
+
+	expect( $speed['type'] )->toBe( 'number' );
+	expect( $speed['minimum'] )->toBe( 0.25 );
+	expect( $speed['maximum'] )->toBe( 4.0 );
+	expect( $speed['default'] )->toBe( 1.0 );
+	expect( $schema['properties']['segments']['items']['required'] )->not->toContain( 'speed' );
+} );
+
+it( 'defines optional speakingStyle property on segments', function () {
+	$schema        = ManuscriptSchema::schema();
+	$speakingStyle = $schema['properties']['segments']['items']['properties']['speakingStyle'];
+
+	expect( $speakingStyle['type'] )->toBe( 'string' );
+	expect( $speakingStyle['default'] )->toBe( '' );
+	expect( $schema['properties']['segments']['items']['required'] )->not->toContain( 'speakingStyle' );
+} );

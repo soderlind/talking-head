@@ -45,22 +45,40 @@ it( 'produces different hashes for different text', function () {
 	expect( $hasher->hash( $a ) )->not->toBe( $hasher->hash( $b ) );
 } );
 
-it( 'normalizes to only headId, voiceId, text — ignores extra keys', function () {
+it( 'normalizes to headId, voiceId, text, speed, speakingStyle — ignores extra keys', function () {
 	$hasher = new ManuscriptHasher();
 
 	$minimal = [
 		'segments' => [
-			[ 'headId' => 1, 'voiceId' => 'alloy', 'text' => 'Test' ],
+			[ 'headId' => 1, 'voiceId' => 'alloy', 'text' => 'Test', 'speed' => 1.0, 'speakingStyle' => '' ],
 		],
 	];
 
 	$extra = [
 		'segments' => [
-			[ 'index' => 0, 'headId' => 1, 'voiceId' => 'alloy', 'provider' => 'openai', 'text' => 'Test', 'headName' => 'Alice' ],
+			[ 'index' => 0, 'headId' => 1, 'voiceId' => 'alloy', 'provider' => 'openai', 'text' => 'Test', 'headName' => 'Alice', 'speed' => 1.0, 'speakingStyle' => '' ],
 		],
 	];
 
 	expect( $hasher->hash( $minimal ) )->toBe( $hasher->hash( $extra ) );
+} );
+
+it( 'produces different hashes for different speed', function () {
+	$hasher = new ManuscriptHasher();
+
+	$a = [ 'segments' => [ [ 'headId' => 1, 'voiceId' => 'alloy', 'text' => 'Hello', 'speed' => 1.0 ] ] ];
+	$b = [ 'segments' => [ [ 'headId' => 1, 'voiceId' => 'alloy', 'text' => 'Hello', 'speed' => 1.5 ] ] ];
+
+	expect( $hasher->hash( $a ) )->not->toBe( $hasher->hash( $b ) );
+} );
+
+it( 'produces different hashes for different speakingStyle', function () {
+	$hasher = new ManuscriptHasher();
+
+	$a = [ 'segments' => [ [ 'headId' => 1, 'voiceId' => 'alloy', 'text' => 'Hello', 'speakingStyle' => '' ] ] ];
+	$b = [ 'segments' => [ [ 'headId' => 1, 'voiceId' => 'alloy', 'text' => 'Hello', 'speakingStyle' => 'Speak slowly and calmly' ] ] ];
+
+	expect( $hasher->hash( $a ) )->not->toBe( $hasher->hash( $b ) );
 } );
 
 it( 'returns a hash even for empty segments', function () {

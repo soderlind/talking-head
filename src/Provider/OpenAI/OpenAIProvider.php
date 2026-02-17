@@ -26,6 +26,19 @@ final class OpenAIProvider implements ProviderInterface {
 
 		$speed           = (float) ( $options[ 'speed' ] ?? 1.0 );
 		$response_format = $options[ 'format' ] ?? 'mp3';
+		$instructions    = $options[ 'instructions' ] ?? '';
+
+		$body = [
+			'model'           => $this->model,
+			'input'           => $text,
+			'voice'           => $voiceId,
+			'response_format' => $response_format,
+			'speed'           => $speed,
+		];
+
+		if ( $instructions !== '' ) {
+			$body[ 'instructions' ] = $instructions;
+		}
 
 		$response = wp_remote_post(
 			self::API_URL,
@@ -35,15 +48,7 @@ final class OpenAIProvider implements ProviderInterface {
 					'Authorization' => 'Bearer ' . $this->apiKey,
 					'Content-Type'  => 'application/json',
 				],
-				'body'    => wp_json_encode(
-					[
-						'model'           => $this->model,
-						'input'           => $text,
-						'voice'           => $voiceId,
-						'response_format' => $response_format,
-						'speed'           => $speed,
-					]
-				),
+				'body'    => wp_json_encode( $body ),
 			]
 		);
 
@@ -82,7 +87,7 @@ final class OpenAIProvider implements ProviderInterface {
 			maxCharsPerRequest: 4096,
 			supportedFormats: [ 'mp3', 'opus', 'aac', 'flac' ],
 			supportsSSML: false,
-			supportsSpeakingStyle: false,
+			supportsSpeakingStyle: true,
 		);
 	}
 

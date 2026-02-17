@@ -9,6 +9,7 @@ module.exports = {
 		'blocks/turn/index': path.resolve( __dirname, 'blocks/turn/index.js' ),
 		'blocks/player/index': path.resolve( __dirname, 'blocks/player/index.js' ),
 		'blocks/player/view': path.resolve( __dirname, 'blocks/player/view.js' ),
+		'head-sidebar/index': path.resolve( __dirname, 'src/head-sidebar/index.js' ),
 	},
 	output: {
 		...defaultConfig.output,

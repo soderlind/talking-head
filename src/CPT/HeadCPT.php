@@ -12,6 +12,7 @@ final class HeadCPT {
 	public const META_KEY_VOICE_ID       = '_th_voice_id';
 	public const META_KEY_PROVIDER       = '_th_provider';
 	public const META_KEY_SPEAKING_STYLE = '_th_speaking_style';
+	public const META_KEY_SPEED          = '_th_speed';
 	public const META_KEY_AVATAR_URL     = '_th_avatar_url';
 
 	public function register(): void {
@@ -43,7 +44,7 @@ final class HeadCPT {
 				'show_in_rest'    => true,
 				'rest_base'       => 'th-heads',
 				'menu_icon'       => 'dashicons-admin-users',
-				'supports'        => [ 'title', 'thumbnail', 'custom-fields' ],
+				'supports'        => [ 'title', 'thumbnail' ],
 				'show_in_menu'    => 'edit.php?post_type=talking_head_episode',
 				'capability_type' => 'post',
 			]
@@ -65,7 +66,12 @@ final class HeadCPT {
 			self::META_KEY_SPEAKING_STYLE => [
 				'type'              => 'string',
 				'default'           => '',
-				'sanitize_callback' => 'sanitize_text_field',
+				'sanitize_callback' => 'sanitize_textarea_field',
+			],
+			self::META_KEY_SPEED          => [
+				'type'              => 'number',
+				'default'           => 1.0,
+				'sanitize_callback' => [ self::class, 'sanitize_speed' ],
 			],
 			self::META_KEY_AVATAR_URL     => [
 				'type'              => 'string',
@@ -86,5 +92,9 @@ final class HeadCPT {
 				]
 			);
 		}
+	}
+
+	public static function sanitize_speed( $value ): float {
+		return min( 4.0, max( 0.25, (float) $value ) );
 	}
 }

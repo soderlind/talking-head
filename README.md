@@ -38,7 +38,7 @@ Go to **Settings > Talking Head** and configure:
 | Setting | Description |
 |---------|-------------|
 | OpenAI API Key | Your OpenAI API key for TTS |
-| TTS Model | `tts-1` (standard) or `tts-1-hd` (high quality) |
+| TTS Model | `tts-1` (standard), `tts-1-hd` (high quality), or `gpt-4o-mini-tts` (supports instructions) |
 | Default Voice | Default voice for new speaker profiles |
 | FFmpeg Path | Absolute path to the FFmpeg binary |
 | Output Format | MP3 or AAC |
@@ -62,8 +62,10 @@ define( 'TALKING_HEAD_FFMPEG_PATH', '/usr/bin/ffmpeg' );
 Go to **Talking Head > Heads** and create speaker profiles. Each head has:
 - A name
 - A voice ID (e.g., `nova`, `onyx`)
-- A provider (currently `openai`)
-- Optional speaking style notes and avatar
+- A provider (`openai` or `azure_openai`)
+- Speed (0.25–4.0, default 1.0)
+- Optional speaking style/instructions (used with `gpt-4o-mini-tts`)
+- Optional avatar (featured image)
 
 ### 2. Write an Episode
 

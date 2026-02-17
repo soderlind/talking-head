@@ -63,16 +63,20 @@ final class ManuscriptBuilder {
 					continue;
 				}
 
-				$voice_id = get_post_meta( $head_id, HeadCPT::META_KEY_VOICE_ID, true ) ?: 'alloy';
-				$provider = get_post_meta( $head_id, HeadCPT::META_KEY_PROVIDER, true ) ?: SettingsPage::get( 'tts_provider' );
+				$voice_id       = get_post_meta( $head_id, HeadCPT::META_KEY_VOICE_ID, true ) ?: SettingsPage::get( 'default_voice' );
+				$provider       = get_post_meta( $head_id, HeadCPT::META_KEY_PROVIDER, true ) ?: SettingsPage::get( 'tts_provider' );
+				$speed          = (float) ( get_post_meta( $head_id, HeadCPT::META_KEY_SPEED, true ) ?: 1.0 );
+				$speaking_style = get_post_meta( $head_id, HeadCPT::META_KEY_SPEAKING_STYLE, true ) ?: '';
 
 				$segments[] = [
-					'index'    => $index++,
-					'headId'   => $head_id,
-					'headName' => get_the_title( $head_id ),
-					'voiceId'  => $voice_id,
-					'provider' => $provider,
-					'text'     => trim( $text ),
+					'index'         => $index++,
+					'headId'        => $head_id,
+					'headName'      => get_the_title( $head_id ),
+					'voiceId'       => $voice_id,
+					'provider'      => $provider,
+					'text'          => trim( $text ),
+					'speed'         => $speed,
+					'speakingStyle' => $speaking_style,
 				];
 			}
 		}

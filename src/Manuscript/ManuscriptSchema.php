@@ -71,6 +71,16 @@ final class ManuscriptSchema {
 					'minLength' => 1,
 					'maxLength' => 4096,
 				],
+				'speed'    => [
+					'type'    => 'number',
+					'minimum' => 0.25,
+					'maximum' => 4.0,
+					'default' => 1.0,
+				],
+				'speakingStyle' => [
+					'type'    => 'string',
+					'default' => '',
+				],
 			],
 		];
 	}

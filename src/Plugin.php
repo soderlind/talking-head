@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TalkingHead;
 
+use TalkingHead\Admin\HeadEditorAssets;
+use TalkingHead\Admin\HeadMetaBox;
 use TalkingHead\Admin\SettingsPage;
 use TalkingHead\Blocks\EpisodeBlock;
 use TalkingHead\Blocks\PlayerBlock;
@@ -59,6 +61,8 @@ final class Plugin {
 
 		if ( is_admin() ) {
 			new SettingsPage();
+			( new HeadEditorAssets() )->register();
+			( new HeadMetaBox() )->register();
 		}
 	}
 

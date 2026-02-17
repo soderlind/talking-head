@@ -18,9 +18,11 @@ final class ManuscriptHasher {
 	public function hash( array $manuscript ): string {
 		$normalized = array_map(
 			fn( array $segment ) => [
-				'headId'  => $segment[ 'headId' ],
-				'voiceId' => $segment[ 'voiceId' ],
-				'text'    => $segment[ 'text' ],
+				'headId'        => $segment[ 'headId' ],
+				'voiceId'       => $segment[ 'voiceId' ],
+				'text'          => $segment[ 'text' ],
+				'speed'         => $segment[ 'speed' ] ?? 1.0,
+				'speakingStyle' => $segment[ 'speakingStyle' ] ?? '',
 			],
 			$manuscript[ 'segments' ] ?? []
 		);

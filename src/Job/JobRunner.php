@@ -110,7 +110,8 @@ final class JobRunner {
 					text: $segment[ 'text' ],
 					voiceId: $segment[ 'voiceId' ],
 					options: [
-						'speed'        => 1.0,
+						'speed'        => (float) ( $segment[ 'speed' ] ?? 1.0 ),
+						'instructions' => $segment[ 'speakingStyle' ] ?? '',
 						'segmentIndex' => $segment[ 'index' ],
 					],
 				);

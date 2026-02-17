@@ -47,6 +47,12 @@ it( 'accepts a valid model', function () {
 	expect( $result['openai_tts_model'] )->toBe( 'tts-1-hd' );
 } );
 
+it( 'accepts gpt-4o-mini-tts as a valid model', function () {
+	$result = $this->page->sanitize_options( [ 'openai_tts_model' => 'gpt-4o-mini-tts' ] );
+
+	expect( $result['openai_tts_model'] )->toBe( 'gpt-4o-mini-tts' );
+} );
+
 it( 'defaults to tts-1 for an invalid model', function () {
 	$result = $this->page->sanitize_options( [ 'openai_tts_model' => 'gpt-4' ] );
 

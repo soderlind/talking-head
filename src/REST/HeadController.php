@@ -91,6 +91,7 @@ final class HeadController {
 			'voiceId'       => get_post_meta( $post->ID, HeadCPT::META_KEY_VOICE_ID, true ) ?: 'alloy',
 			'provider'      => get_post_meta( $post->ID, HeadCPT::META_KEY_PROVIDER, true ) ?: SettingsPage::get( 'tts_provider' ),
 			'speakingStyle' => get_post_meta( $post->ID, HeadCPT::META_KEY_SPEAKING_STYLE, true ) ?: '',
+			'speed'         => (float) ( get_post_meta( $post->ID, HeadCPT::META_KEY_SPEED, true ) ?: 1.0 ),
 			'avatarUrl'     => get_post_meta( $post->ID, HeadCPT::META_KEY_AVATAR_URL, true ) ?: '',
 			'thumbnail'     => get_the_post_thumbnail_url( $post->ID, 'thumbnail' ) ?: '',
 		];
