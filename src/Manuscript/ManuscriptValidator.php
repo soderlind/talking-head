@@ -21,12 +21,12 @@ final class ManuscriptValidator {
 		$max_segments = (int) SettingsPage::get( 'max_segments' );
 		$max_chars    = (int) SettingsPage::get( 'max_segment_chars' );
 
-		if ( empty( $manuscript['segments'] ) ) {
+		if ( empty( $manuscript[ 'segments' ] ) ) {
 			$errors[] = __( 'Episode must have at least one turn.', 'talking-head' );
 			return $errors;
 		}
 
-		$count = count( $manuscript['segments'] );
+		$count = count( $manuscript[ 'segments' ] );
 		if ( $count > $max_segments ) {
 			$errors[] = sprintf(
 				/* translators: 1: current count, 2: maximum allowed */
@@ -36,8 +36,8 @@ final class ManuscriptValidator {
 			);
 		}
 
-		foreach ( $manuscript['segments'] as $i => $segment ) {
-			if ( empty( $segment['headId'] ) || (int) $segment['headId'] <= 0 ) {
+		foreach ( $manuscript[ 'segments' ] as $i => $segment ) {
+			if ( empty( $segment[ 'headId' ] ) || (int) $segment[ 'headId' ] <= 0 ) {
 				$errors[] = sprintf(
 					/* translators: %d: segment number */
 					__( 'Segment %d has no speaker assigned.', 'talking-head' ),
@@ -45,7 +45,7 @@ final class ManuscriptValidator {
 				);
 			}
 
-			$text = trim( $segment['text'] ?? '' );
+			$text = trim( $segment[ 'text' ] ?? '' );
 			if ( empty( $text ) ) {
 				$errors[] = sprintf(
 					/* translators: %d: segment number */

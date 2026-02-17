@@ -1,32 +1,32 @@
 {
-    "name": "soderlind/talking-head",
-    "description": "AI-generated podcast-style audio from turn-based conversations.",
-    "type": "wordpress-plugin",
-    "license": "GPL-2.0-or-later",
-    "require": {
-        "php": "^8.3",
-        "woocommerce/action-scheduler": "^3.9"
-    },
-    "autoload": {
-        "psr-4": {
-            "TalkingHead\\": "src/"
-        }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^11.0",
-        "squizlabs/php_codesniffer": "^3.9",
-        "wp-coding-standards/wpcs": "^3.0",
-        "phpcompatibility/php-compatibility": "^9.0",
-        "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
-    },
-    "scripts": {
-        "test": "phpunit",
-        "lint:php": "phpcs -p",
-        "fix:php": "phpcbf -p"
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
-    }
+	"name": "soderlind/talking-head",
+	"description": "AI-generated podcast-style audio from turn-based conversations.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": "^8.3",
+		"woocommerce/action-scheduler": "^3.9"
+	},
+	"autoload": {
+		"psr-4": {
+			"TalkingHead\\": "src/"
+		}
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^11.0",
+		"squizlabs/php_codesniffer": "^3.9",
+		"wp-coding-standards/wpcs": "^3.0",
+		"phpcompatibility/php-compatibility": "^9.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+	},
+	"scripts": {
+		"test": "phpunit",
+		"lint:php": "phpcs -p",
+		"fix:php": "phpcbf -p"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
 }

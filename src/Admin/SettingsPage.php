@@ -12,67 +12,67 @@ final class SettingsPage {
 	private const PAGE_SLUG   = 'talking-head-settings';
 
 	private static array $config_map = [
-		'tts_provider'       => [
+		'tts_provider'               => [
 			'env'     => 'TALKING_HEAD_TTS_PROVIDER',
 			'const'   => 'TALKING_HEAD_TTS_PROVIDER',
 			'default' => 'openai',
 		],
-		'openai_api_key'     => [
+		'openai_api_key'             => [
 			'env'     => 'TALKING_HEAD_OPENAI_API_KEY',
 			'const'   => 'TALKING_HEAD_OPENAI_API_KEY',
 			'default' => '',
 		],
-		'openai_tts_model'   => [
+		'openai_tts_model'           => [
 			'env'     => 'TALKING_HEAD_OPENAI_TTS_MODEL',
 			'const'   => 'TALKING_HEAD_OPENAI_TTS_MODEL',
 			'default' => 'tts-1',
 		],
-		'default_voice'      => [
+		'default_voice'              => [
 			'env'     => 'TALKING_HEAD_DEFAULT_VOICE',
 			'const'   => 'TALKING_HEAD_DEFAULT_VOICE',
 			'default' => 'alloy',
 		],
-		'ffmpeg_path'        => [
+		'ffmpeg_path'                => [
 			'env'     => 'TALKING_HEAD_FFMPEG_PATH',
 			'const'   => 'TALKING_HEAD_FFMPEG_PATH',
 			'default' => '/opt/homebrew/bin/ffmpeg',
 		],
-		'output_format'      => [
+		'output_format'              => [
 			'env'     => 'TALKING_HEAD_OUTPUT_FORMAT',
 			'const'   => 'TALKING_HEAD_OUTPUT_FORMAT',
 			'default' => 'mp3',
 		],
-		'output_bitrate'     => [
+		'output_bitrate'             => [
 			'env'     => 'TALKING_HEAD_OUTPUT_BITRATE',
 			'const'   => 'TALKING_HEAD_OUTPUT_BITRATE',
 			'default' => '192k',
 		],
-		'silence_gap_ms'     => [
+		'silence_gap_ms'             => [
 			'env'     => 'TALKING_HEAD_SILENCE_GAP_MS',
 			'const'   => 'TALKING_HEAD_SILENCE_GAP_MS',
 			'default' => '500',
 		],
-		'max_segments'       => [
+		'max_segments'               => [
 			'env'     => 'TALKING_HEAD_MAX_SEGMENTS',
 			'const'   => 'TALKING_HEAD_MAX_SEGMENTS',
 			'default' => '50',
 		],
-		'max_segment_chars'  => [
+		'max_segment_chars'          => [
 			'env'     => 'TALKING_HEAD_MAX_SEGMENT_CHARS',
 			'const'   => 'TALKING_HEAD_MAX_SEGMENT_CHARS',
 			'default' => '4096',
 		],
-		'rate_limit_per_min' => [
+		'rate_limit_per_min'         => [
 			'env'     => 'TALKING_HEAD_RATE_LIMIT',
 			'const'   => 'TALKING_HEAD_RATE_LIMIT',
 			'default' => '10',
 		],
-		'azure_openai_api_key' => [
+		'azure_openai_api_key'       => [
 			'env'     => 'TALKING_HEAD_AZURE_OPENAI_API_KEY',
 			'const'   => 'TALKING_HEAD_AZURE_OPENAI_API_KEY',
 			'default' => '',
 		],
-		'azure_openai_endpoint' => [
+		'azure_openai_endpoint'      => [
 			'env'     => 'TALKING_HEAD_AZURE_OPENAI_ENDPOINT',
 			'const'   => 'TALKING_HEAD_AZURE_OPENAI_ENDPOINT',
 			'default' => '',
@@ -82,7 +82,7 @@ final class SettingsPage {
 			'const'   => 'TALKING_HEAD_AZURE_OPENAI_DEPLOYMENT_ID',
 			'default' => '',
 		],
-		'azure_openai_api_version' => [
+		'azure_openai_api_version'   => [
 			'env'     => 'TALKING_HEAD_AZURE_OPENAI_API_VERSION',
 			'const'   => 'TALKING_HEAD_AZURE_OPENAI_API_VERSION',
 			'default' => '2024-05-01-preview',
@@ -104,13 +104,13 @@ final class SettingsPage {
 		}
 
 		// 1. PHP constant.
-		if ( ! empty( $map['const'] ) && defined( $map['const'] ) ) {
-			return (string) constant( $map['const'] );
+		if ( ! empty( $map[ 'const' ] ) && defined( $map[ 'const' ] ) ) {
+			return (string) constant( $map[ 'const' ] );
 		}
 
 		// 2. Environment variable.
-		if ( ! empty( $map['env'] ) ) {
-			$env = getenv( $map['env'] );
+		if ( ! empty( $map[ 'env' ] ) ) {
+			$env = getenv( $map[ 'env' ] );
 			if ( $env !== false && $env !== '' ) {
 				return $env;
 			}
@@ -123,7 +123,7 @@ final class SettingsPage {
 		}
 
 		// 4. Default.
-		return (string) $map['default'];
+		return (string) $map[ 'default' ];
 	}
 
 	/**
@@ -135,12 +135,12 @@ final class SettingsPage {
 			return false;
 		}
 
-		if ( ! empty( $map['const'] ) && defined( $map['const'] ) ) {
+		if ( ! empty( $map[ 'const' ] ) && defined( $map[ 'const' ] ) ) {
 			return true;
 		}
 
-		if ( ! empty( $map['env'] ) ) {
-			$env = getenv( $map['env'] );
+		if ( ! empty( $map[ 'env' ] ) ) {
+			$env = getenv( $map[ 'env' ] );
 			if ( $env !== false && $env !== '' ) {
 				return true;
 			}
@@ -356,19 +356,19 @@ final class SettingsPage {
 	public function sanitize_options( array $input ): array {
 		$sanitized = [];
 
-		$sanitized['tts_provider']       = in_array( $input['tts_provider'] ?? '', [ 'openai', 'azure_openai' ], true )
-			? $input['tts_provider']
+		$sanitized[ 'tts_provider' ] = in_array( $input[ 'tts_provider' ] ?? '', [ 'openai', 'azure_openai' ], true )
+			? $input[ 'tts_provider' ]
 			: 'openai';
 
-		$sanitized['openai_api_key']     = sanitize_text_field( $input['openai_api_key'] ?? '' );
-		$sanitized['openai_tts_model']   = in_array( $input['openai_tts_model'] ?? '', [ 'tts-1', 'tts-1-hd' ], true )
-			? $input['openai_tts_model']
+		$sanitized[ 'openai_api_key' ]   = sanitize_text_field( $input[ 'openai_api_key' ] ?? '' );
+		$sanitized[ 'openai_tts_model' ] = in_array( $input[ 'openai_tts_model' ] ?? '', [ 'tts-1', 'tts-1-hd' ], true )
+			? $input[ 'openai_tts_model' ]
 			: 'tts-1';
-		$sanitized['default_voice']      = in_array( $input['default_voice'] ?? '', [ 'alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer' ], true )
-			? $input['default_voice']
+		$sanitized[ 'default_voice' ]    = in_array( $input[ 'default_voice' ] ?? '', [ 'alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer' ], true )
+			? $input[ 'default_voice' ]
 			: 'alloy';
 
-		$ffmpeg_path = sanitize_text_field( $input['ffmpeg_path'] ?? '' );
+		$ffmpeg_path = sanitize_text_field( $input[ 'ffmpeg_path' ] ?? '' );
 		if ( $ffmpeg_path !== '' && ! is_executable( $ffmpeg_path ) ) {
 			add_settings_error(
 				self::OPTION_NAME,
@@ -378,25 +378,25 @@ final class SettingsPage {
 				'error'
 			);
 		}
-		$sanitized['ffmpeg_path'] = $ffmpeg_path;
+		$sanitized[ 'ffmpeg_path' ] = $ffmpeg_path;
 
-		$sanitized['output_format']  = in_array( $input['output_format'] ?? '', [ 'mp3', 'aac' ], true )
-			? $input['output_format']
+		$sanitized[ 'output_format' ]  = in_array( $input[ 'output_format' ] ?? '', [ 'mp3', 'aac' ], true )
+			? $input[ 'output_format' ]
 			: 'mp3';
-		$sanitized['output_bitrate'] = in_array( $input['output_bitrate'] ?? '', [ '128k', '192k', '256k', '320k' ], true )
-			? $input['output_bitrate']
+		$sanitized[ 'output_bitrate' ] = in_array( $input[ 'output_bitrate' ] ?? '', [ '128k', '192k', '256k', '320k' ], true )
+			? $input[ 'output_bitrate' ]
 			: '192k';
 
-		$sanitized['silence_gap_ms']     = min( 5000, max( 0, absint( $input['silence_gap_ms'] ?? 500 ) ) );
-		$sanitized['max_segments']       = min( 200, max( 1, absint( $input['max_segments'] ?? 50 ) ) );
-		$sanitized['max_segment_chars']  = min( 4096, max( 100, absint( $input['max_segment_chars'] ?? 4096 ) ) );
-		$sanitized['rate_limit_per_min'] = min( 60, max( 1, absint( $input['rate_limit_per_min'] ?? 10 ) ) );
+		$sanitized[ 'silence_gap_ms' ]     = min( 5000, max( 0, absint( $input[ 'silence_gap_ms' ] ?? 500 ) ) );
+		$sanitized[ 'max_segments' ]       = min( 200, max( 1, absint( $input[ 'max_segments' ] ?? 50 ) ) );
+		$sanitized[ 'max_segment_chars' ]  = min( 4096, max( 100, absint( $input[ 'max_segment_chars' ] ?? 4096 ) ) );
+		$sanitized[ 'rate_limit_per_min' ] = min( 60, max( 1, absint( $input[ 'rate_limit_per_min' ] ?? 10 ) ) );
 
 		// Azure OpenAI settings.
-		$sanitized['azure_openai_api_key']       = sanitize_text_field( $input['azure_openai_api_key'] ?? '' );
-		$sanitized['azure_openai_endpoint']      = esc_url_raw( $input['azure_openai_endpoint'] ?? '' );
-		$sanitized['azure_openai_deployment_id'] = sanitize_text_field( $input['azure_openai_deployment_id'] ?? '' );
-		$sanitized['azure_openai_api_version']   = sanitize_text_field( $input['azure_openai_api_version'] ?? '' );
+		$sanitized[ 'azure_openai_api_key' ]       = sanitize_text_field( $input[ 'azure_openai_api_key' ] ?? '' );
+		$sanitized[ 'azure_openai_endpoint' ]      = esc_url_raw( $input[ 'azure_openai_endpoint' ] ?? '' );
+		$sanitized[ 'azure_openai_deployment_id' ] = sanitize_text_field( $input[ 'azure_openai_deployment_id' ] ?? '' );
+		$sanitized[ 'azure_openai_api_version' ]   = sanitize_text_field( $input[ 'azure_openai_api_version' ] ?? '' );
 
 		return $sanitized;
 	}
@@ -445,12 +445,12 @@ final class SettingsPage {
 			return;
 		}
 
-		if ( $section['title'] ) {
-			echo '<h2>' . esc_html( $section['title'] ) . '</h2>';
+		if ( $section[ 'title' ] ) {
+			echo '<h2>' . esc_html( $section[ 'title' ] ) . '</h2>';
 		}
 
-		if ( $section['callback'] ) {
-			call_user_func( $section['callback'], $section );
+		if ( $section[ 'callback' ] ) {
+			call_user_func( $section[ 'callback' ], $section );
 		}
 
 		if ( ! isset( $wp_settings_fields[ self::PAGE_SLUG ][ $section_id ] ) ) {
@@ -468,22 +468,22 @@ final class SettingsPage {
 	private function render_toggle_script(): void {
 		?>
 		<script>
-		( function() {
-			var select    = document.querySelector( 'select[name="talking_head_options[tts_provider]"]' );
-			var openai    = document.getElementById( 'th-section-openai' );
-			var azure     = document.getElementById( 'th-section-azure-openai' );
+			(function () {
+				var select = document.querySelector('select[name="talking_head_options[tts_provider]"]');
+				var openai = document.getElementById('th-section-openai');
+				var azure = document.getElementById('th-section-azure-openai');
 
-			if ( ! select || ! openai || ! azure ) return;
+				if (!select || !openai || !azure) return;
 
-			function toggle() {
-				var val = select.value;
-				openai.style.display = val === 'openai' ? '' : 'none';
-				azure.style.display  = val === 'azure_openai' ? '' : 'none';
-			}
+				function toggle() {
+					var val = select.value;
+					openai.style.display = val === 'openai' ? '' : 'none';
+					azure.style.display = val === 'azure_openai' ? '' : 'none';
+				}
 
-			select.addEventListener( 'change', toggle );
-			toggle();
-		} )();
+				select.addEventListener('change', toggle);
+				toggle();
+			})();
 		</script>
 		<?php
 	}

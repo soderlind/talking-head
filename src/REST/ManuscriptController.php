@@ -25,7 +25,7 @@ final class ManuscriptController {
 
 	public function register_routes(): void {
 		register_rest_route(
-			self::NAMESPACE,
+			self::NAMESPACE ,
 			'/episodes/(?P<id>\d+)/manuscript',
 			[
 				[
@@ -44,7 +44,7 @@ final class ManuscriptController {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::NAMESPACE ,
 			'/episodes/(?P<id>\d+)/manuscript/validate',
 			[
 				[
@@ -70,7 +70,7 @@ final class ManuscriptController {
 			$builder    = new ManuscriptBuilder();
 			$manuscript = $builder->build( $episode_id );
 			return new WP_REST_Response( $manuscript, 200 );
-		} catch ( \InvalidArgumentException $e ) {
+		} catch (\InvalidArgumentException $e) {
 			return new WP_Error(
 				'invalid_episode',
 				$e->getMessage(),
@@ -108,7 +108,7 @@ final class ManuscriptController {
 				],
 				200
 			);
-		} catch ( \InvalidArgumentException $e ) {
+		} catch (\InvalidArgumentException $e) {
 			return new WP_Error(
 				'invalid_episode',
 				$e->getMessage(),
@@ -129,7 +129,7 @@ final class ManuscriptController {
 			$builder    = new ManuscriptBuilder();
 			$manuscript = $builder->build( $post_id );
 			update_post_meta( $post_id, EpisodeCPT::META_KEY_MANUSCRIPT, wp_json_encode( $manuscript ) );
-		} catch ( \InvalidArgumentException ) {
+		} catch (\InvalidArgumentException) {
 			// Silently skip — episode was likely an incomplete draft.
 		}
 	}

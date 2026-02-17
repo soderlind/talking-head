@@ -75,22 +75,22 @@ final class JobRepository {
 		$format = [ '%s' ];
 
 		if ( $error !== null ) {
-			$data['error_message'] = $error;
+			$data[ 'error_message' ] = $error;
 			$format[]              = '%s';
 		}
 
 		match ( $new_status ) {
-			JobStatus::Running => (function () use ( &$data, &$format ) {
-				$data['started_at'] = current_time( 'mysql', true );
-				$format[]           = '%s';
-			})(),
+			JobStatus::Running  => ( function () use (&$data, &$format) {
+					$data[ 'started_at' ] = current_time( 'mysql', true );
+					$format[]           = '%s';
+				} )(),
 			JobStatus::Succeeded,
 			JobStatus::Failed,
-			JobStatus::Canceled => (function () use ( &$data, &$format ) {
-				$data['completed_at'] = current_time( 'mysql', true );
-				$format[]             = '%s';
-			})(),
-			default => null,
+			JobStatus::Canceled => ( function () use (&$data, &$format) {
+					$data[ 'completed_at' ] = current_time( 'mysql', true );
+					$format[]             = '%s';
+				} )(),
+			default             => null,
 		};
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching

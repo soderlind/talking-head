@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.8
 Requires PHP: 8.3
-Stable tag: 0.2.0
+Stable tag: 0.2.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,16 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 == Changelog ==
 
+= 0.2.2 =
+* Fix: Action Scheduler job processing in multisite (blog context switching)
+* Fix: Generate Audio button shows progress throughout the entire job lifecycle
+
+= 0.2.1 =
+* Fix: Provider fallback uses global setting instead of hardcoded `openai`
+* Fix: Speaker names no longer prepended to dialogue text in manuscript
+* Fix: Episode editor allows adding and removing turns freely
+* Fix: Seed script respects global TTS provider setting
+
 = 0.2.0 =
 * Azure OpenAI TTS provider
 * Provider selector on settings page with conditional field visibility
@@ -102,6 +112,12 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 0.2.2 =
+Fixes Action Scheduler multisite support and generation progress visibility.
+
+= 0.2.1 =
+Fixes provider fallback, manuscript text extraction, and episode template lock.
 
 = 0.2.0 =
 Adds Azure OpenAI TTS and makes FFmpeg optional with a PHP fallback.

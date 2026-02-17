@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TalkingHead\Manuscript;
 
+use TalkingHead\Admin\SettingsPage;
 use TalkingHead\CPT\EpisodeCPT;
 use TalkingHead\CPT\HeadCPT;
 
@@ -32,24 +33,30 @@ final class ManuscriptBuilder {
 		$index    = 0;
 
 		foreach ( $blocks as $block ) {
-			if ( $block['blockName'] !== 'talking-head/episode' ) {
+			if ( $block[ 'blockName' ] !== 'talking-head/episode' ) {
 				continue;
 			}
 
-			foreach ( ( $block['innerBlocks'] ?? [] ) as $inner ) {
-				if ( $inner['blockName'] !== 'talking-head/turn' ) {
+			foreach ( ( $block[ 'innerBlocks' ] ?? [] ) as $inner ) {
+				if ( $inner[ 'blockName' ] !== 'talking-head/turn' ) {
 					continue;
 				}
 
-				$attrs   = $inner['attrs'] ?? [];
-				$head_id = (int) ( $attrs['headId'] ?? 0 );
+				$attrs   = $inner[ 'attrs' ] ?? [];
+				$head_id = (int) ( $attrs[ 'headId' ] ?? 0 );
 
-				// Extract text from the rendered inner HTML.
-				$text = wp_strip_all_tags( $inner['innerHTML'] ?? '' );
+				// Extract text from the .th-turn__text element only,
+				// avoiding the speaker name in .th-turn__speaker.
+				$html = $inner[ 'innerHTML' ] ?? '';
+				$text = '';
 
-				// Fallback to the attribute if innerHTML is empty.
+				if ( preg_match( '/<div class="th-turn__text">(.*?)<\/div>/s', $html, $matches ) ) {
+					$text = wp_strip_all_tags( $matches[1] );
+				}
+
+				// Fallback to the attribute if extraction failed.
 				if ( empty( trim( $text ) ) ) {
-					$text = wp_strip_all_tags( $attrs['text'] ?? '' );
+					$text = wp_strip_all_tags( $attrs[ 'text' ] ?? '' );
 				}
 
 				if ( $head_id <= 0 || empty( trim( $text ) ) ) {
@@ -57,7 +64,7 @@ final class ManuscriptBuilder {
 				}
 
 				$voice_id = get_post_meta( $head_id, HeadCPT::META_KEY_VOICE_ID, true ) ?: 'alloy';
-				$provider = get_post_meta( $head_id, HeadCPT::META_KEY_PROVIDER, true ) ?: 'openai';
+				$provider = get_post_meta( $head_id, HeadCPT::META_KEY_PROVIDER, true ) ?: SettingsPage::get( 'tts_provider' );
 
 				$segments[] = [
 					'index'    => $index++,

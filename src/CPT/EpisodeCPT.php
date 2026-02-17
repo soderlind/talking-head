@@ -8,10 +8,10 @@ defined( 'ABSPATH' ) || exit;
 
 final class EpisodeCPT {
 
-	public const POST_TYPE              = 'talking_head_episode';
-	public const META_KEY_MANUSCRIPT    = '_th_manuscript';
-	public const META_KEY_STATUS        = '_th_episode_status';
-	public const META_KEY_AUDIO_URL     = '_th_audio_url';
+	public const POST_TYPE               = 'talking_head_episode';
+	public const META_KEY_MANUSCRIPT     = '_th_manuscript';
+	public const META_KEY_STATUS         = '_th_episode_status';
+	public const META_KEY_AUDIO_URL      = '_th_audio_url';
 	public const META_KEY_AUDIO_DURATION = '_th_audio_duration';
 
 	public function register(): void {
@@ -56,7 +56,7 @@ final class EpisodeCPT {
 						],
 					],
 				],
-				'template_lock' => 'insert',
+				'template_lock' => false,
 			]
 		);
 	}

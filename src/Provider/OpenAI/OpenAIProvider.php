@@ -24,8 +24,8 @@ final class OpenAIProvider implements ProviderInterface {
 			throw new \RuntimeException( 'OpenAI API key is not configured.' );
 		}
 
-		$speed           = (float) ( $options['speed'] ?? 1.0 );
-		$response_format = $options['format'] ?? 'mp3';
+		$speed           = (float) ( $options[ 'speed' ] ?? 1.0 );
+		$response_format = $options[ 'format' ] ?? 'mp3';
 
 		$response = wp_remote_post(
 			self::API_URL,
@@ -57,7 +57,7 @@ final class OpenAIProvider implements ProviderInterface {
 		if ( $status_code !== 200 ) {
 			$body = wp_remote_retrieve_body( $response );
 			$data = json_decode( $body, true );
-			$msg  = $data['error']['message'] ?? "HTTP {$status_code}";
+			$msg  = $data[ 'error' ][ 'message' ] ?? "HTTP {$status_code}";
 			throw new \RuntimeException( "OpenAI TTS error: {$msg}" );
 		}
 
@@ -68,32 +68,32 @@ final class OpenAIProvider implements ProviderInterface {
 		$estimated_duration_ms = (int) ( ( $size / 24000 ) * 1000 );
 
 		return new AudioChunk(
-			data:         $audio_data,
-			format:       $response_format,
-			durationMs:   $estimated_duration_ms,
-			sizeBytes:    $size,
-			voiceId:      $voiceId,
-			segmentIndex: (int) ( $options['segmentIndex'] ?? 0 ),
+			data: $audio_data,
+			format: $response_format,
+			durationMs: $estimated_duration_ms,
+			sizeBytes: $size,
+			voiceId: $voiceId,
+			segmentIndex: (int) ( $options[ 'segmentIndex' ] ?? 0 ),
 		);
 	}
 
 	public function capabilities(): ProviderCapabilities {
 		return new ProviderCapabilities(
-			maxCharsPerRequest:    4096,
-			supportedFormats:      [ 'mp3', 'opus', 'aac', 'flac' ],
-			supportsSSML:          false,
+			maxCharsPerRequest: 4096,
+			supportedFormats: [ 'mp3', 'opus', 'aac', 'flac' ],
+			supportsSSML: false,
 			supportsSpeakingStyle: false,
 		);
 	}
 
 	public function voices(): array {
 		return [
-			[ 'id' => 'alloy',   'name' => 'Alloy',   'gender' => 'neutral' ],
-			[ 'id' => 'echo',    'name' => 'Echo',     'gender' => 'male' ],
-			[ 'id' => 'fable',   'name' => 'Fable',    'gender' => 'neutral' ],
-			[ 'id' => 'onyx',    'name' => 'Onyx',     'gender' => 'male' ],
-			[ 'id' => 'nova',    'name' => 'Nova',     'gender' => 'female' ],
-			[ 'id' => 'shimmer', 'name' => 'Shimmer',  'gender' => 'female' ],
+			[ 'id' => 'alloy', 'name' => 'Alloy', 'gender' => 'neutral' ],
+			[ 'id' => 'echo', 'name' => 'Echo', 'gender' => 'male' ],
+			[ 'id' => 'fable', 'name' => 'Fable', 'gender' => 'neutral' ],
+			[ 'id' => 'onyx', 'name' => 'Onyx', 'gender' => 'male' ],
+			[ 'id' => 'nova', 'name' => 'Nova', 'gender' => 'female' ],
+			[ 'id' => 'shimmer', 'name' => 'Shimmer', 'gender' => 'female' ],
 		];
 	}
 

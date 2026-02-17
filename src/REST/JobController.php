@@ -23,7 +23,7 @@ final class JobController {
 
 	public function register_routes(): void {
 		register_rest_route(
-			self::NAMESPACE,
+			self::NAMESPACE ,
 			'/jobs',
 			[
 				[
@@ -42,7 +42,7 @@ final class JobController {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::NAMESPACE ,
 			'/jobs/(?P<id>\d+)',
 			[
 				[
@@ -61,7 +61,7 @@ final class JobController {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::NAMESPACE ,
 			'/jobs/(?P<id>\d+)/cancel',
 			[
 				[
@@ -80,7 +80,7 @@ final class JobController {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::NAMESPACE ,
 			'/jobs/(?P<id>\d+)/retry',
 			[
 				[
@@ -106,13 +106,13 @@ final class JobController {
 			$scheduler = new JobScheduler();
 			$result    = $scheduler->schedule( $episode_id );
 			return new WP_REST_Response( $result, 201 );
-		} catch ( \DomainException $e ) {
+		} catch (\DomainException $e) {
 			return new WP_Error(
 				'validation_failed',
 				$e->getMessage(),
 				[ 'status' => 422 ]
 			);
-		} catch ( \Throwable $e ) {
+		} catch (\Throwable $e) {
 			return new WP_Error(
 				'job_creation_failed',
 				$e->getMessage(),
@@ -135,15 +135,15 @@ final class JobController {
 
 		return new WP_REST_Response(
 			[
-				'id'                => (int) $job['id'],
-				'episodeId'         => (int) $job['episode_id'],
-				'status'            => $job['status'],
-				'progress'          => (int) $job['progress'],
-				'totalSegments'     => (int) $job['total_segments'],
-				'completedSegments' => (int) $job['completed_segments'],
-				'error'             => $job['error_message'],
-				'createdAt'         => $job['created_at'],
-				'completedAt'       => $job['completed_at'],
+				'id'                => (int) $job[ 'id' ],
+				'episodeId'         => (int) $job[ 'episode_id' ],
+				'status'            => $job[ 'status' ],
+				'progress'          => (int) $job[ 'progress' ],
+				'totalSegments'     => (int) $job[ 'total_segments' ],
+				'completedSegments' => (int) $job[ 'completed_segments' ],
+				'error'             => $job[ 'error_message' ],
+				'createdAt'         => $job[ 'created_at' ],
+				'completedAt'       => $job[ 'completed_at' ],
 			],
 			200
 		);
@@ -161,7 +161,7 @@ final class JobController {
 			);
 		}
 
-		$status = JobStatus::from( $job['status'] );
+		$status = JobStatus::from( $job[ 'status' ] );
 		if ( $status->isTerminal() ) {
 			return new WP_Error(
 				'cannot_cancel',
@@ -170,7 +170,7 @@ final class JobController {
 			);
 		}
 
-		$repo->transition( (int) $job['id'], JobStatus::Canceled );
+		$repo->transition( (int) $job[ 'id' ], JobStatus::Canceled );
 
 		return new WP_REST_Response( [ 'status' => 'canceled' ], 200 );
 	}
@@ -187,7 +187,7 @@ final class JobController {
 			);
 		}
 
-		$status = JobStatus::from( $job['status'] );
+		$status = JobStatus::from( $job[ 'status' ] );
 		if ( ! $status->isRetryable() ) {
 			return new WP_Error(
 				'not_retryable',
@@ -198,9 +198,9 @@ final class JobController {
 
 		try {
 			$scheduler = new JobScheduler();
-			$result    = $scheduler->schedule( (int) $job['episode_id'] );
+			$result    = $scheduler->schedule( (int) $job[ 'episode_id' ] );
 			return new WP_REST_Response( $result, 201 );
-		} catch ( \Throwable $e ) {
+		} catch (\Throwable $e) {
 			return new WP_Error(
 				'retry_failed',
 				$e->getMessage(),

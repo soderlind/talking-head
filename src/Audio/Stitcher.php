@@ -50,7 +50,7 @@ final class Stitcher {
 
 		// Single chunk: just copy it.
 		if ( count( $chunk_paths ) === 1 ) {
-			copy( $chunk_paths[0], $output_path );
+			copy( $chunk_paths[ 0 ], $output_path );
 			return $output_path;
 		}
 

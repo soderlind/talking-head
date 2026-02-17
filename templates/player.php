@@ -13,12 +13,7 @@ defined( 'ABSPATH' ) || exit;
 	<div class="th-player__header">
 		<h3 class="th-player__title"><?php echo $title; // Already escaped. ?></h3>
 	</div>
-	<audio
-		class="th-player__audio"
-		controls
-		preload="metadata"
-		src="<?php echo $audio_url_esc; // Already escaped. ?>"
-	>
+	<audio class="th-player__audio" controls preload="metadata" src="<?php echo $audio_url_esc; // Already escaped. ?>">
 		<?php esc_html_e( 'Your browser does not support the audio element.', 'talking-head' ); ?>
 	</audio>
 	<div class="th-player__controls">

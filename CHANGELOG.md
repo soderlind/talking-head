@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.2.2] - 2026-02-17
+
+### Fixed
+
+- Action Scheduler job processing in multisite — passes `blog_id` and calls `switch_to_blog()` so the runner operates on the correct site's tables
+- Generate Audio button now stays disabled with spinner and shows "Queued" / "Generating" status notices throughout the entire job lifecycle instead of resetting immediately
+
+## [0.2.1] - 2026-02-17
+
+### Fixed
+
+- Provider fallback uses global `tts_provider` setting instead of hardcoded `openai` in ManuscriptBuilder and HeadController
+- ManuscriptBuilder text extraction targets `.th-turn__text` element only, preventing speaker names from being prepended to dialogue text
+- Episode template lock changed from `insert` to `false`, allowing turns to be added and removed freely in the editor
+- Seed script reads global `tts_provider` setting instead of hardcoding `openai` for all heads
+
 ## [0.2.0] - 2026-02-17
 
 ### Added

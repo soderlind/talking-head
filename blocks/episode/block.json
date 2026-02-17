@@ -1,26 +1,36 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "talking-head/episode",
-  "title": "Episode",
-  "description": "Container for a Talking Head episode conversation.",
-  "category": "media",
-  "icon": "microphone",
-  "textdomain": "talking-head",
-  "keywords": ["podcast", "audio", "conversation", "episode"],
-  "supports": {
-    "html": false,
-    "multiple": false,
-    "reusable": false,
-    "align": ["wide", "full"]
-  },
-  "attributes": {
-    "episodeId": {
-      "type": "number",
-      "default": 0
-    }
-  },
-  "allowedBlocks": ["talking-head/turn"],
-  "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "talking-head/episode",
+	"title": "Episode",
+	"description": "Container for a Talking Head episode conversation.",
+	"category": "media",
+	"icon": "microphone",
+	"textdomain": "talking-head",
+	"keywords": [
+		"podcast",
+		"audio",
+		"conversation",
+		"episode"
+	],
+	"supports": {
+		"html": false,
+		"multiple": false,
+		"reusable": false,
+		"align": [
+			"wide",
+			"full"
+		]
+	},
+	"attributes": {
+		"episodeId": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"allowedBlocks": [
+		"talking-head/turn"
+	],
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css"
 }

@@ -1,28 +1,32 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "talking-head/player",
-  "title": "Talking Head Player",
-  "description": "Audio player for a Talking Head episode.",
-  "category": "media",
-  "icon": "controls-play",
-  "textdomain": "talking-head",
-  "supports": {
-    "html": false,
-    "align": ["wide", "full", "center"]
-  },
-  "attributes": {
-    "episodeId": {
-      "type": "number",
-      "default": 0
-    },
-    "showTranscript": {
-      "type": "boolean",
-      "default": false
-    }
-  },
-  "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css",
-  "viewScript": "file:./view.js",
-  "style": "file:./style-index.css"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "talking-head/player",
+	"title": "Talking Head Player",
+	"description": "Audio player for a Talking Head episode.",
+	"category": "media",
+	"icon": "controls-play",
+	"textdomain": "talking-head",
+	"supports": {
+		"html": false,
+		"align": [
+			"wide",
+			"full",
+			"center"
+		]
+	},
+	"attributes": {
+		"episodeId": {
+			"type": "number",
+			"default": 0
+		},
+		"showTranscript": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"viewScript": "file:./view.js",
+	"style": "file:./style-index.css"
 }

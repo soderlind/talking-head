@@ -22,8 +22,8 @@ final class LocalStorage implements StorageInterface {
 
 	public function url( string $path ): string {
 		$upload_dir = wp_upload_dir();
-		$base_dir   = $upload_dir['basedir'];
-		$base_url   = $upload_dir['baseurl'];
+		$base_dir   = $upload_dir[ 'basedir' ];
+		$base_url   = $upload_dir[ 'baseurl' ];
 
 		return str_replace( $base_dir, $base_url, $path );
 	}
@@ -38,7 +38,7 @@ final class LocalStorage implements StorageInterface {
 
 	public function ensure_dir( string $subdir = '' ): string {
 		$upload_dir = wp_upload_dir();
-		$dir        = trailingslashit( $upload_dir['basedir'] ) . self::UPLOAD_SUBDIR;
+		$dir        = trailingslashit( $upload_dir[ 'basedir' ] ) . self::UPLOAD_SUBDIR;
 
 		if ( $subdir !== '' ) {
 			$dir = trailingslashit( $dir ) . ltrim( $subdir, '/' );

@@ -8,11 +8,11 @@ defined( 'ABSPATH' ) || exit;
 
 final class HeadCPT {
 
-	public const POST_TYPE              = 'talking_head_head';
-	public const META_KEY_VOICE_ID      = '_th_voice_id';
-	public const META_KEY_PROVIDER      = '_th_provider';
+	public const POST_TYPE               = 'talking_head_head';
+	public const META_KEY_VOICE_ID       = '_th_voice_id';
+	public const META_KEY_PROVIDER       = '_th_provider';
 	public const META_KEY_SPEAKING_STYLE = '_th_speaking_style';
-	public const META_KEY_AVATAR_URL    = '_th_avatar_url';
+	public const META_KEY_AVATAR_URL     = '_th_avatar_url';
 
 	public function register(): void {
 		add_action( 'init', [ $this, 'register_post_type' ] );
@@ -52,12 +52,12 @@ final class HeadCPT {
 
 	public function register_meta(): void {
 		$meta_definitions = [
-			self::META_KEY_VOICE_ID      => [
+			self::META_KEY_VOICE_ID       => [
 				'type'              => 'string',
 				'default'           => 'alloy',
 				'sanitize_callback' => 'sanitize_key',
 			],
-			self::META_KEY_PROVIDER      => [
+			self::META_KEY_PROVIDER       => [
 				'type'              => 'string',
 				'default'           => 'openai',
 				'sanitize_callback' => 'sanitize_key',
@@ -67,7 +67,7 @@ final class HeadCPT {
 				'default'           => '',
 				'sanitize_callback' => 'sanitize_text_field',
 			],
-			self::META_KEY_AVATAR_URL    => [
+			self::META_KEY_AVATAR_URL     => [
 				'type'              => 'string',
 				'default'           => '',
 				'sanitize_callback' => 'esc_url_raw',

@@ -31,7 +31,7 @@ foreach ( $post_types as $pt ) {
 }
 
 $upload_dir = wp_upload_dir();
-$th_dir     = trailingslashit( $upload_dir['basedir'] ) . 'talking-head';
+$th_dir     = trailingslashit( $upload_dir[ 'basedir' ] ) . 'talking-head';
 if ( is_dir( $th_dir ) ) {
 	$files = new RecursiveIteratorIterator(
 		new RecursiveDirectoryIterator( $th_dir, RecursiveDirectoryIterator::SKIP_DOTS ),

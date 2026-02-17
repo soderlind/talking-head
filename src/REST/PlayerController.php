@@ -21,7 +21,7 @@ final class PlayerController {
 
 	public function register_routes(): void {
 		register_rest_route(
-			self::NAMESPACE,
+			self::NAMESPACE ,
 			'/episodes/(?P<id>\d+)/player',
 			[
 				[
@@ -60,10 +60,10 @@ final class PlayerController {
 
 		$transcript = array_map(
 			fn( array $seg ) => [
-				'speaker' => $seg['headName'] ?? '',
-				'text'    => $seg['text'] ?? '',
+				'speaker' => $seg[ 'headName' ] ?? '',
+				'text'    => $seg[ 'text' ] ?? '',
 			],
-			$manuscript['segments'] ?? []
+			$manuscript[ 'segments' ] ?? []
 		);
 
 		return new WP_REST_Response(

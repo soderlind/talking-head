@@ -16,7 +16,7 @@ enum JobStatus: string {
 	public function isTerminal(): bool {
 		return match ( $this ) {
 			self::Succeeded, self::Failed, self::Canceled => true,
-			default => false,
+			default                                       => false,
 		};
 	}
 

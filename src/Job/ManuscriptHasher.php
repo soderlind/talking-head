@@ -18,11 +18,11 @@ final class ManuscriptHasher {
 	public function hash( array $manuscript ): string {
 		$normalized = array_map(
 			fn( array $segment ) => [
-				'headId'  => $segment['headId'],
-				'voiceId' => $segment['voiceId'],
-				'text'    => $segment['text'],
+				'headId'  => $segment[ 'headId' ],
+				'voiceId' => $segment[ 'voiceId' ],
+				'text'    => $segment[ 'text' ],
 			],
-			$manuscript['segments'] ?? []
+			$manuscript[ 'segments' ] ?? []
 		);
 
 		return hash( 'sha256', wp_json_encode( $normalized ) );

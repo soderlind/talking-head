@@ -32,7 +32,7 @@ final class PlayerBlock {
 	 * @return string Rendered HTML.
 	 */
 	public function render( array $attributes ): string {
-		$episode_id = (int) ( $attributes['episodeId'] ?? 0 );
+		$episode_id = (int) ( $attributes[ 'episodeId' ] ?? 0 );
 		if ( $episode_id <= 0 ) {
 			return '';
 		}
@@ -51,7 +51,7 @@ final class PlayerBlock {
 
 		$title           = esc_html( $post->post_title );
 		$audio_url_esc   = esc_url( $audio_url );
-		$show_transcript = ! empty( $attributes['showTranscript'] );
+		$show_transcript = ! empty( $attributes[ 'showTranscript' ] );
 
 		ob_start();
 		include TALKING_HEAD_DIR . 'templates/player.php';

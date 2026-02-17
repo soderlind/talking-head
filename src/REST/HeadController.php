@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TalkingHead\REST;
 
+use TalkingHead\Admin\SettingsPage;
 use TalkingHead\CPT\HeadCPT;
 use WP_Error;
 use WP_Post;
@@ -22,7 +23,7 @@ final class HeadController {
 
 	public function register_routes(): void {
 		register_rest_route(
-			self::NAMESPACE,
+			self::NAMESPACE ,
 			'/heads',
 			[
 				[
@@ -34,7 +35,7 @@ final class HeadController {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::NAMESPACE ,
 			'/heads/(?P<id>\d+)',
 			[
 				[
@@ -88,7 +89,7 @@ final class HeadController {
 			'id'            => $post->ID,
 			'name'          => $post->post_title,
 			'voiceId'       => get_post_meta( $post->ID, HeadCPT::META_KEY_VOICE_ID, true ) ?: 'alloy',
-			'provider'      => get_post_meta( $post->ID, HeadCPT::META_KEY_PROVIDER, true ) ?: 'openai',
+			'provider'      => get_post_meta( $post->ID, HeadCPT::META_KEY_PROVIDER, true ) ?: SettingsPage::get( 'tts_provider' ),
 			'speakingStyle' => get_post_meta( $post->ID, HeadCPT::META_KEY_SPEAKING_STYLE, true ) ?: '',
 			'avatarUrl'     => get_post_meta( $post->ID, HeadCPT::META_KEY_AVATAR_URL, true ) ?: '',
 			'thumbnail'     => get_the_post_thumbnail_url( $post->ID, 'thumbnail' ) ?: '',

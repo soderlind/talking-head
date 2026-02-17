@@ -42,8 +42,8 @@ final class JobScheduler {
 		if ( $this->jobs->active_job_exists( $episode_id, $hash ) ) {
 			$latest = $this->jobs->latest_for_episode( $episode_id );
 			return [
-				'jobId'   => (int) $latest['id'],
-				'status'  => $latest['status'],
+				'jobId'   => (int) $latest[ 'id' ],
+				'status'  => $latest[ 'status' ],
 				'message' => __( 'Generation already in progress for this content.', 'talking-head' ),
 			];
 		}
@@ -54,16 +54,19 @@ final class JobScheduler {
 
 		// Create job record.
 		$job_id = $this->jobs->create(
-			episode_id:      $episode_id,
+			episode_id: $episode_id,
 			manuscript_hash: $hash,
-			total_segments:  count( $manuscript['segments'] ),
+			total_segments: count( $manuscript[ 'segments' ] ),
 		);
 
 		// Enqueue for background processing via Action Scheduler.
 		as_schedule_single_action(
 			time(),
 			'talking_head_process_job',
-			[ 'job_id' => $job_id ],
+			[
+				'job_id'  => $job_id,
+				'blog_id' => get_current_blog_id(),
+			],
 			'talking-head'
 		);
 

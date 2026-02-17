@@ -24,9 +24,13 @@ set -euo pipefail
 
 URL_FLAG="${1:-}"
 
+# Read the global TTS provider from plugin settings (defaults to 'openai').
+PROVIDER=$(wp eval 'echo TalkingHead\Admin\SettingsPage::get("tts_provider");' ${URL_FLAG} 2>/dev/null)
+PROVIDER="${PROVIDER:-openai}"
+
 # --- Heads (speaker profiles) ------------------------------------------------
 
-echo "Creating heads..."
+echo "Creating heads (provider: ${PROVIDER})..."
 
 ALICE_ID=$(wp post create \
   --post_type=talking_head_head \
@@ -36,7 +40,7 @@ ALICE_ID=$(wp post create \
   --porcelain)
 
 wp post meta update "$ALICE_ID" _th_voice_id nova ${URL_FLAG}
-wp post meta update "$ALICE_ID" _th_provider openai ${URL_FLAG}
+wp post meta update "$ALICE_ID" _th_provider "$PROVIDER" ${URL_FLAG}
 
 BOB_ID=$(wp post create \
   --post_type=talking_head_head \
@@ -46,7 +50,7 @@ BOB_ID=$(wp post create \
   --porcelain)
 
 wp post meta update "$BOB_ID" _th_voice_id onyx ${URL_FLAG}
-wp post meta update "$BOB_ID" _th_provider openai ${URL_FLAG}
+wp post meta update "$BOB_ID" _th_provider "$PROVIDER" ${URL_FLAG}
 
 CHARLIE_ID=$(wp post create \
   --post_type=talking_head_head \
@@ -56,11 +60,11 @@ CHARLIE_ID=$(wp post create \
   --porcelain)
 
 wp post meta update "$CHARLIE_ID" _th_voice_id echo ${URL_FLAG}
-wp post meta update "$CHARLIE_ID" _th_provider azure_openai ${URL_FLAG}
+wp post meta update "$CHARLIE_ID" _th_provider "$PROVIDER" ${URL_FLAG}
 
-echo "  Alice   (ID: ${ALICE_ID}) — voice: nova, provider: openai"
-echo "  Bob     (ID: ${BOB_ID}) — voice: onyx, provider: openai"
-echo "  Charlie (ID: ${CHARLIE_ID}) — voice: echo, provider: azure_openai"
+echo "  Alice   (ID: ${ALICE_ID}) — voice: nova, provider: ${PROVIDER}"
+echo "  Bob     (ID: ${BOB_ID}) — voice: onyx, provider: ${PROVIDER}"
+echo "  Charlie (ID: ${CHARLIE_ID}) — voice: echo, provider: ${PROVIDER}"
 
 # --- Episode ------------------------------------------------------------------
 

@@ -62,9 +62,11 @@ export default function Edit() {
 						)
 					) {
 						stopPolling();
+						setGenerating( false );
 					}
 				} catch {
 					stopPolling();
+					setGenerating( false );
 				}
 			}, POLL_INTERVAL );
 		},
@@ -86,14 +88,16 @@ export default function Edit() {
 			setJobStatus( response );
 			if ( response.jobId ) {
 				pollJobStatus( response.jobId );
+			} else {
+				setGenerating( false );
 			}
 		} catch ( err ) {
 			setJobStatus( {
 				status: 'failed',
 				error: err.message,
 			} );
+			setGenerating( false );
 		}
-		setGenerating( false );
 	};
 
 	return (
@@ -127,6 +131,11 @@ export default function Edit() {
 							__( 'Generate Audio', 'talking-head' )
 						) }
 					</Button>
+					{ jobStatus?.status === 'queued' && (
+						<Notice status="info" isDismissible={ false }>
+							{ __( 'Queued — waiting for processing...', 'talking-head' ) }
+						</Notice>
+					) }
 					{ jobStatus?.status === 'running' && (
 						<Notice status="info" isDismissible={ false }>
 							{ __( 'Generating...', 'talking-head' ) }
