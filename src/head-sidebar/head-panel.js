@@ -53,6 +53,7 @@ export function HeadPanel() {
 				options={ VOICE_OPTIONS }
 				onChange={ ( val ) => setMeta( '_th_voice_id', val ) }
 				__nextHasNoMarginBottom
+				__next40pxDefaultSize
 			/>
 			<SelectControl
 				label={ __( 'Provider', 'talking-head' ) }
@@ -60,6 +61,7 @@ export function HeadPanel() {
 				options={ PROVIDER_OPTIONS }
 				onChange={ ( val ) => setMeta( '_th_provider', val ) }
 				__nextHasNoMarginBottom
+				__next40pxDefaultSize
 			/>
 			<RangeControl
 				label={ __( 'Speed', 'talking-head' ) }
@@ -83,6 +85,7 @@ export function HeadPanel() {
 				onChange={ ( val ) =>
 					setMeta( '_th_speaking_style', val )
 				}
+				__nextHasNoMarginBottom
 			/>
 		</PluginDocumentSettingPanel>
 	);

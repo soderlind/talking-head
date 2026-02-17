@@ -85,16 +85,9 @@ final class HeadMetaBox {
 					<label for="th-speed"><?php esc_html_e( 'Speed', 'talking-head' ); ?></label>
 				</th>
 				<td>
-					<input
-						type="number"
-						id="th-speed"
-						name="<?php echo esc_attr( HeadCPT::META_KEY_SPEED ); ?>"
-						value="<?php echo esc_attr( (string) $speed ); ?>"
-						min="0.25"
-						max="4.0"
-						step="0.05"
-						class="small-text"
-					/>
+					<input type="number" id="th-speed" name="<?php echo esc_attr( HeadCPT::META_KEY_SPEED ); ?>"
+						value="<?php echo esc_attr( (string) $speed ); ?>" min="0.25" max="4.0" step="0.05"
+						class="small-text" />
 					<p class="description">
 						<?php esc_html_e( 'Playback speed (0.25 – 4.0). Default is 1.0.', 'talking-head' ); ?>
 					</p>
@@ -102,15 +95,12 @@ final class HeadMetaBox {
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="th-speaking-style"><?php esc_html_e( 'Speaking Style / Instructions', 'talking-head' ); ?></label>
+					<label
+						for="th-speaking-style"><?php esc_html_e( 'Speaking Style / Instructions', 'talking-head' ); ?></label>
 				</th>
 				<td>
-					<textarea
-						id="th-speaking-style"
-						name="<?php echo esc_attr( HeadCPT::META_KEY_SPEAKING_STYLE ); ?>"
-						rows="4"
-						class="large-text"
-					><?php echo esc_textarea( $speaking_style ); ?></textarea>
+					<textarea id="th-speaking-style" name="<?php echo esc_attr( HeadCPT::META_KEY_SPEAKING_STYLE ); ?>" rows="4"
+						class="large-text"><?php echo esc_textarea( $speaking_style ); ?></textarea>
 					<p class="description">
 						<?php esc_html_e( 'Instructions for the TTS model (requires gpt-4o-mini-tts).', 'talking-head' ); ?>
 					</p>

@@ -47,6 +47,6 @@ it( 'labels Status and Audio columns', function () {
 
 	$result = $cpt->add_columns( $columns );
 
-	expect( $result['th_status'] )->toBe( 'Status' );
-	expect( $result['th_audio'] )->toBe( 'Audio' );
+	expect( $result[ 'th_status' ] )->toBe( 'Status' );
+	expect( $result[ 'th_audio' ] )->toBe( 'Audio' );
 } );

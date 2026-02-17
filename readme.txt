@@ -2,9 +2,9 @@
 Contributors: suspended
 Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 8.3
-Stable tag: 0.3.5
+Stable tag: 1.0.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,11 +81,10 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 == Changelog ==
 
-= 0.3.5 =
-* Housekeeping
-
-= 0.3.4 =
+= 1.0.0 =
+* Opt into new wp.components styles (`__nextHasNoMarginBottom`, `__next40pxDefaultSize`) to silence deprecation warnings
 * Upgraded @wordpress/scripts 31.0.0 → 31.4.0
+* Housekeeping
 
 = 0.3.3 =
 * Episode picker in Player block — searchable dropdown replaces manual Episode ID input
@@ -146,11 +145,8 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 == Upgrade Notice ==
 
-= 0.3.5 =
-Housekeeping.
-
-= 0.3.4 =
-Dependency maintenance: upgrades @wordpress/scripts to 31.4.0.
+= 1.0.0 =
+Fixes deprecated wp.components warnings, upgrades @wordpress/scripts to 31.4.0, and general housekeeping.
 
 = 0.3.3 =
 Player block now uses a searchable episode dropdown instead of manual ID entry. Adds Vitest JS test suite.

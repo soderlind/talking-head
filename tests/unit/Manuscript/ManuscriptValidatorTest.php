@@ -30,7 +30,7 @@ it( 'returns an error when segments are empty', function () {
 	$errors    = $validator->validate( [ 'segments' => [] ] );
 
 	expect( $errors )->toHaveCount( 1 );
-	expect( $errors[0] )->toContain( 'at least one turn' );
+	expect( $errors[ 0 ] )->toContain( 'at least one turn' );
 } );
 
 it( 'returns an error when segment count exceeds max', function () {
@@ -45,8 +45,8 @@ it( 'returns an error when segment count exceeds max', function () {
 	$errors    = $validator->validate( [ 'segments' => $segments ] );
 
 	expect( $errors )->not->toBeEmpty();
-	expect( $errors[0] )->toContain( '3' );
-	expect( $errors[0] )->toContain( '2' );
+	expect( $errors[ 0 ] )->toContain( '3' );
+	expect( $errors[ 0 ] )->toContain( '2' );
 } );
 
 it( 'returns an error when headId is missing', function () {
@@ -58,7 +58,7 @@ it( 'returns an error when headId is missing', function () {
 	] );
 
 	expect( $errors )->not->toBeEmpty();
-	expect( $errors[0] )->toContain( 'no speaker' );
+	expect( $errors[ 0 ] )->toContain( 'no speaker' );
 } );
 
 it( 'returns an error when text is empty', function () {
@@ -70,7 +70,7 @@ it( 'returns an error when text is empty', function () {
 	] );
 
 	expect( $errors )->not->toBeEmpty();
-	expect( $errors[0] )->toContain( 'no text' );
+	expect( $errors[ 0 ] )->toContain( 'no text' );
 } );
 
 it( 'returns an error when text exceeds max characters', function () {
@@ -84,7 +84,7 @@ it( 'returns an error when text exceeds max characters', function () {
 	] );
 
 	expect( $errors )->not->toBeEmpty();
-	expect( $errors[0] )->toContain( 'exceeds' );
+	expect( $errors[ 0 ] )->toContain( 'exceeds' );
 } );
 
 it( 'returns no errors for a valid manuscript', function () {

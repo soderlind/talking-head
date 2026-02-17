@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Plugin constants.
 if ( ! defined( 'TALKING_HEAD_VERSION' ) ) {
-	define( 'TALKING_HEAD_VERSION', '0.3.5' );
+	define( 'TALKING_HEAD_VERSION', '1.0.0' );
 }
 if ( ! defined( 'TALKING_HEAD_FILE' ) ) {
 	define( 'TALKING_HEAD_FILE', dirname( __DIR__, 2 ) . '/talking-head.php' );
@@ -36,7 +36,7 @@ if ( ! defined( 'TALKING_HEAD_BASENAME' ) ) {
 if ( ! class_exists( 'WP_Error' ) ) {
 	// phpcs:ignore
 	class WP_Error {
-		public $errors     = [];
+		public $errors = [];
 		public $error_data = [];
 
 		public function __construct( $code = '', $message = '', $data = '' ) {
@@ -50,14 +50,14 @@ if ( ! class_exists( 'WP_Error' ) ) {
 
 		public function get_error_code() {
 			$codes = array_keys( $this->errors );
-			return $codes[0] ?? '';
+			return $codes[ 0 ] ?? '';
 		}
 
 		public function get_error_message( $code = '' ) {
 			if ( ! $code ) {
 				$code = $this->get_error_code();
 			}
-			return $this->errors[ $code ][0] ?? '';
+			return $this->errors[ $code ][ 0 ] ?? '';
 		}
 
 		public function has_errors() {

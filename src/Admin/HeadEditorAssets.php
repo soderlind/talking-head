@@ -30,8 +30,8 @@ final class HeadEditorAssets {
 		wp_enqueue_script(
 			'talking-head-head-sidebar',
 			TALKING_HEAD_URL . 'build/head-sidebar/index.js',
-			$asset['dependencies'],
-			$asset['version'],
+			$asset[ 'dependencies' ],
+			$asset[ 'version' ],
 			true
 		);
 	}

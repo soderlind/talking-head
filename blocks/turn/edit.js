@@ -48,6 +48,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ onSelectHead }
 						className="th-turn__speaker-select"
 						__nextHasNoMarginBottom
+						__next40pxDefaultSize
 					/>
 				) : (
 					<button
