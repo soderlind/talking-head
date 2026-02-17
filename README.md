@@ -21,7 +21,6 @@ Talking Head lets you write multi-speaker conversations in the WordPress block e
 
 - WordPress 6.8+
 - PHP 8.3+
-- [Action Scheduler](https://actionscheduler.org/) plugin
 - FFmpeg installed on the server (optional — PHP fallback available)
 
 ## Installation
@@ -29,7 +28,6 @@ Talking Head lets you write multi-speaker conversations in the WordPress block e
 1. Download the latest [`talking-head.zip`](https://github.com/soderlind/talking-head/releases/latest/download/talking-head.zip).
 2. In WordPress, go to **Plugins → Add New → Upload Plugin** and upload the zip.
 3. Activate the plugin.
-4. Install and activate the Action Scheduler plugin if not already present.
 
 The plugin updates itself automatically via GitHub releases using [plugin-update-checker](https://github.com/YahnisElsts/plugin-update-checker).
 

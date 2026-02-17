@@ -27,6 +27,9 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
 }
 
+// Load bundled Action Scheduler (self-bootstraps via plugins_loaded priority 0–1).
+require __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
+
 if ( ! class_exists( \Soderlind\WordPress\GitHubUpdater::class ) ) {
 	require_once __DIR__ . '/class-github-updater.php';
 }

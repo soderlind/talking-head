@@ -39,7 +39,6 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 
 * WordPress 6.8 or higher
 * PHP 8.3 or higher
-* Action Scheduler plugin
 * FFmpeg installed on the server (optional — PHP fallback available)
 
 == Installation ==
@@ -47,8 +46,7 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 1. Download the latest [talking-head.zip](https://github.com/soderlind/talking-head/releases/latest/download/talking-head.zip)
 2. In WordPress, go to Plugins → Add New → Upload Plugin and upload the zip
 3. Activate the plugin
-4. Install and activate the Action Scheduler plugin
-5. Go to Settings > Talking Head to configure your API key and preferences
+4. Go to Settings > Talking Head to configure your API key and preferences
 
 The plugin updates itself automatically via GitHub releases.
 
@@ -64,7 +62,7 @@ No. FFmpeg is optional. Without it, the plugin uses a pure PHP fallback for stit
 
 = How does background processing work? =
 
-Audio generation runs via Action Scheduler. When you click "Generate Audio", a job is queued and processed in the background. The editor sidebar polls for progress updates every 3 seconds.
+Audio generation runs via Action Scheduler (bundled with the plugin). When you click "Generate Audio", a job is queued and processed in the background. The editor sidebar polls for progress updates every 3 seconds.
 
 = Can I set the API key without storing it in the database? =
 
