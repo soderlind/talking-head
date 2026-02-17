@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Talking Head WPCS">
+	<description>WordPress Coding Standards for Talking Head plugin.</description>
+	<file>./</file>
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>build/*</exclude-pattern>
+	<rule ref="WordPress"/>
+	<rule ref="WordPress-Docs"/>
+	<rule ref="WordPress-Extra"/>
+	<rule ref="PHPCompatibility"/>
+	<config name="testVersion" value="8.3-"/>
+	<config name="minimum_supported_wp_version" value="6.8"/>
+</ruleset>

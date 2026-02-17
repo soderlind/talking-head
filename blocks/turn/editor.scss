@@ -1,0 +1,19 @@
+.th-turn {
+	border-left: 3px solid #007cba;
+	padding: 8px 12px;
+	margin-bottom: 8px;
+	background: #fff;
+	border-radius: 2px;
+
+	&__header {
+		margin-bottom: 4px;
+	}
+
+	&__speaker-select {
+		max-width: 200px;
+	}
+
+	&__text {
+		min-height: 40px;
+	}
+}

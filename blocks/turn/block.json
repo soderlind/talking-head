@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "talking-head/turn",
+  "title": "Turn",
+  "description": "A single speaker turn in a Talking Head conversation.",
+  "category": "media",
+  "icon": "format-chat",
+  "textdomain": "talking-head",
+  "parent": ["talking-head/episode"],
+  "supports": {
+    "html": false,
+    "reusable": false
+  },
+  "attributes": {
+    "headId": {
+      "type": "number",
+      "default": 0
+    },
+    "headName": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "source": "html",
+      "selector": ".th-turn__text",
+      "default": ""
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css"
+}
