@@ -44,11 +44,13 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 
 == Installation ==
 
-1. Upload the `talking-head` folder to `/wp-content/plugins/`
-2. Run `composer install` and `npm install && npm run build` in the plugin directory
-3. Activate the plugin through the 'Plugins' menu in WordPress
+1. Download the latest [talking-head.zip](https://github.com/soderlind/talking-head/releases/latest/download/talking-head.zip)
+2. In WordPress, go to Plugins → Add New → Upload Plugin and upload the zip
+3. Activate the plugin
 4. Install and activate the Action Scheduler plugin
-5. Go to Settings > Talking Head to configure your OpenAI API key and FFmpeg path
+5. Go to Settings > Talking Head to configure your API key and preferences
+
+The plugin updates itself automatically via GitHub releases.
 
 == Frequently Asked Questions ==
 

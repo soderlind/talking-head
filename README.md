@@ -11,8 +11,9 @@ Talking Head lets you write multi-speaker conversations in the WordPress block e
 - **Episode editor** — Gutenberg blocks for writing turn-based conversations
 - **Speaker profiles** — Custom post type for managing voices and personas
 - **OpenAI TTS** — Generate speech using OpenAI's text-to-speech API (alloy, echo, fable, onyx, nova, shimmer)
+- **Azure OpenAI TTS** — Alternative provider using Azure-hosted OpenAI deployments
 - **Background processing** — Audio generation runs via Action Scheduler, with progress tracking
-- **Audio stitching** — FFmpeg-based concatenation with silence gaps and loudness normalization
+- **Audio stitching** — FFmpeg-based concatenation with silence gaps and loudness normalization, or pure PHP fallback
 - **Player block** — Embed episode playback in any post or page, with optional transcript
 - **Provider interface** — Extensible architecture for adding more TTS providers
 
@@ -21,22 +22,16 @@ Talking Head lets you write multi-speaker conversations in the WordPress block e
 - WordPress 6.8+
 - PHP 8.3+
 - [Action Scheduler](https://actionscheduler.org/) plugin
-- FFmpeg installed on the server
-- Node.js 18+ (for building blocks)
+- FFmpeg installed on the server (optional — PHP fallback available)
 
 ## Installation
 
-1. Clone or download into `wp-content/plugins/talking-head/`
-2. Install dependencies:
+1. Download the latest [`talking-head.zip`](https://github.com/soderlind/talking-head/releases/latest/download/talking-head.zip).
+2. In WordPress, go to **Plugins → Add New → Upload Plugin** and upload the zip.
+3. Activate the plugin.
+4. Install and activate the Action Scheduler plugin if not already present.
 
-```bash
-composer install
-npm install
-npm run build
-```
-
-3. Activate the plugin in WordPress admin
-4. Install and activate the Action Scheduler plugin if not already present
+The plugin updates itself automatically via GitHub releases using [plugin-update-checker](https://github.com/YahnisElsts/plugin-update-checker).
 
 ## Configuration
 
@@ -112,18 +107,23 @@ Use the **Talking Head Player** block in any post or page. Set the Episode ID an
 ## Development
 
 ```bash
-# Start development build with watch
-npm start
+composer install
+npm install
 
-# Production build
-npm run build
+npm start          # Development build with watch
+npm run build      # Production build
 
-# Lint PHP
-composer lint:php
-
-# Lint JS
-npm run lint:js
+composer test      # Run tests (Pest)
+composer lint:php  # Lint PHP (PHPCS)
+npm run lint:js    # Lint JS
 ```
+
+## GitHub Actions
+
+Two workflows ship with the plugin:
+
+- **On Release, Build release zip** — runs automatically when a release is published.
+- **Manually Build release zip** — trigger manually with a tag to create and upload `talking-head.zip` to a release.
 
 ### Architecture
 
@@ -148,3 +148,7 @@ templates/                — PHP templates (player)
 ## License
 
 GPL-2.0-or-later
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
