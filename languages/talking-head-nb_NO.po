@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Talking Head 1.2.0\n"
+"Project-Id-Version: Talking Head 1.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talking-head\n"
 "Last-Translator: Per Soderlind <per@soderlind.no>\n"
 "Language-Team: Norwegian Bokmål\n"
@@ -180,7 +180,7 @@ msgstr "FFmpeg ble ikke funnet eller er ikke kjørbar på: %s"
 
 #: src/Blocks/PlayerBlock.php:55
 #: src/Blocks/PlayerBlock.php:64
-#: blocks/player/edit.js:116
+#: blocks/player/edit.js:128
 msgid "Audio not yet generated."
 msgstr "Lyd er ikke generert ennå."
 
@@ -398,7 +398,7 @@ msgstr "Talking Head-spiller"
 msgid "Select an episode in the block settings to display the player."
 msgstr "Velg en episode i blokkinnstillingene for å vise spilleren."
 
-#: blocks/player/edit.js:127
+#: blocks/player/edit.js:139
 msgid "Episode not found"
 msgstr "Episode ikke funnet"
 
@@ -499,3 +499,9 @@ msgstr "Stopp forhåndsvisning"
 #: src/head-sidebar/head-panel.js:138
 msgid "Preview voice"
 msgstr "Forhåndsvis stemme"
+
+#. translators: %d: number of audio segments
+#: blocks/player/edit.js:119
+#, js-format
+msgid "Audio generated — %d segments (virtual stitching)"
+msgstr "Lyd generert — %d segmenter (virtuell sammenslåing)"
