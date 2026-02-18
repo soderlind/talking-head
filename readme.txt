@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 8.3
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,11 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 4. Player block on the front end
 
 == Changelog ==
+
+= 1.1.1 =
+* Fixed REST API URL detection in player for WordPress subdirectory installations
+* Moved inline settings page script to external file
+* Removed redundant download link from player (browser controls have download action)
 
 = 1.1.0 =
 * Settings page moved under Admin → Talking Head → Settings submenu
@@ -161,6 +166,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Fixes player transcript loading on subdirectory WordPress installations and removes redundant download link.
 
 = 1.1.0 =
 Settings moved under Talking Head menu, tabbed settings page, character and segment counters in editor, and Words/Segments columns on episode list.
