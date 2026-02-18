@@ -6,13 +6,28 @@ import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
 
+function getPlainTextFromHtml( html ) {
+	if ( ! html ) {
+		return '';
+	}
+
+	if ( typeof document === 'undefined' ) {
+		// Fallback: strip angle brackets if DOM is not available.
+		return html.replace( /<|>/g, '' );
+	}
+
+	const container = document.createElement( 'div' );
+	container.innerHTML = html;
+	return container.textContent || container.innerText || '';
+}
+
 export default function Edit( { attributes, setAttributes } ) {
 	const { headId, headName, text } = attributes;
 	const blockProps = useBlockProps( { className: 'th-turn' } );
 	const [ heads, setHeads ] = useState( [] );
 	const [ editing, setEditing ] = useState( headId === 0 );
 
-	const plainText = text ? text.replace( /<[^>]+>/g, '' ) : '';
+	const plainText = getPlainTextFromHtml( text );
 	const charCount = plainText.length;
 	const maxChars = window.talkingHeadSettings?.maxSegmentChars || 4096;
 	const isOverLimit = charCount > maxChars;
