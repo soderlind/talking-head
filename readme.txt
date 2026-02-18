@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 8.3
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,7 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 1. Download the latest [talking-head.zip](https://github.com/soderlind/talking-head/releases/latest/download/talking-head.zip)
 2. In WordPress, go to Plugins → Add New → Upload Plugin and upload the zip
 3. Activate the plugin
-4. Go to Settings > Talking Head to configure your API key and preferences
+4. Go to Talking Head > Settings to configure your API key and preferences
 
 The plugin updates itself automatically via GitHub releases.
 
@@ -54,7 +54,7 @@ The plugin updates itself automatically via GitHub releases.
 
 = What TTS providers are supported? =
 
-OpenAI TTS and Azure OpenAI TTS are supported, both with voices: Alloy, Echo, Fable, Onyx, Nova, and Shimmer. Choose your provider under Settings > Talking Head. Each head can also be assigned a specific provider for mixed-provider episodes.
+OpenAI TTS and Azure OpenAI TTS are supported, both with voices: Alloy, Echo, Fable, Onyx, Nova, and Shimmer. Choose your provider under Talking Head > Settings. Each head can also be assigned a specific provider for mixed-provider episodes.
 
 = Do I need FFmpeg? =
 
@@ -80,6 +80,14 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 4. Player block on the front end
 
 == Changelog ==
+
+= 1.1.0 =
+* Settings page moved under Admin → Talking Head → Settings submenu
+* 3-tab settings layout (Provider, Audio, Limits) with value preservation across tabs
+* Character counter on turn blocks (red when over limit)
+* Segment counter in episode block inspector panel
+* Segments and Words columns on the Episodes admin list table
+* Settings values injected into block editor for client-side validation
 
 = 1.0.2 =
 * i18n infrastructure with `wp i18n` toolchain (`npm run i18n`)
@@ -153,6 +161,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Settings moved under Talking Head menu, tabbed settings page, character and segment counters in editor, and Words/Segments columns on episode list.
 
 = 1.0.2 =
 Adds i18n support and Norwegian Bokmål translation.
