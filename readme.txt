@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 8.3
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,11 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 4. Player block on the front end
 
 == Changelog ==
+
+= 1.2.2 =
+* Fixed player block editor showing "Audio not yet generated" in virtual stitching mode when audio segments exist
+* Added CONFIG.md documenting all 16 configuration constants with wp-config.php examples
+* Norwegian translation for virtual stitching segment status string
 
 = 1.2.1 =
 * Voice sample preview — play/stop button next to voice selector in the Head editor (block editor and classic)
@@ -181,6 +186,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+Fixes player block editor not recognizing generated audio in virtual stitching mode. Adds CONFIG.md for configuration constants reference.
 
 = 1.2.1 =
 Adds voice sample preview in the Head editor so you can hear each voice before selecting it.

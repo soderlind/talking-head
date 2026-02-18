@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Talking Head 1.2.0\n"
+"Project-Id-Version: Talking Head 1.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talking-head\n"
 "Last-Translator: Per Soderlind <per@soderlind.no>\n"
 "Language-Team: Norwegian Bokmål\n"
