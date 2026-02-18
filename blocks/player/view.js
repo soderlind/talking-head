@@ -5,6 +5,22 @@
 document.addEventListener( 'DOMContentLoaded', () => {
 	const players = document.querySelectorAll( '.th-player' );
 
+	// Get REST API root URL from WordPress settings or derive from link tag.
+	const getRestUrl = () => {
+		if ( typeof wpApiSettings !== 'undefined' && wpApiSettings.root ) {
+			return wpApiSettings.root;
+		}
+		// Fallback: look for REST API link in head.
+		const link = document.querySelector( 'link[rel="https://api.w.org/"]' );
+		if ( link ) {
+			return link.href;
+		}
+		// Last resort: assume standard path.
+		return '/wp-json/';
+	};
+
+	const restRoot = getRestUrl();
+
 	players.forEach( ( player ) => {
 		const episodeId = player.dataset.episodeId;
 		const transcriptEl = player.querySelector(
@@ -16,7 +32,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 
 		// Fetch transcript from REST API.
-		fetch( `/wp-json/talking-head/v1/episodes/${ episodeId }/player` )
+		const apiUrl = restRoot.replace( /\/$/, '' ) + '/talking-head/v1/episodes/' + episodeId + '/player';
+		fetch( apiUrl )
 			.then( ( response ) => response.json() )
 			.then( ( data ) => {
 				if ( ! data.transcript || data.transcript.length === 0 ) {

@@ -98,7 +98,7 @@ Progress is shown in the sidebar via polling.
 
 ### 4. Embed the Player
 
-Use the **Talking Head Player** block in any post or page. Select an episode from the searchable dropdown and optionally enable transcript display. The block renders a native `<audio>` element with a download link.
+Use the **Talking Head Player** block in any post or page. Select an episode from the searchable dropdown and optionally enable transcript display. The block renders a native `<audio>` element.
 
 ## Development
 
