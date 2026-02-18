@@ -34,5 +34,11 @@ final class HeadEditorAssets {
 			$asset[ 'version' ],
 			true
 		);
+
+		wp_set_script_translations(
+			'talking-head-head-sidebar',
+			'talking-head',
+			TALKING_HEAD_DIR . 'languages'
+		);
 	}
 }

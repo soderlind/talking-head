@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.2] - 2026-02-18
+
+### Added
+
+- Internationalization (i18n) infrastructure with `wp i18n` toolchain (`npm run i18n`)
+- Norwegian Bokmål (nb_NO) translation
+- `wp_set_script_translations()` for the head-sidebar editor script
+- `i18n-map.json` mapping source JS files to webpack build output
+
 ## [1.0.1] - 2026-02-18
 
 ### Fixed

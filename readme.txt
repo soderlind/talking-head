@@ -1,10 +1,10 @@
 === Talking Head ===
-Contributors: suspended
+Contributors: PerS
 Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 8.3
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,11 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 == Changelog ==
 
+= 1.0.2 =
+* i18n infrastructure with `wp i18n` toolchain (`npm run i18n`)
+* Norwegian Bokmål (nb_NO) translation
+* Script translations for head-sidebar editor script
+
 = 1.0.1 =
 * Exclude dev files (bin/, blocks/ source, webpack.config.js) from release zip
 * Remove non-functional negation patterns from zip exclusions
@@ -148,6 +153,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Adds i18n support and Norwegian Bokmål translation.
 
 = 1.0.1 =
 Removes unnecessary dev files from the release zip.

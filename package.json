@@ -1,6 +1,6 @@
 {
 	"name": "talking-head",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"private": true,
 	"description": "AI-generated podcast-style audio WordPress plugin.",
 	"author": "Per Soderlind",
@@ -15,7 +15,13 @@
 		"test:js:watch": "vitest",
 		"lint:js": "wp-scripts lint-js .",
 		"lint:css": "wp-scripts lint-style .",
-		"lint:pkg": "wp-scripts lint-pkg-json"
+		"lint:pkg": "wp-scripts lint-pkg-json",
+		"i18n": "npm run i18n:make-pot && npm run i18n:update-po && npm run i18n:make-mo && npm run i18n:make-json && npm run i18n:make-php",
+		"i18n:make-pot": "wp i18n make-pot . languages/talking-head.pot --exclude=node_modules,vendor,tests,build --domain=talking-head",
+		"i18n:update-po": "wp i18n update-po languages/talking-head.pot languages/",
+		"i18n:make-mo": "wp i18n make-mo languages/",
+		"i18n:make-json": "wp i18n make-json languages/ --no-purge --use-map=i18n-map.json",
+		"i18n:make-php": "wp i18n make-php languages/"
 	},
 	"devDependencies": {
 		"@testing-library/jest-dom": "^6.9.1",
