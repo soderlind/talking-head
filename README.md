@@ -46,36 +46,29 @@ The plugin updates itself automatically via GitHub releases using [plugin-update
 
 Go to **Talking Head > Settings** and configure. The settings page has three tabs:
 
-#### Provider
-
-| Setting | Description |
-|---------|-------------|
-| TTS Provider | `OpenAI` or `Azure OpenAI` |
-| Default Voice | Default voice for new speaker profiles |
-| OpenAI API Key | Your OpenAI API key for TTS |
-| TTS Model | `tts-1` (standard), `tts-1-hd` (high quality), or `gpt-4o-mini-tts` (supports instructions) |
-| Azure OpenAI API Key | Your Azure OpenAI API key |
-| Azure OpenAI Endpoint | Azure resource endpoint URL |
-| Azure OpenAI Deployment ID | Name of your TTS deployment |
-| Azure OpenAI API Version | API version string |
-
-#### Audio
-
-| Setting | Description |
-|---------|-------------|
-| Stitching Mode | File (concatenate on server) or Virtual (serve segments individually) |
-| FFmpeg Path | Absolute path to the FFmpeg binary (optional — PHP fallback if not found) |
-| Output Format | MP3 or AAC |
-| Output Bitrate | 128k / 192k / 256k / 320k |
-| Silence Gap | Milliseconds of silence between turns |
-
-#### Limits
-
-| Setting | Description |
-|---------|-------------|
-| Max Segments | Maximum turns per episode (1–200) |
-| Max Characters | Maximum text length per turn (100–4096) |
-| Rate Limit | API requests per minute (1–60) |
+<table>
+<thead>
+<tr><th>Tab</th><th>Setting</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td rowspan="8"><strong>Provider</strong></td><td>TTS Provider</td><td><code>OpenAI</code> or <code>Azure OpenAI</code></td></tr>
+<tr><td>Default Voice</td><td>Default voice for new speaker profiles</td></tr>
+<tr><td>OpenAI API Key</td><td>Your OpenAI API key for TTS</td></tr>
+<tr><td>TTS Model</td><td><code>tts-1</code> (standard), <code>tts-1-hd</code> (high quality), or <code>gpt-4o-mini-tts</code> (supports instructions)</td></tr>
+<tr><td>Azure OpenAI API Key</td><td>Your Azure OpenAI API key</td></tr>
+<tr><td>Azure OpenAI Endpoint</td><td>Azure resource endpoint URL</td></tr>
+<tr><td>Azure OpenAI Deployment ID</td><td>Name of your TTS deployment</td></tr>
+<tr><td>Azure OpenAI API Version</td><td>API version string</td></tr>
+<tr><td rowspan="5"><strong>Audio</strong></td><td>Stitching Mode</td><td>File (concatenate on server) or Virtual (serve segments individually)</td></tr>
+<tr><td>FFmpeg Path</td><td>Absolute path to the FFmpeg binary (optional — PHP fallback if not found)</td></tr>
+<tr><td>Output Format</td><td>MP3 or AAC</td></tr>
+<tr><td>Output Bitrate</td><td>128k / 192k / 256k / 320k</td></tr>
+<tr><td>Silence Gap</td><td>Milliseconds of silence between turns</td></tr>
+<tr><td rowspan="3"><strong>Limits</strong></td><td>Max Segments</td><td>Maximum turns per episode (1–200)</td></tr>
+<tr><td>Max Characters</td><td>Maximum text length per turn (100–4096)</td></tr>
+<tr><td>Rate Limit</td><td>API requests per minute (1–60)</td></tr>
+</tbody>
+</table>
 
 Settings can also be set via constants in `wp-config.php` (highest priority) or environment variables. See [CONFIG.md](CONFIG.md) for the full list of 16 constants.
 
