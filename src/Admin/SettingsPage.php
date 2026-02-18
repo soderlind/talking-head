@@ -455,7 +455,7 @@ final class SettingsPage {
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'provider';
+		$active_tab = isset( $_GET[ 'tab' ] ) ? sanitize_key( $_GET[ 'tab' ] ) : 'provider';
 		if ( ! isset( self::TABS[ $active_tab ] ) ) {
 			$active_tab = 'provider';
 		}
@@ -493,7 +493,7 @@ final class SettingsPage {
 			$this->render_section( 'th_azure_openai' );
 			echo '</div>';
 		} else {
-			foreach ( self::TABS[ $active_tab ]['sections'] as $section_id ) {
+			foreach ( self::TABS[ $active_tab ][ 'sections' ] as $section_id ) {
 				$this->render_section( $section_id );
 			}
 		}
@@ -503,7 +503,7 @@ final class SettingsPage {
 			if ( $slug === $active_tab ) {
 				continue;
 			}
-			foreach ( $tab['keys'] as $key ) {
+			foreach ( $tab[ 'keys' ] as $key ) {
 				if ( self::is_locked( $key ) ) {
 					continue;
 				}
