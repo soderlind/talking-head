@@ -1,0 +1,14 @@
+{
+	"blocks/episode/index.js": "build/blocks/episode/index.js",
+	"blocks/episode/edit.js": "build/blocks/episode/index.js",
+	"blocks/episode/save.js": "build/blocks/episode/index.js",
+	"blocks/turn/index.js": "build/blocks/turn/index.js",
+	"blocks/turn/edit.js": "build/blocks/turn/index.js",
+	"blocks/turn/save.js": "build/blocks/turn/index.js",
+	"blocks/player/index.js": "build/blocks/player/index.js",
+	"blocks/player/edit.js": "build/blocks/player/index.js",
+	"blocks/player/save.js": "build/blocks/player/index.js",
+	"blocks/player/view.js": "build/blocks/player/view.js",
+	"src/head-sidebar/index.js": "build/head-sidebar/index.js",
+	"src/head-sidebar/head-panel.js": "build/head-sidebar/index.js"
+}

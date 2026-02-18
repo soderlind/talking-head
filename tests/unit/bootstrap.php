@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Plugin constants.
 if ( ! defined( 'TALKING_HEAD_VERSION' ) ) {
-	define( 'TALKING_HEAD_VERSION', '1.0.1' );
+	define( 'TALKING_HEAD_VERSION', '1.0.2' );
 }
 if ( ! defined( 'TALKING_HEAD_FILE' ) ) {
 	define( 'TALKING_HEAD_FILE', dirname( __DIR__, 2 ) . '/talking-head.php' );
