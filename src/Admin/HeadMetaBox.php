@@ -30,6 +30,33 @@ final class HeadMetaBox {
 	public function register(): void {
 		add_action( 'add_meta_boxes_' . HeadCPT::POST_TYPE, [ $this, 'add_meta_box' ] );
 		add_action( 'save_post_' . HeadCPT::POST_TYPE, [ $this, 'save' ], 10, 2 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_preview_script' ] );
+	}
+
+	public function enqueue_preview_script(): void {
+		$screen = get_current_screen();
+		if ( ! $screen || $screen->post_type !== HeadCPT::POST_TYPE ) {
+			return;
+		}
+
+		// Skip in block editor — the sidebar JS handles preview there.
+		if ( $screen->is_block_editor() ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'talking-head-voice-preview',
+			TALKING_HEAD_URL . 'src/Admin/voice-preview.js',
+			[],
+			filemtime( TALKING_HEAD_DIR . 'src/Admin/voice-preview.js' ),
+			true
+		);
+
+		wp_localize_script(
+			'talking-head-voice-preview',
+			'talkingHeadVoiceSamples',
+			HeadEditorAssets::voice_sample_urls()
+		);
 	}
 
 	public function add_meta_box(): void {

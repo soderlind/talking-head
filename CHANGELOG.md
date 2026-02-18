@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.1] - 2026-02-19
+
+### Added
+
+- Voice sample preview — play/stop button next to voice selector in the Head editor (block editor sidebar and classic meta box)
+- Bundled MP3 voice samples for all six voices (alloy, echo, fable, onyx, nova, shimmer)
+- Voice sample generation script (`bin/generate-voice-samples.sh`) supporting both OpenAI and Azure OpenAI
+- Norwegian translations for virtual stitching and voice preview strings
+
 ## [1.2.0] - 2026-02-18
 
 ### Added
