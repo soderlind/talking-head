@@ -6,7 +6,7 @@ import {
 	Placeholder,
 	Spinner,
 } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useState, useEffect, useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
@@ -111,6 +111,18 @@ export default function Edit( { attributes, setAttributes } ) {
 								src={ episode.audioUrl }
 								style={ { width: '100%' } }
 							/>
+						) : episode.stitchingMode === 'virtual' &&
+						  episode.segments?.length > 0 ? (
+							<p>
+								{ sprintf(
+									/* translators: %d: number of audio segments */
+									__(
+										'Audio generated — %d segments (virtual stitching)',
+										'talking-head'
+									),
+									episode.segments.length
+								) }
+							</p>
 						) : (
 							<p>
 								{ __(

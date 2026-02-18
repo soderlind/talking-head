@@ -33,3 +33,8 @@ export function Placeholder( { label, instructions, children } ) {
 export function Spinner() {
 	return React.createElement( 'div', { 'data-testid': 'Spinner' } );
 }
+
+export const Button = passThrough( 'Button' );
+export const Flex = passThrough( 'Flex' );
+export const FlexBlock = passThrough( 'FlexBlock' );
+export const FlexItem = passThrough( 'FlexItem' );

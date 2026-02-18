@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-18T22:18:04+00:00\n"
+"POT-Creation-Date: 2026-02-18T22:50:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talking-head\n"
@@ -205,7 +205,7 @@ msgstr ""
 
 #: src/Blocks/PlayerBlock.php:55
 #: src/Blocks/PlayerBlock.php:64
-#: blocks/player/edit.js:116
+#: blocks/player/edit.js:128
 msgid "Audio not yet generated."
 msgstr ""
 
@@ -430,7 +430,13 @@ msgstr ""
 msgid "Select an episode in the block settings to display the player."
 msgstr ""
 
-#: blocks/player/edit.js:127
+#. translators: %d: number of audio segments
+#: blocks/player/edit.js:119
+#, js-format
+msgid "Audio generated — %d segments (virtual stitching)"
+msgstr ""
+
+#: blocks/player/edit.js:139
 msgid "Episode not found"
 msgstr ""
 
