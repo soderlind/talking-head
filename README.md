@@ -6,7 +6,7 @@ AI-generated podcast-style audio from turn-based conversations in WordPress.
 <p align="center">
   <video controls width="1280" src="https://github.com/user-attachments/assets/6827fa13-2061-4481-a87b-431331004617"></video>
 </p>
-<p align="center"><i>No point watching without audio on</i></p>
+<p align="center"><i>No point watching without audio</i></p>
 
 
 
