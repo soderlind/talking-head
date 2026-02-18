@@ -92,6 +92,7 @@ final class SettingsPage {
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'add_menu' ] );
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 
 	/**
@@ -157,6 +158,23 @@ final class SettingsPage {
 			'manage_options',
 			self::PAGE_SLUG,
 			[ $this, 'render_page' ]
+		);
+	}
+
+	/**
+	 * Enqueue settings page scripts.
+	 */
+	public function enqueue_scripts( string $hook ): void {
+		if ( 'talking_head_episode_page_' . self::PAGE_SLUG !== $hook ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'talking-head-settings',
+			plugins_url( 'src/Admin/settings-page.js', TALKING_HEAD_FILE ),
+			[],
+			TALKING_HEAD_VERSION,
+			true
 		);
 	}
 
@@ -500,10 +518,6 @@ final class SettingsPage {
 		submit_button();
 		echo '</form>';
 		echo '</div>';
-
-		if ( $active_tab === 'provider' ) {
-			$this->render_toggle_script();
-		}
 	}
 
 	/**
@@ -532,31 +546,5 @@ final class SettingsPage {
 		echo '<table class="form-table" role="presentation">';
 		do_settings_fields( self::PAGE_SLUG, $section_id );
 		echo '</table>';
-	}
-
-	/**
-	 * Inline JS to toggle provider sections based on the selector value.
-	 */
-	private function render_toggle_script(): void {
-		?>
-		<script>
-			(function () {
-				var select = document.querySelector('select[name="talking_head_options[tts_provider]"]');
-				var openai = document.getElementById('th-section-openai');
-				var azure = document.getElementById('th-section-azure-openai');
-
-				if (!select || !openai || !azure) return;
-
-				function toggle() {
-					var val = select.value;
-					openai.style.display = val === 'openai' ? '' : 'none';
-					azure.style.display = val === 'azure_openai' ? '' : 'none';
-				}
-
-				select.addEventListener('change', toggle);
-				toggle();
-			})();
-		</script>
-		<?php
 	}
 }
