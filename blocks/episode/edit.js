@@ -25,7 +25,7 @@ export default function Edit( { clientId } ) {
 	const [ jobStatus, setJobStatus ] = useState( null );
 	const pollRef = useRef( null );
 
-	const { isSelected, hasChildSelected, hasInnerBlocks } = useSelect(
+	const { isSelected, hasChildSelected, hasInnerBlocks, blockCount } = useSelect(
 		( select ) => {
 			const { isBlockSelected, hasSelectedInnerBlock, getBlockCount } =
 				select( 'core/block-editor' );
@@ -33,10 +33,14 @@ export default function Edit( { clientId } ) {
 				isSelected: isBlockSelected( clientId ),
 				hasChildSelected: hasSelectedInnerBlock( clientId, true ),
 				hasInnerBlocks: getBlockCount( clientId ) > 0,
+				blockCount: getBlockCount( clientId ),
 			};
 		},
 		[ clientId ]
 	);
+
+	const maxSegments = window.talkingHeadSettings?.maxSegments || 50;
+	const segmentsOver = blockCount > maxSegments;
 
 	const postId = useSelect(
 		( select ) => select( 'core/editor' ).getCurrentPostId(),
@@ -156,6 +160,14 @@ export default function Edit( { clientId } ) {
 							{ __( 'Status:', 'talking-head' ) }
 						</strong>{ ' ' }
 						{ episodeStatus }
+					</p>
+					<p>
+						<strong>
+							{ __( 'Segments:', 'talking-head' ) }
+						</strong>{ ' ' }
+						<span className={ segmentsOver ? 'th-episode__count--over' : '' }>
+							{ blockCount } / { maxSegments }
+						</span>
 					</p>
 					{ audioUrl && (
 						<audio

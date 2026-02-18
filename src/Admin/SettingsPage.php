@@ -150,9 +150,10 @@ final class SettingsPage {
 	}
 
 	public function add_menu(): void {
-		add_options_page(
+		add_submenu_page(
+			'edit.php?post_type=talking_head_episode',
 			__( 'Talking Head Settings', 'talking-head' ),
-			__( 'Talking Head', 'talking-head' ),
+			__( 'Settings', 'talking-head' ),
 			'manage_options',
 			self::PAGE_SLUG,
 			[ $this, 'render_page' ]
@@ -402,37 +403,107 @@ final class SettingsPage {
 		return $sanitized;
 	}
 
+	private const TABS = [
+		'provider' => [
+			'sections' => [ 'th_provider', 'th_openai', 'th_azure_openai' ],
+			'keys'     => [
+				'tts_provider', 'default_voice',
+				'openai_api_key', 'openai_tts_model',
+				'azure_openai_endpoint', 'azure_openai_api_key',
+				'azure_openai_deployment_id', 'azure_openai_api_version',
+			],
+		],
+		'audio'    => [
+			'sections' => [ 'th_audio' ],
+			'keys'     => [ 'ffmpeg_path', 'output_format', 'output_bitrate', 'silence_gap_ms' ],
+		],
+		'limits'   => [
+			'sections' => [ 'th_limits' ],
+			'keys'     => [ 'max_segments', 'max_segment_chars', 'rate_limit_per_min' ],
+		],
+	];
+
+	private static function tab_labels(): array {
+		return [
+			'provider' => __( 'Provider', 'talking-head' ),
+			'audio'    => __( 'Audio', 'talking-head' ),
+			'limits'   => __( 'Limits', 'talking-head' ),
+		];
+	}
+
 	public function render_page(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'provider';
+		if ( ! isset( self::TABS[ $active_tab ] ) ) {
+			$active_tab = 'provider';
+		}
+
+		$base_url = admin_url( 'edit.php?post_type=talking_head_episode&page=' . self::PAGE_SLUG );
+
 		echo '<div class="wrap">';
 		printf( '<h1>%s</h1>', esc_html( get_admin_page_title() ) );
+
+		// Nav tabs.
+		$tab_labels = self::tab_labels();
+		echo '<nav class="nav-tab-wrapper">';
+		foreach ( self::TABS as $slug => $tab ) {
+			$url   = add_query_arg( 'tab', $slug, $base_url );
+			$class = ( $slug === $active_tab ) ? 'nav-tab nav-tab-active' : 'nav-tab';
+			printf(
+				'<a href="%s" class="%s">%s</a>',
+				esc_url( $url ),
+				esc_attr( $class ),
+				esc_html( $tab_labels[ $slug ] )
+			);
+		}
+		echo '</nav>';
+
 		echo '<form action="options.php" method="post">';
 		settings_fields( self::PAGE_SLUG );
 
-		// Render TTS Provider section (always visible).
-		$this->render_section( 'th_provider' );
+		// Render sections for the active tab.
+		if ( $active_tab === 'provider' ) {
+			$this->render_section( 'th_provider' );
+			echo '<div id="th-section-openai" class="th-provider-section">';
+			$this->render_section( 'th_openai' );
+			echo '</div>';
+			echo '<div id="th-section-azure-openai" class="th-provider-section">';
+			$this->render_section( 'th_azure_openai' );
+			echo '</div>';
+		} else {
+			foreach ( self::TABS[ $active_tab ]['sections'] as $section_id ) {
+				$this->render_section( $section_id );
+			}
+		}
 
-		// Render provider-specific sections inside wrapper divs.
-		echo '<div id="th-section-openai" class="th-provider-section">';
-		$this->render_section( 'th_openai' );
-		echo '</div>';
-
-		echo '<div id="th-section-azure-openai" class="th-provider-section">';
-		$this->render_section( 'th_azure_openai' );
-		echo '</div>';
-
-		// Render remaining sections (always visible).
-		$this->render_section( 'th_audio' );
-		$this->render_section( 'th_limits' );
+		// Render hidden fields for inactive tabs so their values are preserved.
+		foreach ( self::TABS as $slug => $tab ) {
+			if ( $slug === $active_tab ) {
+				continue;
+			}
+			foreach ( $tab['keys'] as $key ) {
+				if ( self::is_locked( $key ) ) {
+					continue;
+				}
+				printf(
+					'<input type="hidden" name="%s" value="%s" />',
+					esc_attr( self::OPTION_NAME . '[' . $key . ']' ),
+					esc_attr( self::get( $key ) )
+				);
+			}
+		}
 
 		submit_button();
 		echo '</form>';
 		echo '</div>';
 
-		$this->render_toggle_script();
+		if ( $active_tab === 'provider' ) {
+			$this->render_toggle_script();
+		}
 	}
 
 	/**

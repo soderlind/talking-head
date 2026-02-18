@@ -66,6 +66,11 @@
 		padding: 12px;
 	}
 
+	&__count--over {
+		color: #d63638;
+		font-weight: 600;
+	}
+
 	// Selection states.
 	&.is-selected,
 	&.has-child-selected {

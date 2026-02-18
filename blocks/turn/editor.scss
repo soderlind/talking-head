@@ -41,4 +41,17 @@
 	&__text {
 		min-height: 40px;
 	}
+
+	&__char-count {
+		display: block;
+		text-align: right;
+		font-size: 11px;
+		color: #757575;
+		margin-top: 2px;
+
+		&--over {
+			color: #d63638;
+			font-weight: 600;
+		}
+	}
 }

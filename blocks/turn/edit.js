@@ -12,6 +12,11 @@ export default function Edit( { attributes, setAttributes } ) {
 	const [ heads, setHeads ] = useState( [] );
 	const [ editing, setEditing ] = useState( headId === 0 );
 
+	const plainText = text ? text.replace( /<[^>]+>/g, '' ) : '';
+	const charCount = plainText.length;
+	const maxChars = window.talkingHeadSettings?.maxSegmentChars || 4096;
+	const isOverLimit = charCount > maxChars;
+
 	useEffect( () => {
 		wp.apiFetch( { path: '/talking-head/v1/heads' } )
 			.then( ( data ) => setHeads( data ) )
@@ -73,6 +78,9 @@ export default function Edit( { attributes, setAttributes } ) {
 				) }
 				allowedFormats={ [ 'core/bold', 'core/italic' ] }
 			/>
+			<span className={ `th-turn__char-count${ isOverLimit ? ' th-turn__char-count--over' : '' }` }>
+				{ charCount } / { maxChars }
+			</span>
 		</div>
 	);
 }

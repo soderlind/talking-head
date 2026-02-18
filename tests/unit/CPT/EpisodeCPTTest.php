@@ -22,7 +22,7 @@ it( 'inserts th_status and th_audio after title', function () {
 	$result = $cpt->add_columns( $columns );
 	$keys   = array_keys( $result );
 
-	expect( $keys )->toBe( [ 'cb', 'title', 'th_status', 'th_audio', 'date' ] );
+	expect( $keys )->toBe( [ 'cb', 'title', 'th_status', 'th_audio', 'th_segments', 'th_words', 'date' ] );
 } );
 
 it( 'preserves existing columns in order', function () {
@@ -38,7 +38,7 @@ it( 'preserves existing columns in order', function () {
 	$result = $cpt->add_columns( $columns );
 	$keys   = array_keys( $result );
 
-	expect( $keys )->toBe( [ 'cb', 'title', 'th_status', 'th_audio', 'author', 'taxonomy', 'date' ] );
+	expect( $keys )->toBe( [ 'cb', 'title', 'th_status', 'th_audio', 'th_segments', 'th_words', 'author', 'taxonomy', 'date' ] );
 } );
 
 it( 'labels Status and Audio columns', function () {
@@ -49,4 +49,6 @@ it( 'labels Status and Audio columns', function () {
 
 	expect( $result[ 'th_status' ] )->toBe( 'Status' );
 	expect( $result[ 'th_audio' ] )->toBe( 'Audio' );
+	expect( $result[ 'th_segments' ] )->toBe( 'Segments' );
+	expect( $result[ 'th_words' ] )->toBe( 'Words' );
 } );

@@ -43,7 +43,7 @@ The plugin updates itself automatically via GitHub releases using [plugin-update
 
 ## Configuration
 
-Go to **Settings > Talking Head** and configure:
+Go to **Talking Head > Settings** and configure:
 
 | Setting | Description |
 |---------|-------------|

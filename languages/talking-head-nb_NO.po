@@ -16,7 +16,6 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: talking-head.php
-#: src/Admin/SettingsPage.php:155
 msgid "Talking Head"
 msgstr "Talking Head"
 
@@ -46,7 +45,8 @@ msgid "Voice"
 msgstr "Stemme"
 
 #: src/Admin/HeadMetaBox.php:71
-#: src/Admin/SettingsPage.php:185
+#: src/Admin/SettingsPage.php:186
+#: src/Admin/SettingsPage.php:428
 #: src/head-sidebar/head-panel.js:59
 msgid "Provider"
 msgstr "Leverandør"
@@ -70,109 +70,110 @@ msgstr "Talestil / Instruksjoner"
 msgid "Instructions for the TTS model (requires gpt-4o-mini-tts)."
 msgstr "Instruksjoner for TTS-modellen (krever gpt-4o-mini-tts)."
 
-#: src/Admin/SettingsPage.php:154
+#: src/Admin/SettingsPage.php:155
 msgid "Talking Head Settings"
 msgstr "Talking Head-innstillinger"
 
-#: src/Admin/SettingsPage.php:175
+#: src/Admin/SettingsPage.php:176
 msgid "TTS Provider"
 msgstr "TTS-leverandør"
 
-#: src/Admin/SettingsPage.php:178
+#: src/Admin/SettingsPage.php:179
 msgid "Select which text-to-speech provider to use."
 msgstr "Velg hvilken tekst-til-tale-leverandør som skal brukes."
 
-#: src/Admin/SettingsPage.php:195
+#: src/Admin/SettingsPage.php:196
 msgid "Default Voice"
 msgstr "Standardstemme"
 
-#: src/Admin/SettingsPage.php:211
+#: src/Admin/SettingsPage.php:212
 msgid "OpenAI"
 msgstr "OpenAI"
 
-#: src/Admin/SettingsPage.php:214
+#: src/Admin/SettingsPage.php:215
 msgid "Configure your OpenAI API credentials."
 msgstr "Konfigurer OpenAI API-legitimasjonen din."
 
-#: src/Admin/SettingsPage.php:219
-#: src/Admin/SettingsPage.php:244
+#: src/Admin/SettingsPage.php:220
+#: src/Admin/SettingsPage.php:245
 msgid "API Key"
 msgstr "API-nøkkel"
 
-#: src/Admin/SettingsPage.php:222
+#: src/Admin/SettingsPage.php:223
 msgid "TTS Model"
 msgstr "TTS-modell"
 
-#: src/Admin/SettingsPage.php:235
+#: src/Admin/SettingsPage.php:236
 msgid "Azure OpenAI"
 msgstr "Azure OpenAI"
 
-#: src/Admin/SettingsPage.php:238
+#: src/Admin/SettingsPage.php:239
 msgid "Configure your Azure OpenAI API credentials."
 msgstr "Konfigurer Azure OpenAI API-legitimasjonen din."
 
-#: src/Admin/SettingsPage.php:243
+#: src/Admin/SettingsPage.php:244
 msgid "Endpoint"
 msgstr "Endepunkt"
 
-#: src/Admin/SettingsPage.php:245
+#: src/Admin/SettingsPage.php:246
 msgid "Deployment ID"
 msgstr "Distribusjons-ID"
 
-#: src/Admin/SettingsPage.php:246
+#: src/Admin/SettingsPage.php:247
 msgid "API Version"
 msgstr "API-versjon"
 
-#: src/Admin/SettingsPage.php:251
+#: src/Admin/SettingsPage.php:252
 msgid "Audio Processing"
 msgstr "Lydbehandling"
 
-#: src/Admin/SettingsPage.php:254
+#: src/Admin/SettingsPage.php:255
 msgid "Configure audio output settings. FFmpeg is optional — without it, audio stitching uses a PHP fallback (no loudness normalization or format conversion)."
 msgstr "Konfigurer lydinnstillinger. FFmpeg er valgfritt — uten det bruker lydsammenslåing en PHP-reserve (ingen volumnormalisering eller formatkonvertering)."
 
-#: src/Admin/SettingsPage.php:259
+#: src/Admin/SettingsPage.php:260
 msgid "FFmpeg Path"
 msgstr "FFmpeg-sti"
 
-#: src/Admin/SettingsPage.php:262
+#: src/Admin/SettingsPage.php:263
 msgid "Output Format"
 msgstr "Utdataformat"
 
-#: src/Admin/SettingsPage.php:272
+#: src/Admin/SettingsPage.php:273
 msgid "Output Bitrate"
 msgstr "Utdata-bitrate"
 
-#: src/Admin/SettingsPage.php:282
+#: src/Admin/SettingsPage.php:283
 msgid "Silence Gap (ms)"
 msgstr "Stillhetspause (ms)"
 
-#: src/Admin/SettingsPage.php:287
+#: src/Admin/SettingsPage.php:288
+#: src/Admin/SettingsPage.php:430
 msgid "Limits"
 msgstr "Begrensninger"
 
-#: src/Admin/SettingsPage.php:290
+#: src/Admin/SettingsPage.php:291
 msgid "Configure rate limits and content constraints."
 msgstr "Konfigurer hastighetsbegrensninger og innholdsbegrensninger."
 
-#: src/Admin/SettingsPage.php:295
+#: src/Admin/SettingsPage.php:296
 msgid "Max Segments per Episode"
 msgstr "Maks segmenter per episode"
 
-#: src/Admin/SettingsPage.php:296
+#: src/Admin/SettingsPage.php:297
 msgid "Max Characters per Segment"
 msgstr "Maks tegn per segment"
 
-#: src/Admin/SettingsPage.php:297
+#: src/Admin/SettingsPage.php:298
 msgid "API Requests per Minute"
 msgstr "API-forespørsler per minutt"
 
-#: src/Admin/SettingsPage.php:319
+#: src/Admin/SettingsPage.php:320
 msgid "Locked by constant or environment variable."
 msgstr "Låst av konstant eller miljøvariabel."
 
 #. translators: %s: file path
-#: src/Admin/SettingsPage.php:378
+#: src/Admin/SettingsPage.php:379
 #, php-format
 msgid "FFmpeg not found or not executable at: %s"
 msgstr "FFmpeg ble ikke funnet eller er ikke kjørbar på: %s"
@@ -234,6 +235,7 @@ msgstr "Ingen episoder funnet i papirkurven."
 msgid "Status"
 msgstr "Status"
 
+#: src/Admin/SettingsPage.php:429
 #: src/CPT/EpisodeCPT.php:131
 msgid "Audio"
 msgstr "Lyd"
@@ -348,33 +350,33 @@ msgstr "Nettleseren din støtter ikke lydelementet."
 msgid "Download"
 msgstr "Last ned"
 
-#: blocks/episode/edit.js:141
+#: blocks/episode/edit.js:145
 msgid "Generate Audio"
 msgstr "Generer lyd"
 
-#: blocks/episode/edit.js:151
-#: blocks/episode/edit.js:201
+#: blocks/episode/edit.js:155
+#: blocks/episode/edit.js:213
 #: blocks/player/edit.js:63
 msgid "Episode"
 msgstr "Episode"
 
-#: blocks/episode/edit.js:156
+#: blocks/episode/edit.js:160
 msgid "Status:"
 msgstr "Status:"
 
-#: blocks/episode/edit.js:169
+#: blocks/episode/edit.js:181
 msgid "Queued — waiting for processing..."
 msgstr "I kø — venter på behandling ..."
 
-#: blocks/episode/edit.js:174
+#: blocks/episode/edit.js:186
 msgid "Generating..."
 msgstr "Genererer ..."
 
-#: blocks/episode/edit.js:181
+#: blocks/episode/edit.js:193
 msgid "Generation failed."
 msgstr "Generering mislyktes."
 
-#: blocks/episode/edit.js:189
+#: blocks/episode/edit.js:201
 msgid "Audio generated successfully!"
 msgstr "Lyd generert!"
 
@@ -402,11 +404,11 @@ msgstr "Velg en episode i blokkinnstillingene for å vise spilleren."
 msgid "Episode not found"
 msgstr "Episode ikke funnet"
 
-#: blocks/turn/edit.js:23
+#: blocks/turn/edit.js:28
 msgid "-- Select Speaker --"
 msgstr "-- Velg taler --"
 
-#: blocks/turn/edit.js:70
+#: blocks/turn/edit.js:75
 msgid "Enter dialogue..."
 msgstr "Skriv dialog ..."
 
@@ -459,3 +461,19 @@ msgstr "Replikk"
 msgctxt "block description"
 msgid "A single speaker turn in a Talking Head conversation."
 msgstr "En enkelt talerreplikk i en Talking Head-samtale."
+
+#: src/Admin/SettingsPage.php:156
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: src/CPT/EpisodeCPT.php:132
+msgid "Segments"
+msgstr "Segmenter"
+
+#: src/CPT/EpisodeCPT.php:133
+msgid "Words"
+msgstr "Ord"
+
+#: blocks/episode/edit.js:166
+msgid "Segments:"
+msgstr "Segmenter:"

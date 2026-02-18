@@ -127,8 +127,10 @@ final class EpisodeCPT {
 		foreach ( $columns as $key => $label ) {
 			$new[ $key ] = $label;
 			if ( $key === 'title' ) {
-				$new['th_status'] = __( 'Status', 'talking-head' );
-				$new['th_audio']  = __( 'Audio', 'talking-head' );
+				$new['th_status']   = __( 'Status', 'talking-head' );
+				$new['th_audio']    = __( 'Audio', 'talking-head' );
+				$new['th_segments'] = __( 'Segments', 'talking-head' );
+				$new['th_words']    = __( 'Words', 'talking-head' );
 			}
 		}
 		return $new;
@@ -159,6 +161,37 @@ final class EpisodeCPT {
 				echo '&mdash;';
 			}
 		}
+
+		if ( $column === 'th_segments' || $column === 'th_words' ) {
+			$post = get_post( $post_id );
+			if ( ! $post ) {
+				echo '&mdash;';
+				return;
+			}
+
+			$blocks     = parse_blocks( $post->post_content );
+			$turn_texts = [];
+
+			foreach ( $blocks as $block ) {
+				if ( ( $block['blockName'] ?? '' ) === 'talking-head/episode' ) {
+					foreach ( $block['innerBlocks'] ?? [] as $inner ) {
+						if ( ( $inner['blockName'] ?? '' ) === 'talking-head/turn' ) {
+							$turn_texts[] = wp_strip_all_tags( $inner['attrs']['text'] ?? '' );
+						}
+					}
+				}
+			}
+
+			if ( $column === 'th_segments' ) {
+				echo esc_html( (string) count( $turn_texts ) );
+			}
+
+			if ( $column === 'th_words' ) {
+				$all_text   = implode( ' ', $turn_texts );
+				$word_count = str_word_count( $all_text );
+				echo esc_html( (string) $word_count );
+			}
+		}
 	}
 
 	/**
@@ -173,6 +206,8 @@ final class EpisodeCPT {
 		<style>
 			.column-th_status { width: 90px; }
 			.column-th_audio  { width: 220px; }
+			.column-th_segments { width: 80px; }
+			.column-th_words  { width: 80px; }
 			.th-badge {
 				display: inline-block;
 				font-size: 12px;
