@@ -44,28 +44,40 @@ The plugin updates itself automatically via GitHub releases using [plugin-update
 
 ## Configuration
 
-Go to **Talking Head > Settings** and configure:
+Go to **Talking Head > Settings** and configure. The settings page has three tabs:
+
+#### Provider
 
 | Setting | Description |
 |---------|-------------|
+| TTS Provider | `OpenAI` or `Azure OpenAI` |
+| Default Voice | Default voice for new speaker profiles |
 | OpenAI API Key | Your OpenAI API key for TTS |
 | TTS Model | `tts-1` (standard), `tts-1-hd` (high quality), or `gpt-4o-mini-tts` (supports instructions) |
-| Default Voice | Default voice for new speaker profiles |
-| FFmpeg Path | Absolute path to the FFmpeg binary (optional — PHP fallback if not found) |
+| Azure OpenAI API Key | Your Azure OpenAI API key |
+| Azure OpenAI Endpoint | Azure resource endpoint URL |
+| Azure OpenAI Deployment ID | Name of your TTS deployment |
+| Azure OpenAI API Version | API version string |
+
+#### Audio
+
+| Setting | Description |
+|---------|-------------|
 | Stitching Mode | File (concatenate on server) or Virtual (serve segments individually) |
+| FFmpeg Path | Absolute path to the FFmpeg binary (optional — PHP fallback if not found) |
 | Output Format | MP3 or AAC |
 | Output Bitrate | 128k / 192k / 256k / 320k |
 | Silence Gap | Milliseconds of silence between turns |
-| Max Segments | Maximum turns per episode |
-| Max Characters | Maximum text length per turn |
-| Rate Limit | API requests per minute |
 
-Settings can also be set via constants in `wp-config.php` (highest priority) or environment variables:
+#### Limits
 
-```php
-define( 'TALKING_HEAD_OPENAI_API_KEY', 'sk-...' );
-define( 'TALKING_HEAD_FFMPEG_PATH', '/usr/bin/ffmpeg' );
-```
+| Setting | Description |
+|---------|-------------|
+| Max Segments | Maximum turns per episode (1–200) |
+| Max Characters | Maximum text length per turn (100–4096) |
+| Rate Limit | API requests per minute (1–60) |
+
+Settings can also be set via constants in `wp-config.php` (highest priority) or environment variables. See [CONFIG.md](CONFIG.md) for the full list of 16 constants.
 
 ## Usage
 
