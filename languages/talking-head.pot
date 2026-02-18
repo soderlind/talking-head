@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talking Head 1.0.2\n"
+"Project-Id-Version: Talking Head 1.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talking-head\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-18T10:14:21+00:00\n"
+"POT-Creation-Date: 2026-02-18T22:18:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talking-head\n"
@@ -34,221 +34,238 @@ msgstr ""
 msgid "https://soderlind.no"
 msgstr ""
 
-#: src/Admin/HeadMetaBox.php:38
-#: src/head-sidebar/head-panel.js:48
+#: src/Admin/HeadMetaBox.php:65
+#: src/head-sidebar/head-panel.js:113
 msgid "Voice Settings"
 msgstr ""
 
-#: src/Admin/HeadMetaBox.php:57
-#: src/head-sidebar/head-panel.js:51
+#: src/Admin/HeadMetaBox.php:84
+#: src/head-sidebar/head-panel.js:118
 msgid "Voice"
 msgstr ""
 
-#: src/Admin/HeadMetaBox.php:71
-#: src/Admin/SettingsPage.php:186
-#: src/Admin/SettingsPage.php:428
-#: src/head-sidebar/head-panel.js:59
+#: src/Admin/HeadMetaBox.php:98
+#: src/Admin/SettingsPage.php:209
+#: src/Admin/SettingsPage.php:483
+#: src/head-sidebar/head-panel.js:147
 msgid "Provider"
 msgstr ""
 
-#: src/Admin/HeadMetaBox.php:85
-#: src/head-sidebar/head-panel.js:67
+#: src/Admin/HeadMetaBox.php:112
+#: src/head-sidebar/head-panel.js:155
 msgid "Speed"
 msgstr ""
 
-#: src/Admin/HeadMetaBox.php:92
+#: src/Admin/HeadMetaBox.php:119
 msgid "Playback speed (0.25 – 4.0). Default is 1.0."
 msgstr ""
 
-#: src/Admin/HeadMetaBox.php:99
-#: src/head-sidebar/head-panel.js:76
+#: src/Admin/HeadMetaBox.php:126
+#: src/head-sidebar/head-panel.js:164
 msgid "Speaking Style / Instructions"
 msgstr ""
 
-#: src/Admin/HeadMetaBox.php:105
-#: src/head-sidebar/head-panel.js:80
+#: src/Admin/HeadMetaBox.php:132
+#: src/head-sidebar/head-panel.js:165
 msgid "Instructions for the TTS model (requires gpt-4o-mini-tts)."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:155
+#: src/Admin/SettingsPage.php:161
 msgid "Talking Head Settings"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:156
+#: src/Admin/SettingsPage.php:162
 msgid "Settings"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:176
+#: src/Admin/SettingsPage.php:199
 msgid "TTS Provider"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:179
+#: src/Admin/SettingsPage.php:202
 msgid "Select which text-to-speech provider to use."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:196
+#: src/Admin/SettingsPage.php:219
 msgid "Default Voice"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:212
+#: src/Admin/SettingsPage.php:235
 msgid "OpenAI"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:215
+#: src/Admin/SettingsPage.php:238
 msgid "Configure your OpenAI API credentials."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:220
-#: src/Admin/SettingsPage.php:245
+#: src/Admin/SettingsPage.php:243
+#: src/Admin/SettingsPage.php:268
 msgid "API Key"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:223
+#: src/Admin/SettingsPage.php:246
 msgid "TTS Model"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:236
+#: src/Admin/SettingsPage.php:259
 msgid "Azure OpenAI"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:239
+#: src/Admin/SettingsPage.php:262
 msgid "Configure your Azure OpenAI API credentials."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:244
+#: src/Admin/SettingsPage.php:267
 msgid "Endpoint"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:246
+#: src/Admin/SettingsPage.php:269
 msgid "Deployment ID"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:247
+#: src/Admin/SettingsPage.php:270
 msgid "API Version"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:252
+#: src/Admin/SettingsPage.php:275
 msgid "Audio Processing"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:255
+#: src/Admin/SettingsPage.php:278
 msgid "Configure audio output settings. FFmpeg is optional — without it, audio stitching uses a PHP fallback (no loudness normalization or format conversion)."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:260
+#: src/Admin/SettingsPage.php:285
+msgid "Stitching Mode"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:289
+msgid "File (concatenate on server)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:290
+msgid "Virtual (serve segments individually)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:293
 msgid "FFmpeg Path"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:263
-msgid "Output Format"
-msgstr ""
-
-#: src/Admin/SettingsPage.php:273
-msgid "Output Bitrate"
-msgstr ""
-
-#: src/Admin/SettingsPage.php:283
-msgid "Silence Gap (ms)"
-msgstr ""
-
-#: src/Admin/SettingsPage.php:288
-#: src/Admin/SettingsPage.php:430
-msgid "Limits"
-msgstr ""
-
-#: src/Admin/SettingsPage.php:291
-msgid "Configure rate limits and content constraints."
+#: src/Admin/SettingsPage.php:293
+msgid "Optional. If not found, a PHP fallback is used (no loudness normalization or format conversion)."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:296
+msgid "Output Format"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:306
+msgid "Output Bitrate"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:316
+msgid "Silence Gap (ms)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:321
+#: src/Admin/SettingsPage.php:485
+msgid "Limits"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:324
+msgid "Configure rate limits and content constraints."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:329
 msgid "Max Segments per Episode"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:297
+#: src/Admin/SettingsPage.php:330
 msgid "Max Characters per Segment"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:298
+#: src/Admin/SettingsPage.php:331
 msgid "API Requests per Minute"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:320
+#: src/Admin/SettingsPage.php:353
 msgid "Locked by constant or environment variable."
 msgstr ""
 
 #. translators: %s: file path
-#: src/Admin/SettingsPage.php:379
+#: src/Admin/SettingsPage.php:416
 #, php-format
 msgid "FFmpeg not found or not executable at: %s"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:429
-#: src/CPT/EpisodeCPT.php:131
+#: src/Admin/SettingsPage.php:484
+#: src/CPT/EpisodeCPT.php:147
 msgid "Audio"
 msgstr ""
 
-#: src/Blocks/PlayerBlock.php:48
+#: src/Blocks/PlayerBlock.php:55
+#: src/Blocks/PlayerBlock.php:64
 #: blocks/player/edit.js:116
 msgid "Audio not yet generated."
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:27
+#: src/CPT/EpisodeCPT.php:28
 msgctxt "Post type general name"
 msgid "Episodes"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:28
+#: src/CPT/EpisodeCPT.php:29
 msgctxt "Post type singular name"
 msgid "Episode"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:29
+#: src/CPT/EpisodeCPT.php:30
 msgctxt "Admin menu text"
 msgid "Talking Head"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:30
 #: src/CPT/EpisodeCPT.php:31
+#: src/CPT/EpisodeCPT.php:32
 msgid "Add New Episode"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:32
+#: src/CPT/EpisodeCPT.php:33
 msgid "Edit Episode"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:33
+#: src/CPT/EpisodeCPT.php:34
 msgid "New Episode"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:34
+#: src/CPT/EpisodeCPT.php:35
 msgid "View Episode"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:35
+#: src/CPT/EpisodeCPT.php:36
 msgid "Episodes"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:36
+#: src/CPT/EpisodeCPT.php:37
 msgid "Search Episodes"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:37
+#: src/CPT/EpisodeCPT.php:38
 msgid "No episodes found."
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:38
+#: src/CPT/EpisodeCPT.php:39
 msgid "No episodes found in Trash."
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:130
+#: src/CPT/EpisodeCPT.php:146
 msgid "Status"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:132
+#: src/CPT/EpisodeCPT.php:148
 msgid "Segments"
 msgstr ""
 
-#: src/CPT/EpisodeCPT.php:133
+#: src/CPT/EpisodeCPT.php:149
 msgid "Words"
 msgstr ""
 
@@ -350,16 +367,13 @@ msgstr ""
 msgid "Only failed jobs can be retried."
 msgstr ""
 
-#: src/REST/PlayerController.php:50
+#: src/REST/PlayerController.php:52
 msgid "Episode not found."
 msgstr ""
 
-#: templates/player.php:17
+#: templates/player.php:18
+#: templates/player.php:22
 msgid "Your browser does not support the audio element."
-msgstr ""
-
-#: templates/player.php:21
-msgid "Download"
 msgstr ""
 
 #: blocks/episode/edit.js:145
@@ -420,12 +434,20 @@ msgstr ""
 msgid "Episode not found"
 msgstr ""
 
-#: blocks/turn/edit.js:28
+#: blocks/turn/edit.js:43
 msgid "-- Select Speaker --"
 msgstr ""
 
-#: blocks/turn/edit.js:75
+#: blocks/turn/edit.js:90
 msgid "Enter dialogue..."
+msgstr ""
+
+#: src/head-sidebar/head-panel.js:137
+msgid "Stop preview"
+msgstr ""
+
+#: src/head-sidebar/head-panel.js:138
+msgid "Preview voice"
 msgstr ""
 
 #: blocks/episode/block.json

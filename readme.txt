@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 8.3
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,12 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 4. Player block on the front end
 
 == Changelog ==
+
+= 1.2.1 =
+* Voice sample preview — play/stop button next to voice selector in the Head editor (block editor and classic)
+* Bundled MP3 voice samples for all six voices (alloy, echo, fable, onyx, nova, shimmer)
+* Voice sample generation script supporting both OpenAI and Azure OpenAI
+* Norwegian translations for virtual stitching and voice preview strings
 
 = 1.2.0 =
 * Virtual stitching mode — serve audio segments individually instead of concatenating into a single file
@@ -175,6 +181,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+Adds voice sample preview in the Head editor so you can hear each voice before selecting it.
 
 = 1.2.0 =
 Adds virtual stitching mode for serving audio segments individually without server-side concatenation. Configurable per-episode or globally.

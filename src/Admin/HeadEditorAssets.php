@@ -10,6 +10,8 @@ defined( 'ABSPATH' ) || exit;
 
 final class HeadEditorAssets {
 
+	private const VOICES = [ 'alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer' ];
+
 	public function register(): void {
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue' ] );
 	}
@@ -40,5 +42,27 @@ final class HeadEditorAssets {
 			'talking-head',
 			TALKING_HEAD_DIR . 'languages'
 		);
+
+		wp_localize_script(
+			'talking-head-head-sidebar',
+			'talkingHeadVoiceSamples',
+			self::voice_sample_urls()
+		);
+	}
+
+	/**
+	 * Return an associative array of voice-name => sample MP3 URL.
+	 *
+	 * @return array<string, string>
+	 */
+	public static function voice_sample_urls(): array {
+		$urls = [];
+		foreach ( self::VOICES as $voice ) {
+			$file = 'assets/voice-samples/' . $voice . '.mp3';
+			if ( file_exists( TALKING_HEAD_DIR . $file ) ) {
+				$urls[ $voice ] = TALKING_HEAD_URL . $file;
+			}
+		}
+		return $urls;
 	}
 }
