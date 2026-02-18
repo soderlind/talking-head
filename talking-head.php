@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Talking Head 🗣️
+ * Plugin Name: Talking Head
  * Description: AI-generated podcast-style audio from turn-based conversations.
  * Version:     1.1.0
  * Author:      Per Soderlind
