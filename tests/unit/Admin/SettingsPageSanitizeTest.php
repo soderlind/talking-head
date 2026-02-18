@@ -12,7 +12,16 @@ beforeEach( function () {
 		'absint'              => static fn( $val ) => abs( intval( $val ) ),
 		'add_settings_error'  => static fn() => null,
 		'__'                  => static fn( $text ) => $text,
+		'get_option'          => static fn() => [],
 	] );
+
+	// Provide a $wpdb mock for the playlist cache invalidation query.
+	$GLOBALS[ 'wpdb' ] = new class {
+		public string $options = 'wp_options';
+		public function query( string $sql ): int {
+			return 0;
+		}
+	};
 
 	$this->page = new SettingsPage();
 } );

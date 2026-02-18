@@ -14,7 +14,7 @@ AI-generated podcast-style audio from turn-based conversations in WordPress.
 
 ## Description
 
-Talking Head lets you write multi-speaker conversations in the WordPress block editor, then generate podcast-quality audio using AI text-to-speech. Each speaker ("head") gets their own voice, and the plugin stitches the segments together into a single audio file with configurable silence gaps.
+Talking Head lets you write multi-speaker conversations in the WordPress block editor, then generate podcast-quality audio using AI text-to-speech. Each speaker ("head") gets their own voice, and the plugin stitches the segments together into a single audio file with configurable silence gaps — or serves segments individually using virtual stitching for faster publishing.
 
 ### Features
 
@@ -24,6 +24,7 @@ Talking Head lets you write multi-speaker conversations in the WordPress block e
 - **Azure OpenAI TTS** — Alternative provider using Azure-hosted OpenAI deployments
 - **Background processing** — Audio generation runs via Action Scheduler, with progress tracking
 - **Audio stitching** — FFmpeg-based concatenation with silence gaps and loudness normalization, or pure PHP fallback
+- **Virtual stitching** — Serve audio segments individually without server-side concatenation, with client-side sequential playback
 - **Player block** — Embed episode playback in any post or page, with optional transcript
 - **Provider interface** — Extensible architecture for adding more TTS providers
 
@@ -50,7 +51,8 @@ Go to **Talking Head > Settings** and configure:
 | OpenAI API Key | Your OpenAI API key for TTS |
 | TTS Model | `tts-1` (standard), `tts-1-hd` (high quality), or `gpt-4o-mini-tts` (supports instructions) |
 | Default Voice | Default voice for new speaker profiles |
-| FFmpeg Path | Absolute path to the FFmpeg binary |
+| FFmpeg Path | Absolute path to the FFmpeg binary (optional — PHP fallback if not found) |
+| Stitching Mode | File (concatenate on server) or Virtual (serve segments individually) |
 | Output Format | MP3 or AAC |
 | Output Bitrate | 128k / 192k / 256k / 320k |
 | Silence Gap | Milliseconds of silence between turns |
@@ -91,7 +93,7 @@ Select the Episode block and click **Generate Audio** in the block toolbar. The 
 1. Validates the manuscript (speakers assigned, text within limits)
 2. Creates a background job via Action Scheduler
 3. Generates TTS audio for each turn via OpenAI
-4. Stitches segments with FFmpeg into a single MP3
+4. Stitches segments with FFmpeg into a single MP3 (file mode), or prepares segments for individual playback (virtual mode)
 5. Stores the result in `wp-content/uploads/talking-head/`
 
 Progress is shown in the sidebar via polling.

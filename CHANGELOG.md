@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.0] - 2026-02-18
+
+### Added
+
+- Virtual stitching mode — serves audio segments individually instead of concatenating into a single file
+- Stitching mode setting in Audio tab (File or Virtual) with per-episode override via post meta
+- Client-side sequential segment playback in the player block with configurable silence gaps
+- Transcript turn highlighting during virtual playback
+- `segments`, `silenceGapMs`, and `stitchingMode` fields in the player REST API response
+- `find_chunks_for_episode()` method on AssetRepository for episode-scoped chunk queries
+- Playlist transient cache invalidation when stitching mode or silence gap settings change
+- Download disabled in audio player controls when using virtual stitching mode
+- FFmpeg Path field description explaining PHP fallback when FFmpeg is not found
+- Stitching mode toggle hides FFmpeg Path setting when virtual mode is selected
+
 ## [1.1.1] - 2026-02-18
 
 ### Fixed

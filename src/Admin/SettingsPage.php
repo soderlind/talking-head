@@ -47,6 +47,11 @@ final class SettingsPage {
 			'const'   => 'TALKING_HEAD_OUTPUT_BITRATE',
 			'default' => '192k',
 		],
+		'stitching_mode'             => [
+			'env'     => 'TALKING_HEAD_STITCHING_MODE',
+			'const'   => 'TALKING_HEAD_STITCHING_MODE',
+			'default' => 'file',
+		],
 		'silence_gap_ms'             => [
 			'env'     => 'TALKING_HEAD_SILENCE_GAP_MS',
 			'const'   => 'TALKING_HEAD_SILENCE_GAP_MS',
@@ -275,7 +280,17 @@ final class SettingsPage {
 			self::PAGE_SLUG
 		);
 
-		$this->add_field( 'ffmpeg_path', __( 'FFmpeg Path', 'talking-head' ), 'th_audio', 'text' );
+		$this->add_field(
+			'stitching_mode',
+			__( 'Stitching Mode', 'talking-head' ),
+			'th_audio',
+			'select',
+			[
+				'file'    => __( 'File (concatenate on server)', 'talking-head' ),
+				'virtual' => __( 'Virtual (serve segments individually)', 'talking-head' ),
+			]
+		);
+		$this->add_field( 'ffmpeg_path', __( 'FFmpeg Path', 'talking-head' ), 'th_audio', 'text', [], __( 'Optional. If not found, a PHP fallback is used (no loudness normalization or format conversion).', 'talking-head' ) );
 		$this->add_field(
 			'output_format',
 			__( 'Output Format', 'talking-head' ),
@@ -316,17 +331,17 @@ final class SettingsPage {
 		$this->add_field( 'rate_limit_per_min', __( 'API Requests per Minute', 'talking-head' ), 'th_limits', 'number' );
 	}
 
-	private function add_field( string $key, string $label, string $section, string $type, array $choices = [] ): void {
+	private function add_field( string $key, string $label, string $section, string $type, array $choices = [], string $description = '' ): void {
 		add_settings_field(
 			'th_' . $key,
 			$label,
-			fn() => $this->render_field( $key, $type, $choices ),
+			fn() => $this->render_field( $key, $type, $choices, $description ),
 			self::PAGE_SLUG,
 			$section
 		);
 	}
 
-	private function render_field( string $key, string $type, array $choices ): void {
+	private function render_field( string $key, string $type, array $choices, string $description = '' ): void {
 		$value  = self::get( $key );
 		$locked = self::is_locked( $key );
 		$name   = self::OPTION_NAME . '[' . esc_attr( $key ) . ']';
@@ -358,6 +373,10 @@ final class SettingsPage {
 				esc_attr( $value )
 			),
 		};
+
+		if ( $description !== '' ) {
+			printf( '<p class="description">%s</p>', esc_html( $description ) );
+		}
 	}
 
 	private function render_select( string $name, string $current, array $choices ): void {
@@ -408,6 +427,9 @@ final class SettingsPage {
 			: '192k';
 
 		$sanitized[ 'silence_gap_ms' ]     = min( 5000, max( 0, absint( $input[ 'silence_gap_ms' ] ?? 500 ) ) );
+		$sanitized[ 'stitching_mode' ]     = in_array( $input[ 'stitching_mode' ] ?? '', [ 'file', 'virtual' ], true )
+			? $input[ 'stitching_mode' ]
+			: 'file';
 		$sanitized[ 'max_segments' ]       = min( 200, max( 1, absint( $input[ 'max_segments' ] ?? 50 ) ) );
 		$sanitized[ 'max_segment_chars' ]  = min( 4096, max( 100, absint( $input[ 'max_segment_chars' ] ?? 4096 ) ) );
 		$sanitized[ 'rate_limit_per_min' ] = min( 60, max( 1, absint( $input[ 'rate_limit_per_min' ] ?? 10 ) ) );
@@ -417,6 +439,21 @@ final class SettingsPage {
 		$sanitized[ 'azure_openai_endpoint' ]      = esc_url_raw( $input[ 'azure_openai_endpoint' ] ?? '' );
 		$sanitized[ 'azure_openai_deployment_id' ] = sanitize_text_field( $input[ 'azure_openai_deployment_id' ] ?? '' );
 		$sanitized[ 'azure_openai_api_version' ]   = sanitize_text_field( $input[ 'azure_openai_api_version' ] ?? '' );
+
+		// Invalidate playlist caches when audio-related settings change.
+		$old_options = get_option( self::OPTION_NAME, [] );
+		if (
+			( $sanitized[ 'silence_gap_ms' ] ?? '' ) !== ( $old_options[ 'silence_gap_ms' ] ?? '' ) ||
+			( $sanitized[ 'stitching_mode' ] ?? '' ) !== ( $old_options[ 'stitching_mode' ] ?? '' )
+		) {
+			global $wpdb;
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->query(
+				"DELETE FROM {$wpdb->options}
+				 WHERE option_name LIKE '_transient_th\_playlist\_%'
+				    OR option_name LIKE '_transient_timeout_th\_playlist\_%'"
+			);
+		}
 
 		return $sanitized;
 	}
@@ -433,7 +470,7 @@ final class SettingsPage {
 		],
 		'audio'    => [
 			'sections' => [ 'th_audio' ],
-			'keys'     => [ 'ffmpeg_path', 'output_format', 'output_bitrate', 'silence_gap_ms' ],
+			'keys'     => [ 'ffmpeg_path', 'output_format', 'output_bitrate', 'silence_gap_ms', 'stitching_mode' ],
 		],
 		'limits'   => [
 			'sections' => [ 'th_limits' ],

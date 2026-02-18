@@ -151,32 +151,58 @@ final class JobRunner {
 				}
 			}
 
-			// Phase 2: Stitch chunks into final audio file.
-			$final_filename = sprintf( 'episode-%d-final.mp3', $episode_id );
-			$output_dir     = $this->storage->ensure_dir( "episodes/{$episode_id}" );
-			$final_path     = $this->stitcher->stitch(
-				$chunk_paths,
-				$output_dir . '/' . $final_filename,
-				(int) SettingsPage::get( 'silence_gap_ms' ),
-			);
+			// Resolve effective stitching mode: per-episode override > global setting.
+			$episode_mode = get_post_meta( $episode_id, EpisodeCPT::META_KEY_STITCHING_MODE, true );
+			$stitch_mode  = ( $episode_mode !== '' ) ? $episode_mode : SettingsPage::get( 'stitching_mode' );
+			$silence_ms   = (int) SettingsPage::get( 'silence_gap_ms' );
 
-			$final_url  = $this->storage->url( $final_path );
-			$final_size = filesize( $final_path ) ?: 0;
+			if ( $stitch_mode === 'virtual' ) {
+				// Phase 2 (virtual): skip physical stitching, compute total duration.
+				$total_duration_ms = 0;
+				$chunks            = $this->assets->find_for_job( $job_id );
+				foreach ( $chunks as $chunk_asset ) {
+					if ( $chunk_asset[ 'asset_type' ] !== 'chunk' ) {
+						continue;
+					}
+					$total_duration_ms += (int) $chunk_asset[ 'duration_ms' ];
+				}
+				// Add silence gaps between segments.
+				$gap_count          = max( 0, count( $chunk_paths ) - 1 );
+				$total_duration_ms += $gap_count * $silence_ms;
 
-			$this->assets->create(
-				job_id: $job_id,
-				episode_id: $episode_id,
-				segment_index: null,
-				asset_type: 'final',
-				file_path: $final_path,
-				file_url: $final_url,
-				file_size: $final_size,
-				duration_ms: 0,
-				format: 'mp3',
-			);
+				update_post_meta( $episode_id, EpisodeCPT::META_KEY_AUDIO_DURATION, $total_duration_ms );
+				update_post_meta( $episode_id, EpisodeCPT::META_KEY_STITCHING_MODE, 'virtual' );
+				update_post_meta( $episode_id, EpisodeCPT::META_KEY_AUDIO_URL, '' );
+			} else {
+				// Phase 2 (file): Stitch chunks into final audio file.
+				$final_filename = sprintf( 'episode-%d-final.mp3', $episode_id );
+				$output_dir     = $this->storage->ensure_dir( "episodes/{$episode_id}" );
+				$final_path     = $this->stitcher->stitch(
+					$chunk_paths,
+					$output_dir . '/' . $final_filename,
+					$silence_ms,
+				);
+
+				$final_url  = $this->storage->url( $final_path );
+				$final_size = filesize( $final_path ) ?: 0;
+
+				$this->assets->create(
+					job_id: $job_id,
+					episode_id: $episode_id,
+					segment_index: null,
+					asset_type: 'final',
+					file_path: $final_path,
+					file_url: $final_url,
+					file_size: $final_size,
+					duration_ms: 0,
+					format: 'mp3',
+				);
+
+				update_post_meta( $episode_id, EpisodeCPT::META_KEY_AUDIO_URL, $final_url );
+				update_post_meta( $episode_id, EpisodeCPT::META_KEY_STITCHING_MODE, 'file' );
+			}
 
 			// Update episode metadata.
-			update_post_meta( $episode_id, EpisodeCPT::META_KEY_AUDIO_URL, $final_url );
 			update_post_meta( $episode_id, EpisodeCPT::META_KEY_STATUS, EpisodeStatus::Generated->value );
 
 			$this->jobs->transition( $job_id, JobStatus::Succeeded );

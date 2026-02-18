@@ -13,6 +13,7 @@ final class EpisodeCPT {
 	public const META_KEY_STATUS         = '_th_episode_status';
 	public const META_KEY_AUDIO_URL      = '_th_audio_url';
 	public const META_KEY_AUDIO_DURATION = '_th_audio_duration';
+	public const META_KEY_STITCHING_MODE = '_th_stitching_mode';
 
 	public function register(): void {
 		add_action( 'init', [ $this, 'register_post_type' ] );
@@ -114,6 +115,21 @@ final class EpisodeCPT {
 				'auth_callback'     => fn() => current_user_can( 'edit_posts' ),
 			]
 		);
+
+		register_post_meta(
+			self::POST_TYPE,
+			self::META_KEY_STITCHING_MODE,
+			[
+				'show_in_rest'      => true,
+				'single'            => true,
+				'type'              => 'string',
+				'default'           => '',
+				'sanitize_callback' => static function ( string $value ): string {
+					return in_array( $value, [ 'file', 'virtual', '' ], true ) ? $value : '';
+				},
+				'auth_callback'     => fn() => current_user_can( 'edit_posts' ),
+			]
+		);
 	}
 
 	/**
@@ -127,10 +143,10 @@ final class EpisodeCPT {
 		foreach ( $columns as $key => $label ) {
 			$new[ $key ] = $label;
 			if ( $key === 'title' ) {
-				$new['th_status']   = __( 'Status', 'talking-head' );
-				$new['th_audio']    = __( 'Audio', 'talking-head' );
-				$new['th_segments'] = __( 'Segments', 'talking-head' );
-				$new['th_words']    = __( 'Words', 'talking-head' );
+				$new[ 'th_status' ]   = __( 'Status', 'talking-head' );
+				$new[ 'th_audio' ]    = __( 'Audio', 'talking-head' );
+				$new[ 'th_segments' ] = __( 'Segments', 'talking-head' );
+				$new[ 'th_words' ]    = __( 'Words', 'talking-head' );
 			}
 		}
 		return $new;
@@ -173,10 +189,13 @@ final class EpisodeCPT {
 			$turn_texts = [];
 
 			foreach ( $blocks as $block ) {
-				if ( ( $block['blockName'] ?? '' ) === 'talking-head/episode' ) {
-					foreach ( $block['innerBlocks'] ?? [] as $inner ) {
-						if ( ( $inner['blockName'] ?? '' ) === 'talking-head/turn' ) {
-							$turn_texts[] = wp_strip_all_tags( $inner['attrs']['text'] ?? '' );
+				if ( ( $block[ 'blockName' ] ?? '' ) === 'talking-head/episode' ) {
+					foreach ( $block[ 'innerBlocks' ] ?? [] as $inner ) {
+						if ( ( $inner[ 'blockName' ] ?? '' ) === 'talking-head/turn' ) {
+							$html = $inner[ 'innerHTML' ] ?? '';
+							if ( preg_match( '/<div[^>]*class="[^"]*th-turn__text[^"]*"[^>]*>(.*?)<\/div>/s', $html, $m ) ) {
+								$turn_texts[] = wp_strip_all_tags( $m[ 1 ] );
+							}
 						}
 					}
 				}
@@ -204,10 +223,22 @@ final class EpisodeCPT {
 		}
 		?>
 		<style>
-			.column-th_status { width: 90px; }
-			.column-th_audio  { width: 220px; }
-			.column-th_segments { width: 80px; }
-			.column-th_words  { width: 80px; }
+			.column-th_status {
+				width: 90px;
+			}
+
+			.column-th_audio {
+				width: 220px;
+			}
+
+			.column-th_segments {
+				width: 80px;
+			}
+
+			.column-th_words {
+				width: 80px;
+			}
+
 			.th-badge {
 				display: inline-block;
 				font-size: 12px;
@@ -216,11 +247,31 @@ final class EpisodeCPT {
 				border-radius: 10px;
 				line-height: 1.4;
 			}
-			.th-badge--draft      { background: #ddd; color: #1e1e1e; }
-			.th-badge--ready      { background: #cce5ff; color: #004085; }
-			.th-badge--generating { background: #fff3cd; color: #856404; }
-			.th-badge--generated  { background: #d4edda; color: #155724; }
-			.th-badge--failed     { background: #f8d7da; color: #721c24; }
+
+			.th-badge--draft {
+				background: #ddd;
+				color: #1e1e1e;
+			}
+
+			.th-badge--ready {
+				background: #cce5ff;
+				color: #004085;
+			}
+
+			.th-badge--generating {
+				background: #fff3cd;
+				color: #856404;
+			}
+
+			.th-badge--generated {
+				background: #d4edda;
+				color: #155724;
+			}
+
+			.th-badge--failed {
+				background: #f8d7da;
+				color: #721c24;
+			}
 		</style>
 		<?php
 	}

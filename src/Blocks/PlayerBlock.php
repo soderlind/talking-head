@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TalkingHead\Blocks;
 
+use TalkingHead\Admin\SettingsPage;
 use TalkingHead\CPT\EpisodeCPT;
 
 defined( 'ABSPATH' ) || exit;
@@ -42,11 +43,27 @@ final class PlayerBlock {
 			return '';
 		}
 
+		// Resolve stitching mode: per-episode override > global setting.
+		$episode_mode   = get_post_meta( $episode_id, EpisodeCPT::META_KEY_STITCHING_MODE, true );
+		$stitching_mode = ( $episode_mode !== '' ) ? $episode_mode : SettingsPage::get( 'stitching_mode' );
+
 		$audio_url = get_post_meta( $episode_id, EpisodeCPT::META_KEY_AUDIO_URL, true );
-		if ( empty( $audio_url ) ) {
+
+		// For file mode, require an audio URL.  For virtual mode, audio is loaded client-side.
+		if ( $stitching_mode !== 'virtual' && empty( $audio_url ) ) {
 			return '<div class="th-player th-player--empty">'
 				. esc_html__( 'Audio not yet generated.', 'talking-head' )
 				. '</div>';
+		}
+
+		// For virtual mode, check that status is generated.
+		if ( $stitching_mode === 'virtual' ) {
+			$status = get_post_meta( $episode_id, EpisodeCPT::META_KEY_STATUS, true );
+			if ( $status !== 'generated' ) {
+				return '<div class="th-player th-player--empty">'
+					. esc_html__( 'Audio not yet generated.', 'talking-head' )
+					. '</div>';
+			}
 		}
 
 		$title           = esc_html( $post->post_title );

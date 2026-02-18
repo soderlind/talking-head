@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace TalkingHead\REST;
 
+use TalkingHead\Admin\SettingsPage;
 use TalkingHead\CPT\EpisodeCPT;
+use TalkingHead\Database\AssetRepository;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -66,15 +68,38 @@ final class PlayerController {
 			$manuscript[ 'segments' ] ?? []
 		);
 
-		return new WP_REST_Response(
-			[
-				'episodeId'  => $episode_id,
-				'title'      => $post->post_title,
-				'audioUrl'   => $audio_url ?: null,
-				'duration'   => (int) get_post_meta( $episode_id, EpisodeCPT::META_KEY_AUDIO_DURATION, true ),
-				'transcript' => $transcript,
-			],
-			200
-		);
+		// Resolve stitching mode for this episode.
+		$episode_mode   = get_post_meta( $episode_id, EpisodeCPT::META_KEY_STITCHING_MODE, true );
+		$stitching_mode = ( $episode_mode !== '' ) ? $episode_mode : SettingsPage::get( 'stitching_mode' );
+
+		$data = [
+			'episodeId'     => $episode_id,
+			'title'         => $post->post_title,
+			'audioUrl'      => $audio_url ?: null,
+			'duration'      => (int) get_post_meta( $episode_id, EpisodeCPT::META_KEY_AUDIO_DURATION, true ),
+			'stitchingMode' => $stitching_mode,
+			'transcript'    => $transcript,
+		];
+
+		if ( $stitching_mode === 'virtual' ) {
+			$assets         = new AssetRepository();
+			$chunks         = $assets->find_chunks_for_episode( $episode_id );
+			$silence_gap_ms = (int) SettingsPage::get( 'silence_gap_ms' );
+
+			$segments = [];
+			foreach ( $chunks as $i => $chunk ) {
+				$segments[] = [
+					'index'      => (int) $chunk[ 'segment_index' ],
+					'url'        => $chunk[ 'file_url' ],
+					'durationMs' => (int) $chunk[ 'duration_ms' ],
+					'speaker'    => $transcript[ $i ][ 'speaker' ] ?? '',
+				];
+			}
+
+			$data[ 'segments' ]     = $segments;
+			$data[ 'silenceGapMs' ] = $silence_gap_ms;
+		}
+
+		return new WP_REST_Response( $data, 200 );
 	}
 }

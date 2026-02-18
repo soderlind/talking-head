@@ -77,6 +77,26 @@ final class AssetRepository {
 		) ?: [];
 	}
 
+	public function find_chunks_for_episode( int $episode_id ): array {
+		global $wpdb;
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT a.* FROM {$this->table} a
+				 INNER JOIN (
+				     SELECT MAX(j.id) AS job_id
+				     FROM " . Schema::jobs_table() . " j
+				     WHERE j.episode_id = %d AND j.status = 'succeeded'
+				 ) latest ON a.job_id = latest.job_id
+				 WHERE a.asset_type = 'chunk'
+				 ORDER BY a.segment_index ASC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$episode_id
+			),
+			ARRAY_A
+		) ?: [];
+	}
+
 	public function find_final_for_episode( int $episode_id ): ?array {
 		global $wpdb;
 

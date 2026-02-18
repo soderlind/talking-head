@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 8.3
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ AI-generated podcast-style audio from turn-based conversations.
 
 Talking Head lets you write multi-speaker conversations in the WordPress block editor, then generate podcast-quality audio using AI text-to-speech.
 
-Each speaker ("head") gets their own voice profile, and the plugin stitches all the segments together into a single audio file with configurable silence gaps between turns.
+Each speaker ("head") gets their own voice profile, and the plugin stitches all the segments together into a single audio file with configurable silence gaps between turns — or serves segments individually using virtual stitching for faster publishing.
 
 = Features =
 
@@ -24,6 +24,7 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 * **Azure OpenAI TTS** — Alternative provider using Azure-hosted OpenAI deployments
 * **Background processing** — Audio generation runs via Action Scheduler with real-time progress tracking
 * **Audio stitching** — FFmpeg-based concatenation with silence gaps and loudness normalization, or pure PHP fallback
+* **Virtual stitching** — Serve audio segments individually without server-side concatenation, with client-side sequential playback
 * **Player block** — Embed episode playback in any post or page with optional transcript display
 * **Provider selector** — Settings page dropdown to switch between providers; only relevant fields are shown
 
@@ -32,7 +33,7 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 1. Create speaker profiles with assigned voices
 2. Write a conversation using turn-based blocks in the episode editor
 3. Click "Generate Audio" to produce speech via OpenAI TTS
-4. The plugin stitches segments into a single MP3 using FFmpeg
+4. The plugin stitches segments into a single MP3 using FFmpeg — or use virtual stitching to serve segments individually
 5. Embed the player block in any post or page
 
 = Requirements =
@@ -58,7 +59,7 @@ OpenAI TTS and Azure OpenAI TTS are supported, both with voices: Alloy, Echo, Fa
 
 = Do I need FFmpeg? =
 
-No. FFmpeg is optional. Without it, the plugin uses a pure PHP fallback for stitching audio segments (binary MP3 concatenation with generated silence frames). FFmpeg provides better results — re-encoded output, loudness normalization, and format conversion — but is not required.
+No. FFmpeg is optional. Without it, the plugin uses a pure PHP fallback for stitching audio segments (binary MP3 concatenation with generated silence frames). FFmpeg provides better results — re-encoded output, loudness normalization, and format conversion — but is not required. You can also use virtual stitching mode, which skips server-side concatenation entirely and serves segments individually via the client-side player.
 
 = How does background processing work? =
 
@@ -80,6 +81,14 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 4. Player block on the front end
 
 == Changelog ==
+
+= 1.2.0 =
+* Virtual stitching mode — serve audio segments individually instead of concatenating into a single file
+* Stitching mode setting in Audio tab (File or Virtual) with per-episode override
+* Client-side sequential segment playback in the player block with configurable silence gaps
+* Transcript turn highlighting during virtual playback
+* Download disabled in player controls for virtual stitching (no single file to download)
+* FFmpeg Path field hidden when virtual stitching is selected
 
 = 1.1.1 =
 * Fixed REST API URL detection in player for WordPress subdirectory installations
@@ -166,6 +175,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+Adds virtual stitching mode for serving audio segments individually without server-side concatenation. Configurable per-episode or globally.
 
 = 1.1.1 =
 Fixes player transcript loading on subdirectory WordPress installations and removes redundant download link.
