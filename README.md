@@ -32,7 +32,7 @@ Talking Head lets you write multi-speaker conversations in the WordPress block e
 
 - WordPress 6.8+
 - PHP 8.3+
-- FFmpeg installed on the server (optional — PHP fallback available; **not needed for virtual stitching mode**)
+- (Although optional, FFmpeg installed on the server allows the user to download the conversation; PHP fallback is available.)), **not needed for virtual stitching mode**
 
 ## Installation
 
