@@ -2,9 +2,9 @@
 Contributors: PerS
 Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 8.3
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,7 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 * **Speaker profiles** — Manage voices and personas as a custom post type
 * **OpenAI TTS** — Generate speech using OpenAI's text-to-speech API with six voice options
 * **Azure OpenAI TTS** — Alternative provider using Azure-hosted OpenAI deployments
+* **WordPress AI (Core)** — On WordPress 7.0+, use the built-in AI Client for TTS via Settings → Connectors (no API key required)
 * **Background processing** — Audio generation runs via Action Scheduler with real-time progress tracking
 * **Audio stitching** — FFmpeg-based concatenation with silence gaps and loudness normalization, or pure PHP fallback
 * **Virtual stitching** — Serve audio segments individually without server-side concatenation, with client-side sequential playback
@@ -55,7 +56,7 @@ The plugin updates itself automatically via GitHub releases.
 
 = What TTS providers are supported? =
 
-OpenAI TTS and Azure OpenAI TTS are supported, both with voices: Alloy, Echo, Fable, Onyx, Nova, and Shimmer. Choose your provider under Talking Head > Settings. Each head can also be assigned a specific provider for mixed-provider episodes.
+OpenAI TTS, Azure OpenAI TTS, and WordPress AI (Core) are supported, all with voices: Alloy, Echo, Fable, Onyx, Nova, and Shimmer. On WordPress 7.0+, the WordPress AI provider appears automatically and uses the built-in AI Client — configure connectors at Settings → Connectors (no API key required). Choose your provider under Talking Head > Settings. Each head can also be assigned a specific provider for mixed-provider episodes.
 
 = Do I need FFmpeg? =
 
@@ -81,6 +82,12 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 4. Player block on the front end
 
 == Changelog ==
+
+= 1.3.0 =
+* WordPress AI (Core) TTS provider — on WordPress 7.0+, use the built-in AI Client for TTS via Settings → Connectors (no API key required)
+* WordPress AI provider auto-detected and hidden on WP 6.x
+* Provider selection in Settings page, Head meta box, and block editor sidebar
+* Tested up to WordPress 7.0
 
 = 1.2.2 =
 * Fixed player block editor showing "Audio not yet generated" in virtual stitching mode when audio segments exist

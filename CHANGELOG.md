@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.3.0] - 2026-03-30
+
+### Added
+
+- **WordPress AI (Core) TTS provider** — on WordPress 7.0+, use the built-in AI Client for text-to-speech via Settings → Connectors (no API key required)
+- WordPress AI provider auto-detected via `wp_ai_client_prompt()` — option hidden on WP 6.x
+- Provider selection available in Settings page, Head meta box, and block editor sidebar
+- Settings page CSS file to prevent layout shift when toggling provider sections
+- `wordpress` added to manuscript schema provider enum
+
+### Changed
+
+- Tested up to WordPress 7.0
+
 ## [1.2.2] - 2026-02-18
 
 ### Fixed

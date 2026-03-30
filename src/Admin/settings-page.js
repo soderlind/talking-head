@@ -12,6 +12,7 @@
 		const select = document.querySelector( 'select[name="talking_head_options[tts_provider]"]' );
 		const openai = document.getElementById( 'th-section-openai' );
 		const azure = document.getElementById( 'th-section-azure-openai' );
+		const wordpress = document.getElementById( 'th-section-wordpress' );
 
 		if ( ! select || ! openai || ! azure ) {
 			return;
@@ -19,8 +20,21 @@
 
 		function toggle() {
 			const val = select.value;
-			openai.style.display = val === 'openai' ? '' : 'none';
-			azure.style.display = val === 'azure_openai' ? '' : 'none';
+			[ openai, azure, wordpress ].forEach( function ( el ) {
+				if ( el ) {
+					el.classList.remove( 'is-active' );
+				}
+			} );
+
+			const active = {
+				openai: openai,
+				azure_openai: azure,
+				wordpress: wordpress,
+			}[ val ];
+
+			if ( active ) {
+				active.classList.add( 'is-active' );
+			}
 		}
 
 		select.addEventListener( 'change', toggle );

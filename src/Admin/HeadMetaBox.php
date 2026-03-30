@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TalkingHead\Admin;
 
 use TalkingHead\CPT\HeadCPT;
+use TalkingHead\Provider\WordPress\WordPressAIProvider;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,6 +27,21 @@ final class HeadMetaBox {
 		'openai'       => 'OpenAI',
 		'azure_openai' => 'Azure OpenAI',
 	];
+
+	/**
+	 * Get provider options including WordPress AI when available.
+	 *
+	 * @return array<string, string>
+	 */
+	private static function provider_options(): array {
+		$options = self::PROVIDER_OPTIONS;
+
+		if ( WordPressAIProvider::is_available() ) {
+			$options['wordpress'] = __( 'WordPress AI (Core)', 'talking-head' );
+		}
+
+		return $options;
+	}
 
 	public function register(): void {
 		add_action( 'add_meta_boxes_' . HeadCPT::POST_TYPE, [ $this, 'add_meta_box' ] );
@@ -99,7 +115,7 @@ final class HeadMetaBox {
 				</th>
 				<td>
 					<select id="th-provider" name="<?php echo esc_attr( HeadCPT::META_KEY_PROVIDER ); ?>">
-						<?php foreach ( self::PROVIDER_OPTIONS as $value => $label ) : ?>
+						<?php foreach ( self::provider_options() as $value => $label ) : ?>
 							<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $provider, $value ); ?>>
 								<?php echo esc_html( $label ); ?>
 							</option>

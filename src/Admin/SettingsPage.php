@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TalkingHead\Admin;
 
+use TalkingHead\Provider\WordPress\WordPressAIProvider;
+
 defined( 'ABSPATH' ) || exit;
 
 final class SettingsPage {
@@ -174,6 +176,13 @@ final class SettingsPage {
 			return;
 		}
 
+		wp_enqueue_style(
+			'talking-head-settings',
+			plugins_url( 'src/Admin/settings-page.css', TALKING_HEAD_FILE ),
+			[],
+			TALKING_HEAD_VERSION
+		);
+
 		wp_enqueue_script(
 			'talking-head-settings',
 			plugins_url( 'src/Admin/settings-page.js', TALKING_HEAD_FILE ),
@@ -209,10 +218,7 @@ final class SettingsPage {
 			__( 'Provider', 'talking-head' ),
 			'th_provider',
 			'select',
-			[
-				'openai'       => 'OpenAI',
-				'azure_openai' => 'Azure OpenAI',
-			]
+			self::get_provider_choices()
 		);
 		$this->add_field(
 			'default_voice',
@@ -268,6 +274,23 @@ final class SettingsPage {
 		$this->add_field( 'azure_openai_api_key', __( 'API Key', 'talking-head' ), 'th_azure_openai', 'password' );
 		$this->add_field( 'azure_openai_deployment_id', __( 'Deployment ID', 'talking-head' ), 'th_azure_openai', 'text' );
 		$this->add_field( 'azure_openai_api_version', __( 'API Version', 'talking-head' ), 'th_azure_openai', 'text' );
+
+		// WordPress AI (Core) section — only rendered when WP 7.0+ AI Client is available.
+		if ( WordPressAIProvider::is_available() ) {
+			add_settings_section(
+				'th_wordpress',
+				__( 'WordPress AI (Core)', 'talking-head' ),
+				function () {
+					printf(
+						'<p>%s <a href="%s">%s</a></p>',
+						esc_html__( 'Uses the built-in WordPress AI Client. Configure AI connectors at', 'talking-head' ),
+						esc_url( admin_url( WordPressAIProvider::CONNECTORS_URL ) ),
+						esc_html__( 'Settings → Connectors', 'talking-head' )
+					);
+				},
+				self::PAGE_SLUG
+			);
+		}
 
 		// Audio Processing section.
 		add_settings_section(
@@ -395,7 +418,7 @@ final class SettingsPage {
 	public function sanitize_options( array $input ): array {
 		$sanitized = [];
 
-		$sanitized[ 'tts_provider' ] = in_array( $input[ 'tts_provider' ] ?? '', [ 'openai', 'azure_openai' ], true )
+		$sanitized[ 'tts_provider' ] = in_array( $input[ 'tts_provider' ] ?? '', self::get_valid_providers(), true )
 			? $input[ 'tts_provider' ]
 			: 'openai';
 
@@ -460,7 +483,7 @@ final class SettingsPage {
 
 	private const TABS = [
 		'provider' => [
-			'sections' => [ 'th_provider', 'th_openai', 'th_azure_openai' ],
+			'sections' => [ 'th_provider', 'th_openai', 'th_azure_openai', 'th_wordpress' ],
 			'keys'     => [
 				'tts_provider', 'default_voice',
 				'openai_api_key', 'openai_tts_model',
@@ -522,13 +545,29 @@ final class SettingsPage {
 
 		// Render sections for the active tab.
 		if ( $active_tab === 'provider' ) {
+			$current_provider = self::get( 'tts_provider' );
+
 			$this->render_section( 'th_provider' );
-			echo '<div id="th-section-openai" class="th-provider-section">';
+			printf(
+				'<div id="th-section-openai" class="th-provider-section%s">',
+				$current_provider === 'openai' ? ' is-active' : ''
+			);
 			$this->render_section( 'th_openai' );
 			echo '</div>';
-			echo '<div id="th-section-azure-openai" class="th-provider-section">';
+			printf(
+				'<div id="th-section-azure-openai" class="th-provider-section%s">',
+				$current_provider === 'azure_openai' ? ' is-active' : ''
+			);
 			$this->render_section( 'th_azure_openai' );
 			echo '</div>';
+			if ( WordPressAIProvider::is_available() ) {
+				printf(
+					'<div id="th-section-wordpress" class="th-provider-section%s">',
+					$current_provider === 'wordpress' ? ' is-active' : ''
+				);
+				$this->render_section( 'th_wordpress' );
+				echo '</div>';
+			}
 		} else {
 			foreach ( self::TABS[ $active_tab ][ 'sections' ] as $section_id ) {
 				$this->render_section( $section_id );
@@ -555,6 +594,39 @@ final class SettingsPage {
 		submit_button();
 		echo '</form>';
 		echo '</div>';
+	}
+
+	/**
+	 * Get the list of valid provider slugs (always includes openai + azure_openai, plus wordpress when available).
+	 *
+	 * @return string[]
+	 */
+	private static function get_valid_providers(): array {
+		$providers = [ 'openai', 'azure_openai' ];
+
+		if ( WordPressAIProvider::is_available() ) {
+			$providers[] = 'wordpress';
+		}
+
+		return $providers;
+	}
+
+	/**
+	 * Get provider choices for the settings dropdown.
+	 *
+	 * @return array<string, string>
+	 */
+	private static function get_provider_choices(): array {
+		$choices = [
+			'openai'       => 'OpenAI',
+			'azure_openai' => 'Azure OpenAI',
+		];
+
+		if ( WordPressAIProvider::is_available() ) {
+			$choices['wordpress'] = __( 'WordPress AI (Core)', 'talking-head' );
+		}
+
+		return $choices;
 	}
 
 	/**
