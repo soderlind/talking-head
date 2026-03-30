@@ -34,146 +34,146 @@ msgstr "Per Soderlind"
 msgid "https://soderlind.no"
 msgstr "https://soderlind.no"
 
-#: src/Admin/HeadMetaBox.php:65
-#: src/head-sidebar/head-panel.js:113
+#: src/Admin/HeadMetaBox.php:81
+#: src/head-sidebar/head-panel.js:128
 msgid "Voice Settings"
 msgstr "Stemmeinnstillinger"
 
-#: src/Admin/HeadMetaBox.php:84
-#: src/head-sidebar/head-panel.js:118
+#: src/Admin/HeadMetaBox.php:100
+#: src/head-sidebar/head-panel.js:133
 msgid "Voice"
 msgstr "Stemme"
 
-#: src/Admin/HeadMetaBox.php:98
-#: src/Admin/SettingsPage.php:209
-#: src/Admin/SettingsPage.php:483
-#: src/head-sidebar/head-panel.js:147
+#: src/Admin/HeadMetaBox.php:114
+#: src/Admin/SettingsPage.php:218
+#: src/Admin/SettingsPage.php:506
+#: src/head-sidebar/head-panel.js:162
 msgid "Provider"
 msgstr "Leverandør"
 
-#: src/Admin/HeadMetaBox.php:112
-#: src/head-sidebar/head-panel.js:155
+#: src/Admin/HeadMetaBox.php:128
+#: src/head-sidebar/head-panel.js:170
 msgid "Speed"
 msgstr "Hastighet"
 
-#: src/Admin/HeadMetaBox.php:119
+#: src/Admin/HeadMetaBox.php:135
 msgid "Playback speed (0.25 – 4.0). Default is 1.0."
 msgstr "Avspillingshastighet (0,25 – 4,0). Standard er 1,0."
 
-#: src/Admin/HeadMetaBox.php:126
-#: src/head-sidebar/head-panel.js:164
+#: src/Admin/HeadMetaBox.php:142
+#: src/head-sidebar/head-panel.js:179
 msgid "Speaking Style / Instructions"
 msgstr "Talestil / Instruksjoner"
 
-#: src/Admin/HeadMetaBox.php:132
-#: src/head-sidebar/head-panel.js:165
+#: src/Admin/HeadMetaBox.php:148
+#: src/head-sidebar/head-panel.js:180
 msgid "Instructions for the TTS model (requires gpt-4o-mini-tts)."
 msgstr "Instruksjoner for TTS-modellen (krever gpt-4o-mini-tts)."
 
-#: src/Admin/SettingsPage.php:161
+#: src/Admin/SettingsPage.php:163
 msgid "Talking Head Settings"
 msgstr "Talking Head-innstillinger"
 
-#: src/Admin/SettingsPage.php:199
+#: src/Admin/SettingsPage.php:208
 msgid "TTS Provider"
 msgstr "TTS-leverandør"
 
-#: src/Admin/SettingsPage.php:202
+#: src/Admin/SettingsPage.php:211
 msgid "Select which text-to-speech provider to use."
 msgstr "Velg hvilken tekst-til-tale-leverandør som skal brukes."
 
-#: src/Admin/SettingsPage.php:219
+#: src/Admin/SettingsPage.php:225
 msgid "Default Voice"
 msgstr "Standardstemme"
 
-#: src/Admin/SettingsPage.php:235
+#: src/Admin/SettingsPage.php:241
 msgid "OpenAI"
 msgstr "OpenAI"
 
-#: src/Admin/SettingsPage.php:238
+#: src/Admin/SettingsPage.php:244
 msgid "Configure your OpenAI API credentials."
 msgstr "Konfigurer OpenAI API-legitimasjonen din."
 
-#: src/Admin/SettingsPage.php:243
-#: src/Admin/SettingsPage.php:268
+#: src/Admin/SettingsPage.php:249
+#: src/Admin/SettingsPage.php:274
 msgid "API Key"
 msgstr "API-nøkkel"
 
-#: src/Admin/SettingsPage.php:246
+#: src/Admin/SettingsPage.php:252
 msgid "TTS Model"
 msgstr "TTS-modell"
 
-#: src/Admin/SettingsPage.php:259
+#: src/Admin/SettingsPage.php:265
 msgid "Azure OpenAI"
 msgstr "Azure OpenAI"
 
-#: src/Admin/SettingsPage.php:262
+#: src/Admin/SettingsPage.php:268
 msgid "Configure your Azure OpenAI API credentials."
 msgstr "Konfigurer Azure OpenAI API-legitimasjonen din."
 
-#: src/Admin/SettingsPage.php:267
+#: src/Admin/SettingsPage.php:273
 msgid "Endpoint"
 msgstr "Endepunkt"
 
-#: src/Admin/SettingsPage.php:269
+#: src/Admin/SettingsPage.php:275
 msgid "Deployment ID"
 msgstr "Distribusjons-ID"
 
-#: src/Admin/SettingsPage.php:270
+#: src/Admin/SettingsPage.php:276
 msgid "API Version"
 msgstr "API-versjon"
 
-#: src/Admin/SettingsPage.php:275
+#: src/Admin/SettingsPage.php:298
 msgid "Audio Processing"
 msgstr "Lydbehandling"
 
-#: src/Admin/SettingsPage.php:278
+#: src/Admin/SettingsPage.php:301
 msgid "Configure audio output settings. FFmpeg is optional — without it, audio stitching uses a PHP fallback (no loudness normalization or format conversion)."
 msgstr "Konfigurer lydinnstillinger. FFmpeg er valgfritt — uten det bruker lydsammenslåing en PHP-reserve (ingen volumnormalisering eller formatkonvertering)."
 
-#: src/Admin/SettingsPage.php:293
+#: src/Admin/SettingsPage.php:316
 msgid "FFmpeg Path"
 msgstr "FFmpeg-sti"
 
-#: src/Admin/SettingsPage.php:296
+#: src/Admin/SettingsPage.php:319
 msgid "Output Format"
 msgstr "Utdataformat"
 
-#: src/Admin/SettingsPage.php:306
+#: src/Admin/SettingsPage.php:329
 msgid "Output Bitrate"
 msgstr "Utdata-bitrate"
 
-#: src/Admin/SettingsPage.php:316
+#: src/Admin/SettingsPage.php:339
 msgid "Silence Gap (ms)"
 msgstr "Stillhetspause (ms)"
 
-#: src/Admin/SettingsPage.php:321
-#: src/Admin/SettingsPage.php:485
+#: src/Admin/SettingsPage.php:344
+#: src/Admin/SettingsPage.php:508
 msgid "Limits"
 msgstr "Begrensninger"
 
-#: src/Admin/SettingsPage.php:324
+#: src/Admin/SettingsPage.php:347
 msgid "Configure rate limits and content constraints."
 msgstr "Konfigurer hastighetsbegrensninger og innholdsbegrensninger."
 
-#: src/Admin/SettingsPage.php:329
+#: src/Admin/SettingsPage.php:352
 msgid "Max Segments per Episode"
 msgstr "Maks segmenter per episode"
 
-#: src/Admin/SettingsPage.php:330
+#: src/Admin/SettingsPage.php:353
 msgid "Max Characters per Segment"
 msgstr "Maks tegn per segment"
 
-#: src/Admin/SettingsPage.php:331
+#: src/Admin/SettingsPage.php:354
 msgid "API Requests per Minute"
 msgstr "API-forespørsler per minutt"
 
-#: src/Admin/SettingsPage.php:353
+#: src/Admin/SettingsPage.php:376
 msgid "Locked by constant or environment variable."
 msgstr "Låst av konstant eller miljøvariabel."
 
 #. translators: %s: file path
-#: src/Admin/SettingsPage.php:416
+#: src/Admin/SettingsPage.php:439
 #, php-format
 msgid "FFmpeg not found or not executable at: %s"
 msgstr "FFmpeg ble ikke funnet eller er ikke kjørbar på: %s"
@@ -236,7 +236,7 @@ msgstr "Ingen episoder funnet i papirkurven."
 msgid "Status"
 msgstr "Status"
 
-#: src/Admin/SettingsPage.php:484
+#: src/Admin/SettingsPage.php:507
 #: src/CPT/EpisodeCPT.php:147
 msgid "Audio"
 msgstr "Lyd"
@@ -460,7 +460,7 @@ msgctxt "block description"
 msgid "A single speaker turn in a Talking Head conversation."
 msgstr "En enkelt talerreplikk i en Talking Head-samtale."
 
-#: src/Admin/SettingsPage.php:162
+#: src/Admin/SettingsPage.php:164
 msgid "Settings"
 msgstr "Innstillinger"
 
@@ -476,27 +476,27 @@ msgstr "Ord"
 msgid "Segments:"
 msgstr "Segmenter:"
 
-#: src/Admin/SettingsPage.php:285
+#: src/Admin/SettingsPage.php:308
 msgid "Stitching Mode"
 msgstr "Sammenslåingsmodus"
 
-#: src/Admin/SettingsPage.php:289
+#: src/Admin/SettingsPage.php:312
 msgid "File (concatenate on server)"
 msgstr "Fil (slå sammen på server)"
 
-#: src/Admin/SettingsPage.php:290
+#: src/Admin/SettingsPage.php:313
 msgid "Virtual (serve segments individually)"
 msgstr "Virtuell (server segmenter enkeltvis)"
 
-#: src/Admin/SettingsPage.php:293
+#: src/Admin/SettingsPage.php:316
 msgid "Optional. If not found, a PHP fallback is used (no loudness normalization or format conversion)."
 msgstr "Valgfritt. Hvis ikke funnet, brukes en PHP-reserve (ingen volumnormalisering eller formatkonvertering)."
 
-#: src/head-sidebar/head-panel.js:137
+#: src/head-sidebar/head-panel.js:152
 msgid "Stop preview"
 msgstr "Stopp forhåndsvisning"
 
-#: src/head-sidebar/head-panel.js:138
+#: src/head-sidebar/head-panel.js:153
 msgid "Preview voice"
 msgstr "Forhåndsvis stemme"
 
@@ -505,3 +505,18 @@ msgstr "Forhåndsvis stemme"
 #, js-format
 msgid "Audio generated — %d segments (virtual stitching)"
 msgstr "Lyd generert — %d segmenter (virtuell sammenslåing)"
+
+#: src/Admin/HeadMetaBox.php:40
+#: src/Admin/SettingsPage.php:282
+#: src/Admin/SettingsPage.php:626
+#: src/head-sidebar/head-panel.js:36
+msgid "WordPress AI (Core)"
+msgstr "WordPress AI (kjerne)"
+
+#: src/Admin/SettingsPage.php:286
+msgid "Uses the built-in WordPress AI Client. Configure AI connectors at"
+msgstr "Bruker den innebygde WordPress AI-klienten. Konfigurer AI-koblinger under"
+
+#: src/Admin/SettingsPage.php:288
+msgid "Settings → Connectors"
+msgstr "Innstillinger → Koblinger"
