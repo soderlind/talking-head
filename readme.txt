@@ -33,7 +33,7 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 
 1. Create speaker profiles with assigned voices
 2. Write a conversation using turn-based blocks in the episode editor
-3. Click "Generate Audio" to produce speech via OpenAI TTS
+3. Click "Generate Audio" to produce speech via the configured TTS provider
 4. The plugin stitches segments into a single MP3 using FFmpeg — or use virtual stitching to serve segments individually
 5. Embed the player block in any post or page
 

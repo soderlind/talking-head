@@ -22,10 +22,12 @@ Talking Head lets you write multi-speaker conversations in the WordPress block e
 - **Speaker profiles** — Custom post type for managing voices and personas
 - **OpenAI TTS** — Generate speech using OpenAI's text-to-speech API (alloy, echo, fable, onyx, nova, shimmer)
 - **Azure OpenAI TTS** — Alternative provider using Azure-hosted OpenAI deployments
+- **WordPress AI (Core)** — On WordPress 7.0+, use the built-in AI Client for TTS via Settings → Connectors (no API key required)
 - **Background processing** — Audio generation runs via Action Scheduler, with progress tracking
 - **Audio stitching** — FFmpeg-based concatenation with silence gaps and loudness normalization, or pure PHP fallback
 - **Virtual stitching** — Serve audio segments individually without server-side concatenation, with client-side sequential playback
 - **Player block** — Embed episode playback in any post or page, with optional transcript
+- **Provider selector** — Settings page dropdown to switch between providers; only relevant fields are shown
 - **Provider interface** — Extensible architecture for adding more TTS providers
 
 ## Requirements
@@ -51,7 +53,7 @@ Go to **Talking Head > Settings** and configure. The settings page has three tab
 <tr><th>Tab</th><th>Setting</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td rowspan="8"><strong>Provider</strong></td><td>TTS Provider</td><td><code>OpenAI</code> or <code>Azure OpenAI</code></td></tr>
+<tr><td rowspan="8"><strong>Provider</strong></td><td>TTS Provider</td><td><code>OpenAI</code>, <code>Azure OpenAI</code>, or <code>WordPress AI (Core)</code> (WP 7.0+)</td></tr>
 <tr><td>Default Voice</td><td>Default voice for new speaker profiles</td></tr>
 <tr><td>OpenAI API Key</td><td>Your OpenAI API key for TTS</td></tr>
 <tr><td>TTS Model</td><td><code>tts-1</code> (standard), <code>tts-1-hd</code> (high quality), or <code>gpt-4o-mini-tts</code> (supports instructions)</td></tr>
@@ -79,7 +81,7 @@ Settings can also be set via constants in `wp-config.php` (highest priority) or 
 Go to **Talking Head > Heads** and create speaker profiles. Each head has:
 - A name
 - A voice ID (e.g., `nova`, `onyx`)
-- A provider (`openai` or `azure_openai`)
+- A provider (`openai`, `azure_openai`, or `wordpress` on WP 7.0+)
 - Speed (0.25–4.0, default 1.0)
 - Optional speaking style/instructions (used with `gpt-4o-mini-tts`)
 - Optional avatar (featured image)
@@ -97,7 +99,7 @@ Add more turns with the block appender.
 Select the Episode block and click **Generate Audio** in the block toolbar. The plugin:
 1. Validates the manuscript (speakers assigned, text within limits)
 2. Creates a background job via Action Scheduler
-3. Generates TTS audio for each turn via OpenAI
+3. Generates TTS audio for each turn via the configured provider
 4. Stitches segments with FFmpeg into a single MP3 (file mode), or prepares segments for individual playback (virtual mode)
 5. Stores the result in `wp-content/uploads/talking-head/`
 
