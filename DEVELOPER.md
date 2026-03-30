@@ -48,7 +48,7 @@ src/
   REST/                   — REST API controllers
   Blocks/                 — Server-side block registration
   Manuscript/             — Block parsing, validation, JSON schema
-  Provider/               — TTS provider interface + OpenAI implementation
+  Provider/               — TTS provider interface + OpenAI, Azure OpenAI, and WordPress AI (Core) implementations
   Job/                    — Action Scheduler integration, job runner pipeline
   Audio/                  — FFmpeg stitching, normalization, encoding
   Storage/                — File storage interface + local implementation

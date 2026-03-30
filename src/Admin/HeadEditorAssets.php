@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TalkingHead\Admin;
 
 use TalkingHead\CPT\HeadCPT;
+use TalkingHead\Provider\WordPress\WordPressAIProvider;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,6 +48,14 @@ final class HeadEditorAssets {
 			'talking-head-head-sidebar',
 			'talkingHeadVoiceSamples',
 			self::voice_sample_urls()
+		);
+
+		wp_localize_script(
+			'talking-head-head-sidebar',
+			'talkingHeadEditor',
+			[
+				'wpAiAvailable' => WordPressAIProvider::is_available(),
+			]
 		);
 	}
 

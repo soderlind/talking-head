@@ -14,6 +14,7 @@ use TalkingHead\Enum\JobStatus;
 use TalkingHead\Provider\AzureOpenAI\AzureOpenAIProvider;
 use TalkingHead\Provider\OpenAI\OpenAIProvider;
 use TalkingHead\Provider\ProviderInterface;
+use TalkingHead\Provider\WordPress\WordPressAIProvider;
 use TalkingHead\Storage\LocalStorage;
 use TalkingHead\Storage\StorageInterface;
 
@@ -223,6 +224,7 @@ final class JobRunner {
 		}
 
 		$provider = match ( $slug ) {
+			'wordpress'    => new WordPressAIProvider(),
 			'azure_openai' => new AzureOpenAIProvider(
 				apiKey: SettingsPage::get( 'azure_openai_api_key' ),
 				endpoint: SettingsPage::get( 'azure_openai_endpoint' ),

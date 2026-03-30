@@ -9,7 +9,7 @@ When a setting is locked by a constant or environment variable, the admin field 
 ## Provider
 
 ```php
-// Which TTS provider to use: 'openai' or 'azure_openai'
+// Which TTS provider to use: 'openai', 'azure_openai', or 'wordpress' (WP 7.0+)
 define( 'TALKING_HEAD_TTS_PROVIDER', 'openai' );
 
 // OpenAI API key
@@ -74,7 +74,7 @@ define( 'TALKING_HEAD_RATE_LIMIT', '10' );
 
 | Constant | Default | Allowed Values |
 |----------|---------|----------------|
-| `TALKING_HEAD_TTS_PROVIDER` | `openai` | `openai`, `azure_openai` |
+| `TALKING_HEAD_TTS_PROVIDER` | `openai` | `openai`, `azure_openai`, `wordpress` |
 | `TALKING_HEAD_OPENAI_API_KEY` | *(empty)* | Any string |
 | `TALKING_HEAD_OPENAI_TTS_MODEL` | `tts-1` | `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts` |
 | `TALKING_HEAD_DEFAULT_VOICE` | `alloy` | `alloy`, `echo`, `fable`, `onyx`, `nova`, `shimmer` |

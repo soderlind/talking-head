@@ -21,10 +21,25 @@ const VOICE_OPTIONS = [
 	{ label: 'Shimmer', value: 'shimmer' },
 ];
 
-const PROVIDER_OPTIONS = [
-	{ label: 'OpenAI', value: 'openai' },
-	{ label: 'Azure OpenAI', value: 'azure_openai' },
-];
+/* global talkingHeadVoiceSamples, talkingHeadEditor */
+const editorSettings =
+	typeof talkingHeadEditor !== 'undefined' ? talkingHeadEditor : {};
+
+const PROVIDER_OPTIONS = ( () => {
+	const options = [
+		{ label: 'OpenAI', value: 'openai' },
+		{ label: 'Azure OpenAI', value: 'azure_openai' },
+	];
+
+	if ( editorSettings.wpAiAvailable ) {
+		options.push( {
+			label: __( 'WordPress AI (Core)', 'talking-head' ),
+			value: 'wordpress',
+		} );
+	}
+
+	return options;
+} )();
 
 /* global talkingHeadVoiceSamples */
 const samples =

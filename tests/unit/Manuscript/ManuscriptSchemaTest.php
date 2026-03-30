@@ -45,7 +45,7 @@ it( 'includes openai and azure_openai in provider enum', function () {
 	$schema   = ManuscriptSchema::schema();
 	$provider = $schema[ 'properties' ][ 'segments' ][ 'items' ][ 'properties' ][ 'provider' ];
 
-	expect( $provider[ 'enum' ] )->toContain( 'openai', 'azure_openai' );
+	expect( $provider[ 'enum' ] )->toContain( 'openai', 'azure_openai', 'wordpress' );
 } );
 
 it( 'defines optional speed property on segments', function () {

@@ -1,0 +1,14 @@
+/**
+ * Settings page styles.
+ *
+ * @package TalkingHead
+ */
+
+/* Hide provider-specific sections by default; the active one is shown via .is-active. */
+.th-provider-section {
+	display: none;
+}
+
+.th-provider-section.is-active {
+	display: block;
+}
