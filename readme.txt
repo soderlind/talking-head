@@ -1,10 +1,10 @@
 === Talking Head ===
 Contributors: PerS
 Tags: podcast, audio, tts, text-to-speech, ai
-Requires at least: 6.8
+Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 8.3
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,27 +20,27 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 
 * **Episode editor** — Gutenberg blocks for writing turn-based conversations with speaker selection
 * **Speaker profiles** — Manage voices and personas as a custom post type
-* **OpenAI TTS** — Generate speech using OpenAI's text-to-speech API with six voice options
-* **Azure OpenAI TTS** — Alternative provider using Azure-hosted OpenAI deployments
-* **WordPress AI (Core)** — On WordPress 7.0+, use the built-in AI Client for TTS via Settings → Connectors (no API key required)
+* **WordPress AI (Core)** — Uses the built-in WordPress AI Client for TTS via Settings → Connectors
 * **Background processing** — Audio generation runs via Action Scheduler with real-time progress tracking
 * **Audio stitching** — FFmpeg-based concatenation with silence gaps and loudness normalization, or pure PHP fallback
 * **Virtual stitching** — Serve audio segments individually without server-side concatenation, with client-side sequential playback
 * **Player block** — Embed episode playback in any post or page with optional transcript display
-* **Provider selector** — Settings page dropdown to switch between providers; only relevant fields are shown
+* **Waveform player** — Optional interactive waveform visualization with chapter navigation
 
 = How It Works =
 
-1. Create speaker profiles with assigned voices
-2. Write a conversation using turn-based blocks in the episode editor
-3. Click "Generate Audio" to produce speech via the configured TTS provider
-4. The plugin stitches segments into a single MP3 using FFmpeg — or use virtual stitching to serve segments individually
-5. Embed the player block in any post or page
+1. Configure an AI connector at Settings → Connectors (WordPress AI)
+2. Create speaker profiles with assigned voices
+3. Write a conversation using turn-based blocks in the episode editor
+4. Click "Generate Audio" to produce speech via the WordPress AI Client
+5. The plugin stitches segments into a single MP3 using FFmpeg — or use virtual stitching to serve segments individually
+6. Embed the player block in any post or page
 
 = Requirements =
 
-* WordPress 6.8 or higher
+* WordPress 7.0 or higher
 * PHP 8.3 or higher
+* AI connector configured at Settings → Connectors
 * FFmpeg installed on the server (optional — PHP fallback available)
 
 == Installation ==
@@ -48,15 +48,16 @@ Each speaker ("head") gets their own voice profile, and the plugin stitches all 
 1. Download the latest [talking-head.zip](https://github.com/soderlind/talking-head/releases/latest/download/talking-head.zip)
 2. In WordPress, go to Plugins → Add New → Upload Plugin and upload the zip
 3. Activate the plugin
-4. Go to Talking Head > Settings to configure your API key and preferences
+4. Configure an AI connector at Settings → Connectors (one with TTS support)
+5. Go to Talking Head > Settings to configure voice and audio preferences
 
 The plugin updates itself automatically via GitHub releases.
 
 == Frequently Asked Questions ==
 
-= What TTS providers are supported? =
+= What TTS provider does this plugin use? =
 
-OpenAI TTS, Azure OpenAI TTS, and WordPress AI (Core) are supported, all with voices: Alloy, Echo, Fable, Onyx, Nova, and Shimmer. On WordPress 7.0+, the WordPress AI provider appears automatically and uses the built-in AI Client — configure connectors at Settings → Connectors (no API key required). Choose your provider under Talking Head > Settings. Each head can also be assigned a specific provider for mixed-provider episodes.
+This plugin uses the WordPress AI Client (introduced in WordPress 7.0). Configure your AI connector at Settings → Connectors — no plugin-specific API keys required. Supported voices: Alloy, Echo, Fable, Onyx, Nova, and Shimmer.
 
 = Do I need FFmpeg? =
 
@@ -66,10 +67,6 @@ No. FFmpeg is optional. Without it, the plugin uses a pure PHP fallback for stit
 
 Audio generation runs via Action Scheduler (bundled with the plugin). When you click "Generate Audio", a job is queued and processed in the background. The editor sidebar polls for progress updates every 3 seconds.
 
-= Can I set the API key without storing it in the database? =
-
-Yes. Define `TALKING_HEAD_OPENAI_API_KEY` as a constant in `wp-config.php` or set the `TALKING_HEAD_OPENAI_API_KEY` environment variable. Constants take priority over environment variables, which take priority over the database setting.
-
 = What audio formats are supported? =
 
 MP3 and AAC output formats are supported, with configurable bitrate (128k to 320k).
@@ -78,15 +75,27 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 1. Episode editor with turn-based conversation blocks
 2. Speaker profile management
-3. Settings page with provider configuration
+3. Settings page with voice and audio configuration
 4. Player block on the front end
 
 == Changelog ==
 
+= 1.5.0 =
+* **Breaking:** Requires WordPress 7.0 or higher
+* Simplified to use only WordPress AI (Core) via Settings → Connectors
+* Removed bespoke OpenAI and Azure OpenAI TTS providers — all AI configuration now handled by WordPress Core
+* Removed provider selection from Settings page, Head meta box, and block editor sidebar
+* Removed API key configuration fields (use Settings → Connectors instead)
+* Settings page reorganized into Voice, Audio, and Limits tabs
+* Simplified codebase with fewer dependencies
+
 = 1.4.0 =
 * Waveform player option — toggle "Use Waveform Player" in the player block settings to display an interactive waveform visualization
+* Chapter navigation — toggle "Show Chapters" to display speaker turns as clickable chapter markers on the waveform
 * Uses @arraypress/waveform-player (~8KB gzipped) with mirror style, playback speed controls, and keyboard navigation
-* Assets loaded from CDN only when waveform option is enabled
+* Uses @arraypress/waveform-playlist (~4KB gzipped) for clickable chapter timestamps
+* Chapters generated from episode segments with calculated timestamps
+* Assets loaded from CDN only when options are enabled
 
 = 1.3.0 =
 * WordPress AI (Core) TTS provider — on WordPress 7.0+, use the built-in AI Client for TTS via Settings → Connectors (no API key required)
@@ -198,6 +207,9 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 * Local file storage with adapter interface
 
 == Upgrade Notice ==
+
+= 1.5.0 =
+**Breaking:** Requires WordPress 7.0+. Removes OpenAI/Azure providers in favor of WordPress AI Core. Configure AI at Settings → Connectors instead of plugin settings.
 
 = 1.2.2 =
 Fixes player block editor not recognizing generated audio in virtual stitching mode. Adds CONFIG.md for configuration constants reference.

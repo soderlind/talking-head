@@ -29,7 +29,6 @@ describe( 'HeadPanel', () => {
 				getCurrentPostType: () => 'talking_head_head',
 				getEditedPostAttribute: () => ( {
 					_th_voice_id: 'nova',
-					_th_provider: 'openai',
 					_th_speed: 1.0,
 					_th_speaking_style: '',
 				} ),
@@ -42,7 +41,7 @@ describe( 'HeadPanel', () => {
 		expect( screen.getByTestId( 'PluginDocumentSettingPanel' ).dataset.title ).toBe( 'Voice Settings' );
 	} );
 
-	it( 'renders all four controls', () => {
+	it( 'renders Voice, Speed, and Speaking Style controls', () => {
 		vi.mocked( useSelect ).mockImplementation( ( fn ) =>
 			fn( () => ( {
 				getCurrentPostType: () => 'talking_head_head',
@@ -53,13 +52,13 @@ describe( 'HeadPanel', () => {
 		render( <HeadPanel /> );
 
 		const controls = screen.getAllByTestId( 'SelectControl' );
-		expect( controls ).toHaveLength( 2 ); // Voice + Provider
+		expect( controls ).toHaveLength( 1 ); // Voice only
 
 		expect( screen.getByTestId( 'RangeControl' ) ).toBeInTheDocument();
 		expect( screen.getByTestId( 'TextareaControl' ) ).toBeInTheDocument();
 	} );
 
-	it( 'shows Voice and Provider labels', () => {
+	it( 'shows Voice, Speed, and Speaking Style labels', () => {
 		vi.mocked( useSelect ).mockImplementation( ( fn ) =>
 			fn( () => ( {
 				getCurrentPostType: () => 'talking_head_head',
@@ -70,7 +69,6 @@ describe( 'HeadPanel', () => {
 		render( <HeadPanel /> );
 
 		expect( screen.getByText( 'Voice' ) ).toBeInTheDocument();
-		expect( screen.getByText( 'Provider' ) ).toBeInTheDocument();
 		expect( screen.getByText( 'Speed' ) ).toBeInTheDocument();
 		expect( screen.getByText( 'Speaking Style / Instructions' ) ).toBeInTheDocument();
 	} );

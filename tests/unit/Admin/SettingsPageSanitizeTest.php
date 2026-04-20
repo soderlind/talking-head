@@ -26,16 +26,10 @@ beforeEach( function () {
 	$this->page = new SettingsPage();
 } );
 
-it( 'accepts a valid provider', function () {
-	$result = $this->page->sanitize_options( [ 'tts_provider' => 'azure_openai' ] );
+it( 'always sets provider to wordpress', function () {
+	$result = $this->page->sanitize_options( [] );
 
-	expect( $result[ 'tts_provider' ] )->toBe( 'azure_openai' );
-} );
-
-it( 'defaults to openai for an invalid provider', function () {
-	$result = $this->page->sanitize_options( [ 'tts_provider' => 'invalid' ] );
-
-	expect( $result[ 'tts_provider' ] )->toBe( 'openai' );
+	expect( $result[ 'tts_provider' ] )->toBe( 'wordpress' );
 } );
 
 it( 'accepts a valid voice', function () {
@@ -48,24 +42,6 @@ it( 'defaults to alloy for an invalid voice', function () {
 	$result = $this->page->sanitize_options( [ 'default_voice' => 'invalid_voice' ] );
 
 	expect( $result[ 'default_voice' ] )->toBe( 'alloy' );
-} );
-
-it( 'accepts a valid model', function () {
-	$result = $this->page->sanitize_options( [ 'openai_tts_model' => 'tts-1-hd' ] );
-
-	expect( $result[ 'openai_tts_model' ] )->toBe( 'tts-1-hd' );
-} );
-
-it( 'accepts gpt-4o-mini-tts as a valid model', function () {
-	$result = $this->page->sanitize_options( [ 'openai_tts_model' => 'gpt-4o-mini-tts' ] );
-
-	expect( $result[ 'openai_tts_model' ] )->toBe( 'gpt-4o-mini-tts' );
-} );
-
-it( 'defaults to tts-1 for an invalid model', function () {
-	$result = $this->page->sanitize_options( [ 'openai_tts_model' => 'gpt-4' ] );
-
-	expect( $result[ 'openai_tts_model' ] )->toBe( 'tts-1' );
 } );
 
 it( 'clamps silence_gap_ms to 0–5000', function () {

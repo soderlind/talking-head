@@ -56,7 +56,7 @@ it( 'normalizes to headId, voiceId, text, speed, speakingStyle — ignores extra
 
 	$extra = [
 		'segments' => [
-			[ 'index' => 0, 'headId' => 1, 'voiceId' => 'alloy', 'provider' => 'openai', 'text' => 'Test', 'headName' => 'Alice', 'speed' => 1.0, 'speakingStyle' => '' ],
+			[ 'index' => 0, 'headId' => 1, 'voiceId' => 'alloy', 'provider' => 'wordpress', 'text' => 'Test', 'headName' => 'Alice', 'speed' => 1.0, 'speakingStyle' => '' ],
 		],
 	];
 

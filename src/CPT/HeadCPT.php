@@ -60,7 +60,7 @@ final class HeadCPT {
 			],
 			self::META_KEY_PROVIDER       => [
 				'type'              => 'string',
-				'default'           => 'openai',
+				'default'           => 'wordpress',
 				'sanitize_callback' => 'sanitize_key',
 			],
 			self::META_KEY_SPEAKING_STYLE => [

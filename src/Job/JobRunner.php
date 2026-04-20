@@ -6,13 +6,12 @@ namespace TalkingHead\Job;
 
 use TalkingHead\Admin\SettingsPage;
 use TalkingHead\Audio\Stitcher;
+use TalkingHead\Chapter\ChapterTitleGenerator;
 use TalkingHead\CPT\EpisodeCPT;
 use TalkingHead\Database\AssetRepository;
 use TalkingHead\Database\JobRepository;
 use TalkingHead\Enum\EpisodeStatus;
 use TalkingHead\Enum\JobStatus;
-use TalkingHead\Provider\AzureOpenAI\AzureOpenAIProvider;
-use TalkingHead\Provider\OpenAI\OpenAIProvider;
 use TalkingHead\Provider\ProviderInterface;
 use TalkingHead\Provider\WordPress\WordPressAIProvider;
 use TalkingHead\Storage\LocalStorage;
@@ -206,6 +205,9 @@ final class JobRunner {
 			// Update episode metadata.
 			update_post_meta( $episode_id, EpisodeCPT::META_KEY_STATUS, EpisodeStatus::Generated->value );
 
+			// Generate AI chapter titles for the segments.
+			$this->generate_chapter_titles( $episode_id, $manuscript['segments'] );
+
 			$this->jobs->transition( $job_id, JobStatus::Succeeded );
 
 		} catch (\Throwable $e) {
@@ -218,24 +220,38 @@ final class JobRunner {
 		}
 	}
 
+	/**
+	 * Generate AI chapter titles for the episode segments.
+	 *
+	 * @param int   $episode_id Episode post ID.
+	 * @param array $segments   Manuscript segments.
+	 */
+	private function generate_chapter_titles( int $episode_id, array $segments ): void {
+		try {
+			$generator = new ChapterTitleGenerator();
+			$titles    = $generator->generate( $segments );
+
+			if ( ! empty( $titles ) ) {
+				update_post_meta(
+					$episode_id,
+					EpisodeCPT::META_KEY_CHAPTER_TITLES,
+					wp_json_encode( $titles )
+				);
+			}
+		} catch ( \Throwable $e ) {
+			// Chapter title generation failure is non-fatal - log and continue.
+			// Fallback titles (speaker names) will be used in the player.
+			error_log( 'Talking Head: Chapter title generation failed: ' . $e->getMessage() );
+		}
+	}
+
 	private function resolve_provider( string $slug ): ProviderInterface {
 		if ( isset( $this->providers[ $slug ] ) ) {
 			return $this->providers[ $slug ];
 		}
 
-		$provider = match ( $slug ) {
-			'wordpress'    => new WordPressAIProvider(),
-			'azure_openai' => new AzureOpenAIProvider(
-				apiKey: SettingsPage::get( 'azure_openai_api_key' ),
-				endpoint: SettingsPage::get( 'azure_openai_endpoint' ),
-				deploymentId: SettingsPage::get( 'azure_openai_deployment_id' ),
-				apiVersion: SettingsPage::get( 'azure_openai_api_version' ),
-			),
-			default        => new OpenAIProvider(
-				apiKey: SettingsPage::get( 'openai_api_key' ),
-				model: SettingsPage::get( 'openai_tts_model' ),
-			),
-		};
+		// WordPress 7.0+ uses only the WordPress AI Core provider.
+		$provider = new WordPressAIProvider();
 
 		$this->providers[ $slug ] = $provider;
 		return $provider;

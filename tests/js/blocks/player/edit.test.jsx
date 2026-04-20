@@ -105,7 +105,7 @@ describe( 'Player Edit', () => {
 
 		render(
 			<Edit
-				attributes={ { episodeId: 0, showTranscript: true, useWaveformPlayer: false } }
+				attributes={ { episodeId: 0, showTranscript: true, useWaveformPlayer: false, showChapters: false } }
 				setAttributes={ setAttributes }
 			/>
 		);
@@ -113,5 +113,20 @@ describe( 'Player Edit', () => {
 		// Should render both toggle controls (transcript and waveform player)
 		const toggles = screen.getAllByTestId( 'ToggleControl' );
 		expect( toggles.length ).toBe( 2 );
+	} );
+
+	it( 'renders chapters toggle when waveform player is enabled', () => {
+		vi.mocked( useSelect ).mockReturnValue( null );
+
+		render(
+			<Edit
+				attributes={ { episodeId: 0, showTranscript: false, useWaveformPlayer: true, showChapters: false } }
+				setAttributes={ setAttributes }
+			/>
+		);
+
+		// Should render 3 toggle controls (transcript, waveform player, and chapters)
+		const toggles = screen.getAllByTestId( 'ToggleControl' );
+		expect( toggles.length ).toBe( 3 );
 	} );
 } );

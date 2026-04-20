@@ -8,12 +8,13 @@ defined( 'ABSPATH' ) || exit;
 
 final class EpisodeCPT {
 
-	public const POST_TYPE               = 'talking_head_episode';
-	public const META_KEY_MANUSCRIPT     = '_th_manuscript';
-	public const META_KEY_STATUS         = '_th_episode_status';
-	public const META_KEY_AUDIO_URL      = '_th_audio_url';
-	public const META_KEY_AUDIO_DURATION = '_th_audio_duration';
-	public const META_KEY_STITCHING_MODE = '_th_stitching_mode';
+	public const POST_TYPE                = 'talking_head_episode';
+	public const META_KEY_MANUSCRIPT      = '_th_manuscript';
+	public const META_KEY_STATUS          = '_th_episode_status';
+	public const META_KEY_AUDIO_URL       = '_th_audio_url';
+	public const META_KEY_AUDIO_DURATION  = '_th_audio_duration';
+	public const META_KEY_STITCHING_MODE  = '_th_stitching_mode';
+	public const META_KEY_CHAPTER_TITLES  = '_th_chapter_titles';
 
 	public function register(): void {
 		add_action( 'init', [ $this, 'register_post_type' ] );

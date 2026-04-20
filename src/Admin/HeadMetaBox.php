@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TalkingHead\Admin;
 
 use TalkingHead\CPT\HeadCPT;
-use TalkingHead\Provider\WordPress\WordPressAIProvider;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,26 +21,6 @@ final class HeadMetaBox {
 		'nova'    => 'Nova',
 		'shimmer' => 'Shimmer',
 	];
-
-	private const PROVIDER_OPTIONS = [
-		'openai'       => 'OpenAI',
-		'azure_openai' => 'Azure OpenAI',
-	];
-
-	/**
-	 * Get provider options including WordPress AI when available.
-	 *
-	 * @return array<string, string>
-	 */
-	private static function provider_options(): array {
-		$options = self::PROVIDER_OPTIONS;
-
-		if ( WordPressAIProvider::is_available() ) {
-			$options['wordpress'] = __( 'WordPress AI (Core)', 'talking-head' );
-		}
-
-		return $options;
-	}
 
 	public function register(): void {
 		add_action( 'add_meta_boxes_' . HeadCPT::POST_TYPE, [ $this, 'add_meta_box' ] );
@@ -88,7 +67,6 @@ final class HeadMetaBox {
 
 	public function render( \WP_Post $post ): void {
 		$voice_id       = get_post_meta( $post->ID, HeadCPT::META_KEY_VOICE_ID, true ) ?: 'alloy';
-		$provider       = get_post_meta( $post->ID, HeadCPT::META_KEY_PROVIDER, true ) ?: 'openai';
 		$speed          = (float) ( get_post_meta( $post->ID, HeadCPT::META_KEY_SPEED, true ) ?: 1.0 );
 		$speaking_style = get_post_meta( $post->ID, HeadCPT::META_KEY_SPEAKING_STYLE, true ) ?: '';
 
@@ -103,20 +81,6 @@ final class HeadMetaBox {
 					<select id="th-voice-id" name="<?php echo esc_attr( HeadCPT::META_KEY_VOICE_ID ); ?>">
 						<?php foreach ( self::VOICE_OPTIONS as $value => $label ) : ?>
 							<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $voice_id, $value ); ?>>
-								<?php echo esc_html( $label ); ?>
-							</option>
-						<?php endforeach; ?>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row">
-					<label for="th-provider"><?php esc_html_e( 'Provider', 'talking-head' ); ?></label>
-				</th>
-				<td>
-					<select id="th-provider" name="<?php echo esc_attr( HeadCPT::META_KEY_PROVIDER ); ?>">
-						<?php foreach ( self::provider_options() as $value => $label ) : ?>
-							<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $provider, $value ); ?>>
 								<?php echo esc_html( $label ); ?>
 							</option>
 						<?php endforeach; ?>
@@ -145,7 +109,7 @@ final class HeadMetaBox {
 					<textarea id="th-speaking-style" name="<?php echo esc_attr( HeadCPT::META_KEY_SPEAKING_STYLE ); ?>" rows="4"
 						class="large-text"><?php echo esc_textarea( $speaking_style ); ?></textarea>
 					<p class="description">
-						<?php esc_html_e( 'Instructions for the TTS model (requires gpt-4o-mini-tts).', 'talking-head' ); ?>
+						<?php esc_html_e( 'Optional instructions for the TTS model.', 'talking-head' ); ?>
 					</p>
 				</td>
 			</tr>
@@ -172,7 +136,6 @@ final class HeadMetaBox {
 
 		$fields = [
 			HeadCPT::META_KEY_VOICE_ID,
-			HeadCPT::META_KEY_PROVIDER,
 			HeadCPT::META_KEY_SPEED,
 			HeadCPT::META_KEY_SPEAKING_STYLE,
 		];

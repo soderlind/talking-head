@@ -8,7 +8,7 @@ use TalkingHead\Admin\SettingsPage;
 afterEach( function () {
 	// Clean up any env vars set during tests.
 	putenv( 'TALKING_HEAD_DEFAULT_VOICE' );
-	putenv( 'TALKING_HEAD_OPENAI_API_KEY' );
+	putenv( 'TALKING_HEAD_FFMPEG_PATH' );
 } );
 
 it( 'returns empty string for an unknown key', function () {
@@ -42,11 +42,11 @@ it( 'returns default value when nothing is set', function () {
 } );
 
 it( 'prefers env var over database value', function () {
-	putenv( 'TALKING_HEAD_OPENAI_API_KEY=env-key-123' );
+	putenv( 'TALKING_HEAD_FFMPEG_PATH=/custom/ffmpeg' );
 
 	Functions\stubs( [
-		'get_option' => static fn() => [ 'openai_api_key' => 'db-key-456' ],
+		'get_option' => static fn() => [ 'ffmpeg_path' => '/usr/bin/ffmpeg' ],
 	] );
 
-	expect( SettingsPage::get( 'openai_api_key' ) )->toBe( 'env-key-123' );
+	expect( SettingsPage::get( 'ffmpeg_path' ) )->toBe( '/custom/ffmpeg' );
 } );

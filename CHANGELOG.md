@@ -4,13 +4,40 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.5.0] - 2026-04-20
+
+### Changed
+
+- **Breaking:** Requires WordPress 7.0 or higher
+- Simplified to use only WordPress AI (Core) via Settings → Connectors
+- Settings page reorganized into Voice, Audio, and Limits tabs
+- Provider meta key preserved but defaults to `wordpress`
+
+### Fixed
+
+- Chapter title generation now uses correct WordPress AI Client API (`generate_text()` instead of deprecated `as_text()->get()`)
+
+### Removed
+
+- Bespoke OpenAI TTS provider (`src/Provider/OpenAI/`)
+- Bespoke Azure OpenAI TTS provider (`src/Provider/AzureOpenAI/`)
+- Provider selection UI from Settings page, Head meta box, and block editor sidebar
+- API key configuration fields (`openai_api_key`, `openai_tts_model`, `azure_openai_*`)
+- 8 configuration constants related to OpenAI/Azure (see CONFIG.md for current list)
+
 ## [1.4.0] - 2026-04-20
 
 ### Added
 
 - **Waveform player option** — toggle "Use Waveform Player" in the player block settings to display an interactive waveform visualization instead of the default audio controls
+- **Chapter navigation** — toggle "Show Chapters" to display speaker turns as clickable chapter markers on the waveform timeline
+- **AI-generated chapter titles** — chapter titles are automatically generated using AI chat completion when audio is created, providing descriptive titles instead of just speaker names
 - Waveform player uses [@arraypress/waveform-player](https://github.com/arraypress/waveform-player) (~8KB gzipped) with mirror style, playback speed controls, and keyboard navigation
-- Assets loaded from CDN only when waveform option is enabled
+- Chapter navigation uses [@arraypress/waveform-playlist](https://github.com/arraypress/waveform-playlist) (~4KB gzipped) for clickable timestamps
+- Chapters are generated from episode segments with calculated timestamps based on segment durations
+- `ChapterTitleGenerator` class uses WordPress AI Client for chat completion
+- Chapter titles stored in episode meta (`_th_chapter_titles`) with fallback to speaker names
+- Assets loaded from CDN only when options are enabled
 
 ## [1.3.0] - 2026-03-30
 
