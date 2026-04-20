@@ -41,11 +41,11 @@ it( 'has required segment properties', function () {
 	}
 } );
 
-it( 'includes openai and azure_openai in provider enum', function () {
+it( 'restricts provider enum to wordpress only', function () {
 	$schema   = ManuscriptSchema::schema();
 	$provider = $schema[ 'properties' ][ 'segments' ][ 'items' ][ 'properties' ][ 'provider' ];
 
-	expect( $provider[ 'enum' ] )->toContain( 'openai', 'azure_openai', 'wordpress' );
+	expect( $provider[ 'enum' ] )->toBe( [ 'wordpress' ] );
 } );
 
 it( 'defines optional speed property on segments', function () {

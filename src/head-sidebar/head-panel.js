@@ -21,26 +21,6 @@ const VOICE_OPTIONS = [
 	{ label: 'Shimmer', value: 'shimmer' },
 ];
 
-/* global talkingHeadVoiceSamples, talkingHeadEditor */
-const editorSettings =
-	typeof talkingHeadEditor !== 'undefined' ? talkingHeadEditor : {};
-
-const PROVIDER_OPTIONS = ( () => {
-	const options = [
-		{ label: 'OpenAI', value: 'openai' },
-		{ label: 'Azure OpenAI', value: 'azure_openai' },
-	];
-
-	if ( editorSettings.wpAiAvailable ) {
-		options.push( {
-			label: __( 'WordPress AI (Core)', 'talking-head' ),
-			value: 'wordpress',
-		} );
-	}
-
-	return options;
-} )();
-
 /* global talkingHeadVoiceSamples */
 const samples =
 	typeof talkingHeadVoiceSamples !== 'undefined'
@@ -158,14 +138,6 @@ export function HeadPanel() {
 					</FlexItem>
 				) }
 			</Flex>
-			<SelectControl
-				label={ __( 'Provider', 'talking-head' ) }
-				value={ meta._th_provider || 'openai' }
-				options={ PROVIDER_OPTIONS }
-				onChange={ ( val ) => setMeta( '_th_provider', val ) }
-				__nextHasNoMarginBottom
-				__next40pxDefaultSize
-			/>
 			<RangeControl
 				label={ __( 'Speed', 'talking-head' ) }
 				value={ meta._th_speed ?? 1.0 }
@@ -178,7 +150,7 @@ export function HeadPanel() {
 			<TextareaControl
 				label={ __( 'Speaking Style / Instructions', 'talking-head' ) }
 				help={ __(
-					'Instructions for the TTS model (requires gpt-4o-mini-tts).',
+					'Optional instructions for the TTS model.',
 					'talking-head'
 				) }
 				value={ meta._th_speaking_style || '' }

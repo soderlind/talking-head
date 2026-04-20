@@ -12,8 +12,6 @@ use TalkingHead\Database\AssetRepository;
 use TalkingHead\Database\JobRepository;
 use TalkingHead\Enum\EpisodeStatus;
 use TalkingHead\Enum\JobStatus;
-use TalkingHead\Provider\AzureOpenAI\AzureOpenAIProvider;
-use TalkingHead\Provider\OpenAI\OpenAIProvider;
 use TalkingHead\Provider\ProviderInterface;
 use TalkingHead\Provider\WordPress\WordPressAIProvider;
 use TalkingHead\Storage\LocalStorage;
@@ -252,19 +250,8 @@ final class JobRunner {
 			return $this->providers[ $slug ];
 		}
 
-		$provider = match ( $slug ) {
-			'wordpress'    => new WordPressAIProvider(),
-			'azure_openai' => new AzureOpenAIProvider(
-				apiKey: SettingsPage::get( 'azure_openai_api_key' ),
-				endpoint: SettingsPage::get( 'azure_openai_endpoint' ),
-				deploymentId: SettingsPage::get( 'azure_openai_deployment_id' ),
-				apiVersion: SettingsPage::get( 'azure_openai_api_version' ),
-			),
-			default        => new OpenAIProvider(
-				apiKey: SettingsPage::get( 'openai_api_key' ),
-				model: SettingsPage::get( 'openai_tts_model' ),
-			),
-		};
+		// WordPress 7.0+ uses only the WordPress AI Core provider.
+		$provider = new WordPressAIProvider();
 
 		$this->providers[ $slug ] = $provider;
 		return $provider;

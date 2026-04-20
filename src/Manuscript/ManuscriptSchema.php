@@ -64,7 +64,7 @@ final class ManuscriptSchema {
 				],
 				'provider' => [
 					'type' => 'string',
-					'enum' => [ 'openai', 'azure_openai', 'wordpress' ],
+					'enum' => [ 'wordpress' ],
 				],
 				'text'     => [
 					'type'      => 'string',
