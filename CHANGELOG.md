@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.4.0] - 2026-04-20
+
+### Added
+
+- **Waveform player option** — toggle "Use Waveform Player" in the player block settings to display an interactive waveform visualization instead of the default audio controls
+- Waveform player uses [@arraypress/waveform-player](https://github.com/arraypress/waveform-player) (~8KB gzipped) with mirror style, playback speed controls, and keyboard navigation
+- Assets loaded from CDN only when waveform option is enabled
+
 ## [1.3.0] - 2026-03-30
 
 ### Added

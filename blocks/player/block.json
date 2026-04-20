@@ -23,6 +23,10 @@
 		"showTranscript": {
 			"type": "boolean",
 			"default": false
+		},
+		"useWaveformPlayer": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"editorScript": "file:./index.js",

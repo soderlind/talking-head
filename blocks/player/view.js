@@ -2,6 +2,7 @@
  * Front-end script for the Talking Head Player block.
  * Enhances the native <audio> element and loads transcript data.
  * Supports both file mode (single MP3) and virtual mode (sequential segment playback).
+ * Supports optional waveform player visualization for file mode.
  */
 document.addEventListener( 'DOMContentLoaded', () => {
 	const players = document.querySelectorAll( '.th-player' );
@@ -25,6 +26,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	players.forEach( ( player ) => {
 		const episodeId = player.dataset.episodeId;
 		const stitchingMode = player.dataset.stitchingMode || 'file';
+		const useWaveform = player.dataset.useWaveform === 'true';
 		const transcriptEl = player.querySelector(
 			'.th-player__transcript'
 		);
@@ -37,8 +39,13 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const apiUrl = restRoot.replace( /\/$/, '' ) + '/talking-head/v1/episodes/' + episodeId + '/player';
 
 		if ( stitchingMode === 'virtual' ) {
+			// Virtual mode always uses segment-based playback (waveform not supported).
 			initVirtualPlayer( player, audioEl, apiUrl, transcriptEl );
+		} else if ( useWaveform ) {
+			// Waveform player handles file mode audio; just load transcript.
+			initTranscript( apiUrl, transcriptEl );
 		} else {
+			// Standard file mode with native audio element.
 			initTranscript( apiUrl, transcriptEl );
 		}
 	} );

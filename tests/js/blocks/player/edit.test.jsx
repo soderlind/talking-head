@@ -105,11 +105,13 @@ describe( 'Player Edit', () => {
 
 		render(
 			<Edit
-				attributes={ { episodeId: 0, showTranscript: true } }
+				attributes={ { episodeId: 0, showTranscript: true, useWaveformPlayer: false } }
 				setAttributes={ setAttributes }
 			/>
 		);
 
-		expect( screen.getByTestId( 'ToggleControl' ) ).toBeInTheDocument();
+		// Should render both toggle controls (transcript and waveform player)
+		const toggles = screen.getAllByTestId( 'ToggleControl' );
+		expect( toggles.length ).toBe( 2 );
 	} );
 } );
