@@ -85,8 +85,11 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 
 = 1.4.0 =
 * Waveform player option — toggle "Use Waveform Player" in the player block settings to display an interactive waveform visualization
+* Chapter navigation — toggle "Show Chapters" to display speaker turns as clickable chapter markers on the waveform
 * Uses @arraypress/waveform-player (~8KB gzipped) with mirror style, playback speed controls, and keyboard navigation
-* Assets loaded from CDN only when waveform option is enabled
+* Uses @arraypress/waveform-playlist (~4KB gzipped) for clickable chapter timestamps
+* Chapters generated from episode segments with calculated timestamps
+* Assets loaded from CDN only when options are enabled
 
 = 1.3.0 =
 * WordPress AI (Core) TTS provider — on WordPress 7.0+, use the built-in AI Client for TTS via Settings → Connectors (no API key required)

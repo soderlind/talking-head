@@ -27,6 +27,10 @@
 		"useWaveformPlayer": {
 			"type": "boolean",
 			"default": false
+		},
+		"showChapters": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"editorScript": "file:./index.js",

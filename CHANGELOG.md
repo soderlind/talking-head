@@ -9,8 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - **Waveform player option** — toggle "Use Waveform Player" in the player block settings to display an interactive waveform visualization instead of the default audio controls
+- **Chapter navigation** — toggle "Show Chapters" to display speaker turns as clickable chapter markers on the waveform timeline
 - Waveform player uses [@arraypress/waveform-player](https://github.com/arraypress/waveform-player) (~8KB gzipped) with mirror style, playback speed controls, and keyboard navigation
-- Assets loaded from CDN only when waveform option is enabled
+- Chapter navigation uses [@arraypress/waveform-playlist](https://github.com/arraypress/waveform-playlist) (~4KB gzipped) for clickable timestamps
+- Chapters are generated from episode segments with calculated timestamps based on segment durations
+- Assets loaded from CDN only when options are enabled
 
 ## [1.3.0] - 2026-03-30
 

@@ -11,7 +11,7 @@ import { useState, useEffect, useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { episodeId, showTranscript, useWaveformPlayer } = attributes;
+	const { episodeId, showTranscript, useWaveformPlayer, showChapters } = attributes;
 	const blockProps = useBlockProps( { className: 'th-player-editor' } );
 	const [ episode, setEpisode ] = useState( null );
 	const [ loading, setLoading ] = useState( false );
@@ -100,6 +100,23 @@ export default function Edit( { attributes, setAttributes } ) {
 						}
 						__nextHasNoMarginBottom
 					/>
+					{ useWaveformPlayer && (
+						<ToggleControl
+							label={ __(
+								'Show Chapters',
+								'talking-head'
+							) }
+							help={ __(
+								'Display speaker turns as clickable chapter markers on the waveform.',
+								'talking-head'
+							) }
+							checked={ showChapters }
+							onChange={ ( value ) =>
+								setAttributes( { showChapters: value } )
+							}
+							__nextHasNoMarginBottom
+						/>
+					) }
 				</PanelBody>
 			</InspectorControls>
 			<div { ...blockProps }>
