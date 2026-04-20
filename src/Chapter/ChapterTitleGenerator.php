@@ -40,16 +40,47 @@ final class ChapterTitleGenerator {
 
 		$prompt = $this->build_prompt( $segment_texts );
 
-		try {
-			if ( $provider === 'azure_openai' ) {
-				$titles = $this->call_azure_openai( $prompt, count( $segments ) );
-			} elseif ( $provider === 'wordpress' && function_exists( 'wp_ai_client_prompt' ) ) {
+		// Try providers in order with fallback chain.
+		$titles = null;
+		$errors = [];
+
+		// Try WordPress AI first if provider is wordpress and services are configured.
+		$wp_ai_available = $provider === 'wordpress'
+			&& function_exists( 'wp_ai_client_prompt' )
+			&& function_exists( 'wp_ai_get_services' )
+			&& ! empty( wp_ai_get_services() );
+
+		if ( $wp_ai_available ) {
+			try {
 				$titles = $this->call_wordpress_ai( $prompt, count( $segments ) );
-			} else {
-				$titles = $this->call_openai( $prompt, count( $segments ) );
+			} catch ( \Throwable $e ) {
+				$errors[] = 'WordPress AI: ' . $e->getMessage();
 			}
-		} catch ( \Exception $e ) {
-			// Fallback to speaker names if AI fails.
+		}
+
+		// Try OpenAI if configured and no titles yet.
+		if ( $titles === null && ! empty( SettingsPage::get( 'openai_api_key' ) ) ) {
+			try {
+				$titles = $this->call_openai( $prompt, count( $segments ) );
+			} catch ( \Throwable $e ) {
+				$errors[] = 'OpenAI: ' . $e->getMessage();
+			}
+		}
+
+		// Try Azure OpenAI chat if configured and no titles yet.
+		if ( $titles === null && ! empty( SettingsPage::get( 'azure_openai_api_key' ) ) ) {
+			try {
+				$titles = $this->call_azure_openai( $prompt, count( $segments ) );
+			} catch ( \Throwable $e ) {
+				$errors[] = 'Azure OpenAI: ' . $e->getMessage();
+			}
+		}
+
+		// Fallback to speaker names if all AI providers failed.
+		if ( $titles === null ) {
+			if ( ! empty( $errors ) ) {
+				error_log( 'Talking Head: Chapter title generation failed - ' . implode( '; ', $errors ) );
+			}
 			return $this->fallback_titles( $segments );
 		}
 
