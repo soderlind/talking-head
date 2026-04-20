@@ -6,6 +6,7 @@ namespace TalkingHead\Job;
 
 use TalkingHead\Admin\SettingsPage;
 use TalkingHead\Audio\Stitcher;
+use TalkingHead\Chapter\ChapterTitleGenerator;
 use TalkingHead\CPT\EpisodeCPT;
 use TalkingHead\Database\AssetRepository;
 use TalkingHead\Database\JobRepository;
@@ -206,6 +207,9 @@ final class JobRunner {
 			// Update episode metadata.
 			update_post_meta( $episode_id, EpisodeCPT::META_KEY_STATUS, EpisodeStatus::Generated->value );
 
+			// Generate AI chapter titles for the segments.
+			$this->generate_chapter_titles( $episode_id, $manuscript['segments'] );
+
 			$this->jobs->transition( $job_id, JobStatus::Succeeded );
 
 		} catch (\Throwable $e) {
@@ -215,6 +219,31 @@ final class JobRunner {
 				EpisodeCPT::META_KEY_STATUS,
 				EpisodeStatus::Failed->value
 			);
+		}
+	}
+
+	/**
+	 * Generate AI chapter titles for the episode segments.
+	 *
+	 * @param int   $episode_id Episode post ID.
+	 * @param array $segments   Manuscript segments.
+	 */
+	private function generate_chapter_titles( int $episode_id, array $segments ): void {
+		try {
+			$generator = new ChapterTitleGenerator();
+			$titles    = $generator->generate( $segments );
+
+			if ( ! empty( $titles ) ) {
+				update_post_meta(
+					$episode_id,
+					EpisodeCPT::META_KEY_CHAPTER_TITLES,
+					wp_json_encode( $titles )
+				);
+			}
+		} catch ( \Throwable $e ) {
+			// Chapter title generation failure is non-fatal - log and continue.
+			// Fallback titles (speaker names) will be used in the player.
+			error_log( 'Talking Head: Chapter title generation failed: ' . $e->getMessage() );
 		}
 	}
 

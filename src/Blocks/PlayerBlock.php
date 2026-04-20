@@ -155,12 +155,19 @@ final class PlayerBlock {
 			return [];
 		}
 
+		// Load AI-generated chapter titles if available.
+		$ai_titles = json_decode(
+			get_post_meta( $episode_id, EpisodeCPT::META_KEY_CHAPTER_TITLES, true ) ?: '[]',
+			true
+		);
+
 		$chapters       = [];
 		$cumulative_ms  = 0;
 		$silence_gap_ms = (int) SettingsPage::get( 'silence_gap_ms' );
 
 		foreach ( $chunks as $i => $chunk ) {
-			$speaker = $segments[ $i ][ 'headName' ] ?? ( 'Segment ' . ( $i + 1 ) );
+			// Use AI title if available, otherwise fall back to speaker name.
+			$title = $ai_titles[ $i ] ?? ( $segments[ $i ][ 'headName' ] ?? ( 'Segment ' . ( $i + 1 ) ) );
 
 			// Format time as M:SS or H:MM:SS.
 			$time_seconds = (int) floor( $cumulative_ms / 1000 );
@@ -175,8 +182,8 @@ final class PlayerBlock {
 			}
 
 			$chapters[] = [
-				'speaker' => $speaker,
-				'time'    => $time_formatted,
+				'title' => $title,
+				'time'  => $time_formatted,
 			];
 
 			// Add segment duration plus silence gap for next chapter's start time.

@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 					data-url="<?php echo $audio_url_esc; // Already escaped. ?>"
 					data-title="<?php echo $title; // Already escaped. ?>">
 					<?php foreach ( $chapters as $chapter ) : ?>
-						<div data-chapter data-time="<?php echo esc_attr( $chapter['time'] ); ?>"><?php echo esc_html( $chapter['speaker'] ); ?></div>
+						<div data-chapter data-time="<?php echo esc_attr( $chapter['time'] ); ?>"><?php echo esc_html( $chapter['title'] ); ?></div>
 					<?php endforeach; ?>
 				</div>
 			</div>
