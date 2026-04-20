@@ -11,7 +11,7 @@ import { useState, useEffect, useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { episodeId, showTranscript } = attributes;
+	const { episodeId, showTranscript, useWaveformPlayer } = attributes;
 	const blockProps = useBlockProps( { className: 'th-player-editor' } );
 	const [ episode, setEpisode ] = useState( null );
 	const [ loading, setLoading ] = useState( false );
@@ -82,6 +82,21 @@ export default function Edit( { attributes, setAttributes } ) {
 						checked={ showTranscript }
 						onChange={ ( value ) =>
 							setAttributes( { showTranscript: value } )
+						}
+						__nextHasNoMarginBottom
+					/>
+					<ToggleControl
+						label={ __(
+							'Use Waveform Player',
+							'talking-head'
+						) }
+						help={ __(
+							'Display an interactive waveform visualization instead of the default audio player.',
+							'talking-head'
+						) }
+						checked={ useWaveformPlayer }
+						onChange={ ( value ) =>
+							setAttributes( { useWaveformPlayer: value } )
 						}
 						__nextHasNoMarginBottom
 					/>

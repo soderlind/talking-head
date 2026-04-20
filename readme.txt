@@ -4,7 +4,7 @@ Tags: podcast, audio, tts, text-to-speech, ai
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.3
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,11 @@ MP3 and AAC output formats are supported, with configurable bitrate (128k to 320
 4. Player block on the front end
 
 == Changelog ==
+
+= 1.4.0 =
+* Waveform player option — toggle "Use Waveform Player" in the player block settings to display an interactive waveform visualization
+* Uses @arraypress/waveform-player (~8KB gzipped) with mirror style, playback speed controls, and keyboard navigation
+* Assets loaded from CDN only when waveform option is enabled
 
 = 1.3.0 =
 * WordPress AI (Core) TTS provider — on WordPress 7.0+, use the built-in AI Client for TTS via Settings → Connectors (no API key required)

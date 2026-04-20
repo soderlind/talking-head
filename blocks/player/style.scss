@@ -58,4 +58,19 @@
 		border-radius: 4px;
 		padding: 2px 6px;
 	}
+
+	// Waveform player container.
+	&__waveform {
+		width: 100%;
+		margin-bottom: 8px;
+		border-radius: 6px;
+		overflow: hidden;
+	}
+
+	// When using waveform player, adjust container.
+	&--waveform {
+		.th-player__waveform {
+			min-height: 80px;
+		}
+	}
 }

@@ -13,6 +13,26 @@ final class PlayerBlock {
 
 	public function register(): void {
 		add_action( 'init', [ $this, 'register_block' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'register_waveform_assets' ] );
+	}
+
+	/**
+	 * Register waveform player assets for conditional loading.
+	 */
+	public function register_waveform_assets(): void {
+		wp_register_style(
+			'waveform-player',
+			'https://unpkg.com/@arraypress/waveform-player@1.5.2/dist/waveform-player.css',
+			[],
+			'1.5.2'
+		);
+		wp_register_script(
+			'waveform-player',
+			'https://unpkg.com/@arraypress/waveform-player@1.5.2/dist/waveform-player.min.js',
+			[],
+			'1.5.2',
+			[ 'in_footer' => true, 'strategy' => 'defer' ]
+		);
 	}
 
 	public function register_block(): void {
@@ -66,9 +86,16 @@ final class PlayerBlock {
 			}
 		}
 
-		$title           = esc_html( $post->post_title );
-		$audio_url_esc   = esc_url( $audio_url );
-		$show_transcript = ! empty( $attributes[ 'showTranscript' ] );
+		$title                = esc_html( $post->post_title );
+		$audio_url_esc        = esc_url( $audio_url );
+		$show_transcript      = ! empty( $attributes[ 'showTranscript' ] );
+		$use_waveform_player  = ! empty( $attributes[ 'useWaveformPlayer' ] );
+
+		// Enqueue waveform player assets if enabled.
+		if ( $use_waveform_player ) {
+			wp_enqueue_style( 'waveform-player' );
+			wp_enqueue_script( 'waveform-player' );
+		}
 
 		ob_start();
 		include TALKING_HEAD_DIR . 'templates/player.php';
